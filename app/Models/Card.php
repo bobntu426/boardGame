@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Card extends Model
 {
@@ -62,5 +63,9 @@ class Card extends Model
     }
     public function getGainWhenUseResource():array{
         return  ["money"=>$this->gainMoneyWhenUse,"worker"=>$this->gainWorkerWhenUse,"rock"=>$this->gainRockWhenUse,"wood"=>$this->gainWoodWhenUse];
+    }
+    public function player(): BelongsTo
+    {
+        return $this->belongsTo(Player::class);
     }
 }

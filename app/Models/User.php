@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -60,6 +61,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Table::class,'table_user');
     }
+    public function players(): HasMany
+    {
+        return $this->hasMany(Player::class,);
+    }
+
     public function getResource():array{
         return  ["money"=>$this->money,"worker"=>$this->worker,"rock"=>$this->rock,"wood"=>$this->wood];
     }

@@ -8,15 +8,14 @@ use App\Http\Controllers\TableController;
 
 
 Route::get('/users/getCard', [UserController::class, 'getMyCard'])->name('getMyCard');
-Route::get('/user', [UserController::class, 'getMe']);
-
-
-
-Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login');
-Route::post('/register', [LoginController::class, 'register'])->name('register');
 Route::put('/buyCard/{card}', [UserController::class, 'buyCard'])->name('buyCard');
 Route::put('/useCard/{card}', [UserController::class, 'useCard'])->name('useCard');
 Route::put('/joinTable/{table}', [UserController::class, 'joinTable'])->name('joinTable');
+
+Route::get('/user', [UserController::class, 'getMe']);
+Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login');
+Route::post('/register', [LoginController::class, 'register'])->name('register');
+
 
 
 Route::resource('users', UserController::class);
