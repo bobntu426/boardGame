@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 Use App\Models\Table;
 Use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-class TableCreated implements ShouldBroadcastNow
+class TableJoined implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -25,6 +25,7 @@ class TableCreated implements ShouldBroadcastNow
     {
         $this->table = $table;
         $this->user = $user;
+
     }
     public function broadcastOn(): array
     {
@@ -33,11 +34,9 @@ class TableCreated implements ShouldBroadcastNow
         ];
     }
     public function broadcastWith(){
-        return ['table' => [
-            'id'=>$this->table->id,
-            'users' => [$this->user]
-            ]
-            
+        return [
+            "table"=>$this->table,
+            "user"=>$this->user
         ];
     }
 }

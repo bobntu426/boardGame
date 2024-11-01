@@ -26,10 +26,6 @@
 import {fetchTables,createTable,joinTable} from "../api"
 import "../echo"
 
-window.Echo.channel('lobby')
-    .listen('TableCreated', (e) => {
-        console.log(e); // 处理接收到的事件
-    });
 
 
 
@@ -41,7 +37,10 @@ export default {
     };
   },
   async mounted() {
+    
     await this.loadTables();
+    this.listenForTableCreated();
+    this.listenForTableJoined();
   },
   methods: {
     async loadTables() {
@@ -56,7 +55,6 @@ export default {
     async handleCreateTable() {
       try {
         const newTable = await createTable(); // 調用 API 函數創建桌子
-        this.tables.push(newTable); // 將新桌子添加到 tables 數組中
       } catch (error) {
         console.error('創建桌子時出錯:', error);
       }
@@ -68,7 +66,23 @@ export default {
       } catch (error) {
         console.error('加入桌子時出錯:', error);
       }
+    },
+    listenForTableCreated() {
+      window.Echo.channel('lobby')
+        .listen('TableCreated', (e) => {
+          console.log('接收到新桌子事件:', e);
+          this.tables.push(e.table); // 將新桌子添加到 tables 陣列中
+        });
+      },
+    listenForTableJoined() {
+    window.Echo.channel('lobby')
+      .listen('TableJoined', (e) => {
+        console.log('接收到加入桌子事件:', e);
+        const index = this.tables.findIndex(table=>table.id == e.table.id)
+        this.tables[index].users.push(e.user)
+      });
     }
+    
   }
 };
 

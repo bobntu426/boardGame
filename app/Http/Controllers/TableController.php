@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
 Use App\Models\Table;
 use App\Events\TableCreated;
-
+use Illuminate\Support\Facades\Auth;
 class TableController
 {
     /**
@@ -34,7 +32,8 @@ class TableController
         $user = Auth::user();
         $table = Table::create($request->all());
         $user->tables()->attach($table->id);
-        TableCreated::dispatch($table);
+        TableCreated::dispatch($table, $user);
+        //broadcast(new TableCreated($table, $user))->toOthers();
     }
 
     /**

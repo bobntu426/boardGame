@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://practice.test';
-// const userId = sessionStorage.getItem("id");
-// const keys = Object.keys(sessionStorage);
-// console.log(keys);
-// console.log(`id:${userId}`) ;
+
 
 export const getUsers = async () => {
   try {
@@ -94,9 +91,10 @@ export const fetchTables = async () => {
   } 
 };
 export const createTable = async (tableId) => {
+  
   try {
     const response = await axios.post(`${API_URL}/tables`);
-    console.log(response.data);
+    //console.log(response.data);
     return response.data; 
   } catch (error) {
     console.error('create table fail:', error);
@@ -106,7 +104,7 @@ export const createTable = async (tableId) => {
 export const joinTable = async (tableId) => {
   try {
     const response = await axios.put(`${API_URL}/joinTable/${tableId}`);
-    console.log(response.data);
+    //console.log(response.data);
     return response.data; 
   } catch (error) {
     console.error('join table fail', error);

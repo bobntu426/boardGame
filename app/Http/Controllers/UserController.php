@@ -8,6 +8,7 @@ Use App\Models\User;
 Use App\Models\Card;
 Use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
+use App\Events\TableJoined;
 
 class UserController
 {
@@ -133,5 +134,6 @@ class UserController
     public function joinTable(Table $table){
         $user = Auth::user();
         $user->tables()->attach($table->id);
+        TableJoined::dispatch($table, $user);
     }
 }
