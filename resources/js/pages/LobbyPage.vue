@@ -81,8 +81,10 @@ export default {
         const index = this.tables.findIndex(table=>table.id == e.table.id)
         this.tables[index].users.push(e.user)
       });
-    }
-    
+    },
+    beforeUnmount() {
+      window.Echo.leave('lobby');
+    },
   }
 };
 

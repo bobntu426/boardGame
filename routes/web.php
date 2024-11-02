@@ -5,12 +5,17 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\PlayerController;
 
 
 Route::get('/users/getCard', [UserController::class, 'getMyCard'])->name('getMyCard');
 Route::put('/buyCard/{card}', [UserController::class, 'buyCard'])->name('buyCard');
 Route::put('/useCard/{card}', [UserController::class, 'useCard'])->name('useCard');
 Route::put('/joinTable/{table}', [UserController::class, 'joinTable'])->name('joinTable');
+
+Route::get('/players/getCard', [PlayerController::class, 'getMyCard'])->name('getMyCard');
+Route::put('/buyCard/{card}', [PlayerController::class, 'buyCard'])->name('buyCard');
+Route::put('/useCard/{card}', [PlayerController::class, 'useCard'])->name('useCard');
 
 Route::get('/user', [UserController::class, 'getMe']);
 Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login');
@@ -21,6 +26,7 @@ Route::post('/register', [LoginController::class, 'register'])->name('register')
 Route::resource('users', UserController::class);
 Route::resource('cards', CardController::class);
 Route::resource('tables', TableController::class);
+Route::resource('players', PlayerController::class);
 
 Route::get('/{any}', function () {
     return view('index'); // 返回 Vue 应用的主视图

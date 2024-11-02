@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Models\Table;
+Use App\Models\Player;
 use App\Events\TableCreated;
 use Illuminate\Support\Facades\Auth;
 class TableController
@@ -33,7 +34,10 @@ class TableController
         $table = Table::create($request->all());
         $user->tables()->attach($table->id);
         TableCreated::dispatch($table, $user);
-        //broadcast(new TableCreated($table, $user))->toOthers();
+
+        // $player = new Player($request->all());
+        // $player->user()->associate(Auth::user());
+        // $player->save();
     }
 
     /**
