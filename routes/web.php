@@ -11,7 +11,8 @@ use App\Http\Controllers\PlayerController;
 Route::get('/users/getCard', [UserController::class, 'getMyCard'])->name('getMyCard');
 Route::put('/buyCard/{card}', [UserController::class, 'buyCard'])->name('buyCard');
 Route::put('/useCard/{card}', [UserController::class, 'useCard'])->name('useCard');
-Route::put('/joinTable/{table}', [UserController::class, 'joinTable'])->name('joinTable');
+Route::put('/joinTable/{table}', [PlayerController::class, 'joinTable'])->name('joinTable');
+Route::put('/leaveTable/{table}', [PlayerController::class, 'leaveTable'])->name('leaveTable');
 
 Route::get('/players/getCard', [PlayerController::class, 'getMyCard'])->name('getMyCard');
 Route::put('/buyCard/{card}', [PlayerController::class, 'buyCard'])->name('buyCard');

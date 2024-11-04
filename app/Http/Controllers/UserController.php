@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 Use App\Models\User;
 Use App\Models\Card;
 Use App\Models\Table;
+Use App\Models\Player;
 use Illuminate\Support\Facades\Auth;
 use App\Events\TableJoined;
+use Psy\Readline\Hoa\Console;
 
 class UserController
 {
@@ -131,9 +133,6 @@ class UserController
         $user = Auth::user();
         return $user;
     }
-    public function joinTable(Table $table){
-        $user = Auth::user();
-        $user->tables()->attach($table->id);
-        TableJoined::dispatch($table, $user);
-    }
+
+
 }

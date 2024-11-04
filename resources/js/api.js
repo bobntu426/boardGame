@@ -111,3 +111,13 @@ export const joinTable = async (tableId) => {
     throw error; 
   }
 }
+export const leaveTable = async (tableId) => {
+  try {
+    const response = await axios.put(`${API_URL}/leaveTable/${tableId}`);
+    //console.log(response.data);
+    return response.data; 
+  } catch (error) {
+    console.error('leave table fail', error);
+    throw error; 
+  }
+}

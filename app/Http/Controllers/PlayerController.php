@@ -10,6 +10,7 @@ Use App\Models\Card;
 Use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 use App\Events\TableJoined;
+use App\Events\TableLeaved;
 
 class PlayerController
 {
@@ -134,7 +135,25 @@ class PlayerController
     }
     public function joinTable(Table $table){
         $user = Auth::user();
-        $user->tables()->attach($table->id);
         TableJoined::dispatch($table, $user);
+        $player = new Player();
+        $player->user()->associate(Auth::user());
+        $player->table()->associate($table);
+        $player->save();
+    }
+    public function leaveTable(Table $table){
+        $user = Auth::user();
+        $player = $user->players()->where('table_id', $table->id)->first();
+        $player->delete();
+        $remainingPlayersCount = $table->players()->count();
+        $tempTable = new Table();
+        $tempTable->id = $table->id;
+        if ($remainingPlayersCount == 0) {
+            $table->delete();
+        }
+        TableLeaved::dispatch($tempTable, $user);
+        
+        
+        
     }
 }

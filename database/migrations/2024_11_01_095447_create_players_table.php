@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('table_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('table_id')->references('id')->on('table')->onDelete('cascade');
+            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
 
         });
         Schema::table('cards', function (Blueprint $table) {
@@ -33,10 +33,11 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
-        Schema::dropIfExists('players');
+    {   
         Schema::table('cards', function (Blueprint $table) {
             $table->dropColumn('player_id');
         });
+        Schema::dropIfExists('players');
+
     }
 };

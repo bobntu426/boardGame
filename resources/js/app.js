@@ -5,6 +5,7 @@ import Login from './pages/LoginPage.vue';
 import Register from './pages/RegisterPage.vue';
 import Home from './pages/HomePage.vue';
 import Lobby from './pages/LobbyPage.vue';
+import Game from './pages/GamePage.vue';
 
 const routes = [
   {path: '/', component: Home },
@@ -12,6 +13,7 @@ const routes = [
   { path: '/login', component: Login },
   { path: '/register', component: Register },
   { path: '/home', component: Home },
+  { path: '/game/:table_id', component: Game },
 ];
 
 const router = createRouter({

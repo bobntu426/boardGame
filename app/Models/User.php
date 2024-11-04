@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -53,14 +53,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function tables()
+    {
+        return $this->hasManyThrough(Table::class, Player::class,'user_id', 'id', 'id', 'table_id');
+    }
     public function cards(): BelongsToMany
     {
         return $this->belongsToMany(Card::class,'user_card');
     }
-    public function tables(): BelongsToMany
-    {
-        return $this->belongsToMany(Table::class,'table_user');
-    }
+    // public function tables(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Table::class,'table_user');
+    // }
     public function players(): HasMany
     {
         return $this->hasMany(Player::class,);
