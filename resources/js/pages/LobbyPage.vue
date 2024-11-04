@@ -119,7 +119,6 @@ export default {
   },
   beforeUnmount() {
       window.Echo.leave('lobby');
-      console.log("leave")
   },
 };
 </script>

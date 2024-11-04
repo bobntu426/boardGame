@@ -152,8 +152,11 @@ class PlayerController
             $table->delete();
         }
         TableLeaved::dispatch($tempTable, $user);
+    }
+    public function getPlayerInTable(Table $table){
+        $user = Auth::user();
+        $players = Player::with('user')->where('table_id', $table->id)->get();
         
-        
-        
+        return response()->json($players);
     }
 }

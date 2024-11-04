@@ -22,4 +22,8 @@ class Table extends Model
     {
         return $this->hasMany(Player::class);
     }
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class);
+    }
 }

@@ -22,7 +22,7 @@ Route::get('/user', [UserController::class, 'getMe']);
 Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('login');
 Route::post('/register', [LoginController::class, 'register'])->name('register');
 
-
+Route::get('/players/{table}', [PlayerController::class, 'getPlayerInTable']);
 
 Route::resource('users', UserController::class);
 Route::resource('cards', CardController::class);

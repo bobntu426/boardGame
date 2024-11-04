@@ -121,3 +121,12 @@ export const leaveTable = async (tableId) => {
     throw error; 
   }
 }
+export const getTablePlayer = async (tableId) => {
+  try {
+    const response = await axios.get(`${API_URL}/players/${tableId}`);
+    return response.data; 
+  } catch (error) {
+    console.error('get player fail', error);
+    throw error; 
+  }
+}

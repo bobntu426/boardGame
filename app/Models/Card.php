@@ -51,9 +51,14 @@ class Card extends Model
     {
         return $this->belongsToMany(Card::class);
     }
-    public function post(): BelongsToMany
+    
+    public function player(): BelongsTo
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Player::class);
+    }
+    public function table(): BelongsTo
+    {
+        return $this->belongsTo(Table::class);
     }
     public function getCostResource():array{
         return  ["money"=>$this->costMoney,"worker"=>$this->costWorker,"rock"=>$this->costRock,"wood"=>$this->costWood];
@@ -63,9 +68,5 @@ class Card extends Model
     }
     public function getGainWhenUseResource():array{
         return  ["money"=>$this->gainMoneyWhenUse,"worker"=>$this->gainWorkerWhenUse,"rock"=>$this->gainRockWhenUse,"wood"=>$this->gainWoodWhenUse];
-    }
-    public function player(): BelongsTo
-    {
-        return $this->belongsTo(Player::class);
     }
 }
