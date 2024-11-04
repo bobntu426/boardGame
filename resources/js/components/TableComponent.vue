@@ -1,34 +1,33 @@
 <template>
-    <div class="table-box">
-      <div class="table-content">
-        桌號：{{ table.id }}
-        <button 
-          v-if="table.users.length >= table.playerNum" 
-          class="enter-game-button" 
-          @click="enterGame">
-          進入遊戲
-        </button>
-      </div>
-      <div v-for="user in table.users" :key="user.id" class="table-content">
-        玩家：{{ user.name }}
-      </div>
+  <div class="table-box">
+    <div class="table-content">
+      桌號：{{ table.id }}
       <button 
-        v-if="!isUserInTable" 
-        class="join-table-button" 
-        @click="joinTable">
-        加入本桌
-      </button>
-      <button 
-        v-if="isUserInTable" 
-        class="leave-table-button" 
-        @click="leaveTable">
-        離開本桌
+        v-if="canEnterGame" 
+        class="enter-game-button" 
+        @click="enterGame">
+        進入遊戲
       </button>
     </div>
-  </template>
-  
-  
-  <script>
+    <div v-for="user in table.users" :key="user.id" class="table-content">
+      玩家：{{ user.name }}
+    </div>
+    <button 
+      v-if="!isUserInTable" 
+      class="join-table-button" 
+      @click="joinTable">
+      加入本桌
+    </button>
+    <button 
+      v-if="isUserInTable" 
+      class="leave-table-button" 
+      @click="leaveTable">
+      離開本桌
+    </button>
+  </div>
+</template>
+
+<script>
 export default {
   props: {
     table: {
@@ -43,7 +42,7 @@ export default {
       type: Function,
       required: true
     },
-    userId: { // 新增 props 以檢查用戶 ID
+    userId: {
       type: Number,
       required: true
     }
@@ -51,6 +50,11 @@ export default {
   computed: {
     isUserInTable() {
       return this.table.users.some(user => user.id === this.userId);
+    },
+    canEnterGame() {
+      console.log(this.table.users.length)
+      console.log(this.table)
+      return this.table.users.length == this.table.playerNum; // 當用戶數等於所需的玩家數時，返回 true
     }
   },
   methods: {
@@ -61,7 +65,7 @@ export default {
       this.onLeaveTable(this.table.id);
     },
     enterGame() {
-        this.$router.push({ path: `/game/${this.table.id}` });
+      this.$router.push({ path: `/game/${this.table.id}` });
     }
   }
 };

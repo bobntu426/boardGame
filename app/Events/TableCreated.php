@@ -33,11 +33,15 @@ class TableCreated implements ShouldBroadcastNow
         ];
     }
     public function broadcastWith(){
-        return ['table' => [
-            'id'=>$this->table->id,
-            'users' => [$this->user]
+
+        $this->table->users[0]=$this->user; // 确保加?相?用?
+
+        return [
+            'data' => [
+                'table' => $this->table // 返回整? table ?象
             ]
-            
         ];
+        
+
     }
 }

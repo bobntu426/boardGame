@@ -24,7 +24,6 @@ return new class extends Migration
 
         });
         Schema::table('cards', function (Blueprint $table) {
-            $table->unsignedBigInteger('player_id')->nullable();
             $table->foreign('player_id')->references('id')->on('players')->onDelete('cascade');
         });
     }
@@ -35,6 +34,7 @@ return new class extends Migration
     public function down(): void
     {   
         Schema::table('cards', function (Blueprint $table) {
+            $table->dropForeign(['player_id']);
             $table->dropColumn('player_id');
         });
         Schema::dropIfExists('players');

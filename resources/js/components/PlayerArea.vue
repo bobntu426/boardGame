@@ -2,10 +2,10 @@
 <template>
     <div class="player-area">
       <h2>{{ player.user.name }}</h2>
-      <p>錢幣：{{ player.coins }}</p>
-      <p>石頭：{{ player.stones }}</p>
-      <p>木頭：{{ player.woods }}</p>
-      <p>工人：{{ player.workers }}</p>
+      <p>錢幣：{{ player.money }}</p>
+      <p>石頭：{{ player.rock }}</p>
+      <p>木頭：{{ player.wood }}</p>
+      <p>工人：{{ player.worker }}</p>
       <p>持有的卡牌：</p>
       <ul>
         <li v-for="card in player.cards" :key="card.id">{{ card.name }}</li>

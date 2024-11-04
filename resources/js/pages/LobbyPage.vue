@@ -89,7 +89,7 @@ export default {
       window.Echo.channel('lobby')
         .listen('TableCreated', (e) => {
           console.log('接收到新桌子事件:', e);
-          this.tables.push(e.table); // 將新桌子添加到 tables 陣列中
+          this.tables.push(e.data.table); // 將新桌子添加到 tables 陣列中
         });
     },
     listenForTableJoined() {

@@ -32,13 +32,13 @@ class TableController
     {
         $user = Auth::user();
         $table = Table::create($request->all());
-        //$user->tables()->attach($table->id);
-        TableCreated::dispatch($table, $user);
-
         $player = new Player();
         $player->user()->associate(Auth::user());
         $player->table()->associate($table);
         $player->save();
+        
+        TableCreated::dispatch($table, $user);
+
 
     }
 
