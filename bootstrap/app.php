@@ -15,12 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'http://practice.test',
             'http://practice.test/*',
-            // 'http://practice.test/cards',
-            // 'http://practice.test/cards/*',
-            // 'http://practice.test/userBuyCard/',
-            // 'http://practice.test/userBuyCard/*',
-            // 'http://practice.test/userUseCard/',
-            // 'http://practice.test/userUseCard/*'
         ]);
     
     })

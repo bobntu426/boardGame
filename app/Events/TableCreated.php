@@ -34,11 +34,11 @@ class TableCreated implements ShouldBroadcastNow
     }
     public function broadcastWith(){
 
-        $this->table->users[0]=$this->user; // ÚÌ«O¥[?¬Û?¥Î?
+        $this->table->users[0]=$this->user; // ï¿½Ì«Oï¿½[?ï¿½ï¿½?ï¿½ï¿½?
 
         return [
             'data' => [
-                'table' => $this->table // ªð¦^¾ã? table ?¶H
+                'table' => $this->table // ï¿½ï¿½^ï¿½ï¿½? table ?ï¿½H
             ]
         ];
         

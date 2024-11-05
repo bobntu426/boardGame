@@ -42,7 +42,11 @@ export default {
   },
   methods: {
     sortPlayers(players) {
-      const currentPlayerIndex = players.findIndex(player => player.id === this.userId);
+      
+      const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
+      console.log(players)
+      console.log(currentPlayerIndex)
+
       if (currentPlayerIndex === -1) return players; // 如果找不到本地玩家，返回原始陣列
 
       // 將本地玩家移到最上面，並將其他玩家放到後面
