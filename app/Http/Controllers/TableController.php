@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Models\Table;
+Use App\Models\Card;
+use App\Services\TableService;
+use App\Services\CardService;
 Use App\Models\Player;
 use App\Events\TableCreated;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class TableController
 {
     /**
@@ -76,4 +80,23 @@ class TableController
         Table::find( $id )
         ->delete();
     }
+    public function initGameCard(string $tableId, TableService $tableService)
+    {
+        $tableService->initGameCard($tableId);
+    
+        return response()->json(['message' => 'Game initialized successfully.']);
+    }
+    public function getTableCards(string $tableId)
+    {
+        $cardNames = DB::table('table_card')
+        ->where('table_id', $tableId)
+        ->pluck('name');
+        $cards = Card::whereIn('name', $cardNames)->get();
+        $cardService = new CardService();
+        $cardObjects = $cards->map(function ($card) use ($cardService) {
+            return $cardService->formCardObject($card);
+        });
+        return response()->json($cardObjects);
+    }
+    
 }

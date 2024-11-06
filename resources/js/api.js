@@ -41,19 +41,20 @@ export const fetchUser = async () => {
     throw error; 
   }
 };
-export const fetchCards = async () => {
+export const getTableCards = async (tableId) => {
   try {
-    const response = await axios.get(`${API_URL}/cards`);
+    const response = await axios.get(`${API_URL}/tables/${tableId}/cards`);
     return response.data; 
+    
   } catch (error) {
     console.error('Error fetching cards:', error);
     throw error; 
   }
   
 };
-export const fetchMyCards = async () => {
+export const getPlayerCards = async (playerId) => {
   try {
-    const response = await axios.get(`${API_URL}/users/getCard`);
+    const response = await axios.get(`${API_URL}/players/${playerId}/cards`);
     console.log(response.data);
     return response.data; 
   } catch (error) {
@@ -61,13 +62,13 @@ export const fetchMyCards = async () => {
     throw error; 
   }
 }
-export const buyCard = async (cardId) => {
+export const buyCard = async (playerId,cardId) => {
   try {
-    const response = await axios.put(`${API_URL}/buyCard/${cardId}`);
+    const response = await axios.put(`${API_URL}/players/${playerId}/buyCard/${cardId}`);
     console.log(response.data);
     return response.data; 
   } catch (error) {
-    console.error('Error fetching my Cards:', error);
+    console.error('Error buy Cards:', error);
     throw error; 
   }
 }
@@ -121,7 +122,7 @@ export const leaveTable = async (tableId) => {
     throw error; 
   }
 }
-export const getTablePlayer = async (tableId) => {
+export const getTablePlayers = async (tableId) => {
   try {
     const response = await axios.get(`${API_URL}/players/${tableId}`);
     return response.data; 

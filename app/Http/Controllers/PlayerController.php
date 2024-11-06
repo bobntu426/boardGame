@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 Use App\Models\User;
 Use App\Models\Player;
@@ -11,7 +10,8 @@ Use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 use App\Events\TableJoined;
 use App\Events\TableLeaved;
-
+use App\Services\TableService;
+use App\Services\CardService;
 class PlayerController
 {
        /**
@@ -82,16 +82,16 @@ class PlayerController
         }
         return $result;
     }
-    public function buyCard(Card $card){
-        $user = Auth::user();
-        $userResource = $user->getResource();
+    public function buyCard(Player $player, Card $card){
+        
+        $playerResource = $player->getResource();
         $costResource = $card->getCostResource();
         $gainResource = $card->getGainWhenBuyResource();
         $data = [
-            'before' => $userResource,
+            'before' => $playerResource,
             'cost'=> $costResource,
         ];
-        $result = $this->addResource($userResource,$costResource);
+        $result = $this->addResource($playerResource,$costResource);
         foreach ($result as $value) {
             if ($value < 0) {
                 $data["messenge"]="Don't have enough money!";
@@ -103,8 +103,8 @@ class PlayerController
         $data['gain'] = $gainResource;
         $data['final'] = $result;
         $data['getCard']=$card->name;
-        $user->cards()->attach($card->id);
-        $user->update($result);
+        $player->cards()->attach($card->id);
+        $player->update($result);
         return response()->json($data);
     }
     public function useCard(Card $card){
@@ -124,22 +124,29 @@ class PlayerController
         $cards = $user->cards;
         return $cards;
     }
-    public function getMyCard(Request $request){
-        $cards =  Auth::user()->cards;
-        return $cards;
+    public function getPlayerCards(Player $player){
+        $cards = $player->cards;
+        $cardService = new CardService();
+        $cardObjects = $cards->map(function ($card) use ($cardService) {
+            return $cardService->formCardObject($card);
+        });
+        return response()->json($cardObjects);
     }
     public function getMe()
     {
         $user = Auth::user();
         return $user;
     }
-    public function joinTable(Table $table){
+    public function joinTable(Table $table, TableService $tableService){
         $user = Auth::user();
         TableJoined::dispatch($table, $user);
         $player = new Player();
         $player->user()->associate(Auth::user());
         $player->table()->associate($table);
         $player->save();
+        if($table->playerNum==$table->players()->count()){
+            $tableService->initGameCard($table->id);
+        }
     }
     public function leaveTable(Table $table){
         $user = Auth::user();

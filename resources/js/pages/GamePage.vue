@@ -13,7 +13,7 @@
 <script>
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
-import { getTablePlayer,fetchUser } from '../api'; // 確保 api 中有 getTablePlayer 函數
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards } from '../api'; // 確保 api 中有 getTablePlayer 函數
 
 export default {
   components: {
@@ -23,10 +23,7 @@ export default {
   data() {
     return {
       players: [], // 將 players 初始化為空陣列
-      cards: [
-        { id: 1, name: '堆A' },
-        { id: 2, name: '堆B' }
-      ],
+      cards: [],
       userId: null 
     };
   },
@@ -34,18 +31,36 @@ export default {
     this.userId = await this.fetchUserId(); 
     try {
       // 獲取玩家資訊
-      const response = await getTablePlayer(this.$route.params.table_id);
+      const response = await getTablePlayers(this.$route.params.table_id);
       this.players = this.sortPlayers(response); // 將獲取的玩家數據賦值給 players 並排序
     } catch (error) {
       console.error("獲取玩家資訊失敗:", error);
     }
+    try {
+      // 獲取卡片資訊
+      const cardsResponse = await getTableCards(this.$route.params.table_id);
+      this.cards = cardsResponse;
+    } catch (error) {
+      console.error("獲取卡片資訊失敗:", error);
+    }
+    try {
+      for (const player of this.players) {
+        try {
+          const playerCards = await getPlayerCards(player.id);  // 假設 getPlayerCards 根據 player.id 獲取該玩家的卡片
+          player.cards = playerCards; // 將卡片資料放入玩家物件
+        } catch (error) {
+          console.error(`獲取玩家 ${player.id} 卡片資料失敗:`, error);
+        }
+      }
+    } catch (error) {
+      console.error("獲取卡片資訊失敗:", error);
+    }
+    
   },
   methods: {
     sortPlayers(players) {
       
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
-      console.log(players)
-      console.log(currentPlayerIndex)
 
       if (currentPlayerIndex === -1) return players; // 如果找不到本地玩家，返回原始陣列
 

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { fetchUser, fetchCards, fetchMyCards, buyCard, useCard } from '../api';
+import { fetchUser, buyCard, useCard } from '../api';
 
 export default {
   data() {
@@ -79,26 +79,10 @@ export default {
       delete this.user.email_verified_at;
       delete this.user.remember_token;
     },
-    async loadCards() {
-      try {
-        this.cards = await fetchCards();
-      } catch (error) {
-        console.error('Failed to load cards:', error);
-      }
-    },
-    async loadMyCards() {
-      try {
-        this.myCards = await fetchMyCards();
-      } catch (error) {
-        console.error('Failed to load my cards:', error);
-      }
-    },
+
     async buyCard(cardId) {
       try {
         await buyCard(cardId);
-        this.loadUserData();
-        this.loadCards();
-        this.loadMyCards();
       } catch (error) {
         console.error('Failed to buyCard:', error);
       }
@@ -107,8 +91,6 @@ export default {
       try {
         await useCard(cardId);
         this.loadUserData();
-        this.loadCards();
-        this.loadMyCards();
       } catch (error) {
         console.error('Failed to useCard:', error);
       }
@@ -125,8 +107,6 @@ export default {
   },
   mounted() {
     this.loadUserData();
-    this.loadCards();
-    this.loadMyCards();
   }
 };
 </script>
