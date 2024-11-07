@@ -35,7 +35,12 @@ class TableController
     public function store(Request $request)
     {
         $user = Auth::user();
-        $table = Table::create($request->all());
+        $data = $request->all();
+        if (!array_key_exists('playerNum', $data)) {
+            $data['playerNum'] = 2;
+        }
+        $table = Table::create($data);
+        
         $player = new Player();
         $player->user()->associate(Auth::user());
         $player->table()->associate($table);
@@ -88,10 +93,7 @@ class TableController
     }
     public function getTableCards(string $tableId)
     {
-        $cardNames = DB::table('table_card')
-        ->where('table_id', $tableId)
-        ->pluck('name');
-        $cards = Card::whereIn('name', $cardNames)->get();
+        $cards =Card::where('table_id', $tableId)->get();
         $cardService = new CardService();
         $cardObjects = $cards->map(function ($card) use ($cardService) {
             return $cardService->formCardObject($card);

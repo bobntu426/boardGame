@@ -10,7 +10,10 @@
       <Card 
         v-for="card in player.cards" 
         :key="card.id" 
-        :card="card" />
+        :card="card" 
+        :canUse="true"
+        @useCard="useCard"
+      />
     </div>
   </div>
 </template>
@@ -26,6 +29,11 @@ export default {
     player: {
       type: Object,
       required: true
+    }
+  },
+  methods:{
+    useCard(card) {
+      this.$emit('useCard', card);
     }
   }
 };

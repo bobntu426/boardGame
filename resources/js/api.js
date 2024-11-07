@@ -62,9 +62,9 @@ export const getPlayerCards = async (playerId) => {
     throw error; 
   }
 }
-export const buyCard = async (playerId,cardId) => {
+export const buyCard = async (mes) => {
   try {
-    const response = await axios.put(`${API_URL}/players/${playerId}/buyCard/${cardId}`);
+    const response = await axios.put(`${API_URL}/players/buy-card`,(mes));
     console.log(response.data);
     return response.data; 
   } catch (error) {
@@ -72,9 +72,9 @@ export const buyCard = async (playerId,cardId) => {
     throw error; 
   }
 }
-export const useCard = async (cardId) => {
+export const useCard = async (card) => {
   try {
-    const response = await axios.put(`${API_URL}/useCard/${cardId}`);
+    const response = await axios.put(`${API_URL}/players/use-card`,(card));
     console.log(response.data);
     return response.data; 
   } catch (error) {
@@ -91,10 +91,11 @@ export const fetchTables = async () => {
     throw error; 
   } 
 };
-export const createTable = async (tableId) => {
+export const createTable = async (tableMes) => {
   
   try {
-    const response = await axios.post(`${API_URL}/tables`);
+    
+    const response = await axios.post(`${API_URL}/tables`,tableMes);
     //console.log(response.data);
     return response.data; 
   } catch (error) {

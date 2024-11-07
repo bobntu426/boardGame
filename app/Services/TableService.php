@@ -10,11 +10,11 @@ class TableService
     public function initGameCard(string $tableId)
     {
         // 取得所有卡片名稱
-        $cards = Card::select('name')->get();
+        $cardTables = DB::table('card_tables')->get();
 
         // 構建要插入的數據
         $data = [];
-        foreach ($cards as $card) {
+        foreach ($cardTables as $card) {
             $data[] = [
                 'table_id' => $tableId,
                 'name' => $card->name,
@@ -23,7 +23,6 @@ class TableService
             ];
         }
 
-        // 批量插入數據到 table_card 表
-        DB::table('table_card')->insert($data);
+        DB::table('cards')->insert($data);
     }
 }

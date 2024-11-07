@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use App\Models\Card;
-
+use Illuminate\Support\Facades\DB;
 class CardController
 {
     /**
@@ -29,8 +29,7 @@ class CardController
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        Card::create($request->all());
+        DB::table('card_tables')->insert($request->all());
     }
 
     /**
@@ -47,7 +46,7 @@ class CardController
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**

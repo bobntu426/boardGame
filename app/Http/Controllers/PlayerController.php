@@ -6,118 +6,70 @@ use Illuminate\Http\Request;
 Use App\Models\User;
 Use App\Models\Player;
 Use App\Models\Card;
+
 Use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 use App\Events\TableJoined;
 use App\Events\TableLeaved;
 use App\Services\TableService;
 use App\Services\CardService;
+use App\Services\PlayerService;
 class PlayerController
 {
-       /**
-     * Display a listing of the resource.
-     */
+    protected $playerService;
+    public function __construct(PlayerService $playerService)
+    {
+        $this->playerService = $playerService;
+    }
     public function index()
     {
         $players = Player::all();
         return $players;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
-        
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $user = User::find( $id );
-        return $user;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        User::find( $id )
-        ->update( $request->all() );
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        User::find( $id )
-        ->delete();
-    }
-    public function addResource(array $array1,array $array2){
-        foreach ($array1 as $key => $value) {
-            if (isset($array2[$key])) {
-                $result[$key] = $value + $array2[$key];
-            }
-        }
-        return $result;
-    }
-    public function buyCard(Player $player, Card $card){
-        
+    
+    public function buyCard(Request $request){
+        $player = Player::find( $request->playerId );
+        $card = $request->card;
         $playerResource = $player->getResource();
-        $costResource = $card->getCostResource();
-        $gainResource = $card->getGainWhenBuyResource();
+        
         $data = [
             'before' => $playerResource,
-            'cost'=> $costResource,
+            'cost'=> $card['cost'],
         ];
-        $result = $this->addResource($playerResource,$costResource);
+        $result = $this->playerService->addResource($playerResource,$card['cost']);
         foreach ($result as $value) {
             if ($value < 0) {
                 $data["messenge"]="Don't have enough money!";
                 return response()->json($data);
             }
         }
-        $userResource = $result;
-        $result = $this->addResource($userResource,$gainResource);
-        $data['gain'] = $gainResource;
+        $result = $this->playerService->addResource($playerResource,$card['buyEffect']);
+        $data['gain'] = $card['buyEffect'];
         $data['final'] = $result;
-        $data['getCard']=$card->name;
-        $player->cards()->attach($card->id);
+        $data['getCard']=$card['name'];
+
+        $cardModel = Card::find( $card['id'] );
+        $cardModel->player()->associate($player);
+        $cardModel->save();
+
         $player->update($result);
         return response()->json($data);
     }
-    public function useCard(Card $card){
-        $user = Auth::user();
-        $userResource = $user->getResource();
-        $gainResource = $card->getGainWhenUseResource();
+    public function useCard(Request $request){
+        $cardObj = $request;
+        $cardModel = Card::find( $request['id']  );
+        $player = $cardModel->player;
+        $playerResource = $player->getResource();
+        
         $data = [
-            'before' => $userResource,
-            'gain'=> $gainResource,
+            'before' => $playerResource,
+            'gain'=> $cardObj['buyEffect'],
         ];
-        $result = $this->addResource($userResource,$gainResource);
+        $result = $this->playerService->addResource($playerResource,$cardObj['buyEffect']);
         $data['final'] = $result;
-        $user->update($result);
+        
+        $player->update($result);
         return response()->json($data);
     }
     public function getCard(User $user){

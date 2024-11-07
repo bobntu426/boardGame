@@ -29,4 +29,7 @@ class Player extends Model
     {
         return $this->hasMany(Card::class);
     }
+    public function getResource():array{
+        return  ["money"=>$this->money,"worker"=>$this->worker,"rock"=>$this->rock,"wood"=>$this->wood];
+    }
 }

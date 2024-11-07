@@ -33,7 +33,8 @@ export default {
     return {
       tables: [], // 用於存儲桌子數據
       loading: true, // 用於指示加載狀態
-      userId:null
+      userId:null,
+      newTableMes:[]
     };
   },
   async mounted() {
@@ -56,7 +57,7 @@ export default {
     },
     async handleCreateTable() {
       try {
-        const newTable = await createTable(); // 調用 API 函數創建桌子
+        const newTable = await createTable(this.newTableMes); // 調用 API 函數創建桌子
       } catch (error) {
         console.error('創建桌子時出錯:', error);
       }
@@ -89,7 +90,7 @@ export default {
       window.Echo.channel('lobby')
         .listen('TableCreated', (e) => {
           console.log('接收到新桌子事件:', e);
-          this.tables.push(e.data.table); // 將新桌子添加到 tables 陣列中
+          this.tables.push(e.table); // 將新桌子添加到 tables 陣列中
         });
     },
     listenForTableJoined() {

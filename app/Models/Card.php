@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 class Card extends Model
 {
     protected $fillable = [
@@ -47,10 +45,7 @@ class Card extends Model
 
         ];
     }
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(Card::class);
-    }
+   
     
     public function player(): BelongsTo
     {
@@ -70,3 +65,4 @@ class Card extends Model
         return  ["money"=>$this->gainMoneyWhenUse,"worker"=>$this->gainWorkerWhenUse,"rock"=>$this->gainRockWhenUse,"wood"=>$this->gainWoodWhenUse];
     }
 }
+

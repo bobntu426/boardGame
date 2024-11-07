@@ -17,15 +17,10 @@ return new class extends Migration
             $table->integer('worker')->default(0);
             $table->integer('rock')->default(0);
             $table->integer('wood')->default(0);
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('table_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');;
+        });
 
-        });
-        Schema::table('cards', function (Blueprint $table) {
-            $table->foreign('player_id')->references('id')->on('players')->onDelete('cascade');
-        });
     }
 
     /**
@@ -33,10 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {   
-        Schema::table('cards', function (Blueprint $table) {
-            $table->dropForeign(['player_id']);
-            $table->dropColumn('player_id');
-        });
+
         Schema::dropIfExists('players');
 
     }

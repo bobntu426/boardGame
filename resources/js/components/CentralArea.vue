@@ -8,7 +8,8 @@
         v-for="card in cards"
         :key="card.id"
         :card="card"
-        :onBuyCard="handleBuyCard"
+        :canUse="false"
+        @buyCard="buyCard"
       />
     </div>
   </div>
@@ -28,9 +29,8 @@ export default {
     }
   },
   methods: {
-    handleBuyCard(card) {
-      console.log('購買了卡片：', card);
-      // 在這裡處理卡片購買的邏輯
+    buyCard(card) {
+      this.$emit('buyCard', card);
     }
   }
 };

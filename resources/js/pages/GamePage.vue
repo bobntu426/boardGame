@@ -1,11 +1,18 @@
 <template>
   <div class="game-container">
     <!-- 中央版面 -->
-    <CentralArea :cards="cards" />
+    <CentralArea 
+      :cards="cards" 
+      @buyCard="handleBuyCard"
+      
+    />
     
     <!-- 玩家版面 -->
     <div v-for="player in players" :key="player.id">
-      <PlayerArea :player="player" />
+      <PlayerArea 
+        :player="player"
+        @useCard="handleUseCard"
+       />
     </div>
   </div>
 </template>
@@ -13,7 +20,7 @@
 <script>
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards } from '../api'; // 確保 api 中有 getTablePlayer 函數
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard } from '../api'; // 確保 api 中有 getTablePlayer 函數
 
 export default {
   components: {
@@ -58,6 +65,22 @@ export default {
     
   },
   methods: {
+    handleBuyCard(card) {
+      const data = {
+        "playerId":this.players.find(player => player.user.id === this.userId).id,
+        "card":card
+      }
+      console.log('購買卡片:', data);
+      buyCard(data)
+    },
+    handleUseCard(card) {
+      const data = {
+        "playerId":this.players.find(player => player.user.id === this.userId).id,
+        "card":card
+      }
+      console.log('使用卡片:', card);
+      useCard(card)
+    },
     sortPlayers(players) {
       
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
