@@ -22,7 +22,7 @@ class LoginController
             $request->session()->regenerate();
             return response()->json([
                 'isLogin' => true,
-                'user_name' => \Auth::user()->name,
+                'user_name' => Auth::user()->name,
             ]);
             
         }
@@ -39,5 +39,23 @@ class LoginController
         $request['password'] = $hashedPassword;
         User::create($request->all());
     }
-
+    public function logout(Request $request)
+    {
+        Auth::logout();
+    
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+    
+        return response()->json([
+            'isLogin' => false,
+        ]);;
+    }
+    public function checkLogin(Request $request)
+    {
+        
+        return Auth::check();
+        
+    }
+ 
 }

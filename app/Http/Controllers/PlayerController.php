@@ -31,46 +31,17 @@ class PlayerController
     public function buyCard(Request $request){
         $player = Player::find( $request->playerId );
         $card = $request->card;
-        $playerResource = $player->getResource();
-        
-        $data = [
-            'before' => $playerResource,
-            'cost'=> $card['cost'],
-        ];
-        $result = $this->playerService->addResource($playerResource,$card['cost']);
-        foreach ($result as $value) {
-            if ($value < 0) {
-                $data["messenge"]="Don't have enough money!";
-                return response()->json($data);
-            }
-        }
-        $result = $this->playerService->addResource($playerResource,$card['buyEffect']);
-        $data['gain'] = $card['buyEffect'];
-        $data['final'] = $result;
-        $data['getCard']=$card['name'];
-
-        $cardModel = Card::find( $card['id'] );
-        $cardModel->player()->associate($player);
-        $cardModel->save();
-
-        $player->update($result);
-        return response()->json($data);
+        $resultObj = $this->playerService->HandBuyCard($player, $card);
+        return response()->json($resultObj);
     }
     public function useCard(Request $request){
         $cardObj = $request;
         $cardModel = Card::find( $request['id']  );
         $player = $cardModel->player;
-        $playerResource = $player->getResource();
+        $resultObj = $this->playerService->HanduseCard($player, $cardObj);
         
-        $data = [
-            'before' => $playerResource,
-            'gain'=> $cardObj['buyEffect'],
-        ];
-        $result = $this->playerService->addResource($playerResource,$cardObj['buyEffect']);
-        $data['final'] = $result;
         
-        $player->update($result);
-        return response()->json($data);
+        return response()->json($resultObj);
     }
     public function getCard(User $user){
         $cards = $user->cards;

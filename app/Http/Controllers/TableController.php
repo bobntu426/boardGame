@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class TableController
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $tableService;
+    public function __construct(TableService $tableService)
+    {
+        $this->tableService = $tableService;
+    }
     public function index()
     {
         $tables = Table::with('users')->get();
@@ -51,17 +53,7 @@ class TableController
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+  
     public function edit(string $id)
     {
         $table = Table::find( $id );
@@ -85,12 +77,7 @@ class TableController
         Table::find( $id )
         ->delete();
     }
-    public function initGameCard(string $tableId, TableService $tableService)
-    {
-        $tableService->initGameCard($tableId);
     
-        return response()->json(['message' => 'Game initialized successfully.']);
-    }
     public function getTableCards(string $tableId)
     {
         $cards =Card::where('table_id', $tableId)->get();

@@ -1,42 +1,41 @@
 <template>
-    <div>
-      <h2>Register</h2>
-      <form @submit.prevent="registerUser">
-        <!-- 用户名 -->
-        <div>
-          <label for="name">Name</label>
-          <input v-model="form.name" id="name" type="text" required autofocus />
-        </div>
-  
-        <!-- 邮箱 -->
-        <div>
-          <label for="email">Email</label>
-          <input v-model="form.email" id="email" type="email" required />
-        </div>
-  
-        <!-- 密码 -->
-        <div>
-          <label for="password">Password</label>
-          <input v-model="form.password" id="password" type="password" required />
-        </div>
-  
-        <!-- 确认密码 -->
-        <div>
-          <label for="password_confirmation">Confirm Password</label>
-          <input v-model="form.password_confirmation" id="password_confirmation" type="password" required />
-        </div>
-  
-        <!-- 提交按钮 -->
-        <div>
-          <button type="submit">Register</button>
-        </div>
-      </form>
-  
-      <p v-if="message">{{ message }}</p>
-    </div>
-  </template>
-  
-  <script>
+  <div class="register-container">
+    <h2>Register</h2>
+    <form @submit.prevent="registerUser">
+      <!-- 用户名 -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input v-model="form.name" id="name" type="text" required autofocus />
+      </div>
+
+      <!-- 邮箱 -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input v-model="form.email" id="email" type="email" required />
+      </div>
+
+      <!-- 密码 -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input v-model="form.password" id="password" type="password" required />
+      </div>
+
+      <!-- 确认密码 -->
+      <div class="form-group">
+        <label for="password_confirmation">Confirm Password</label>
+        <input v-model="form.password_confirmation" id="password_confirmation" type="password" required />
+      </div>
+
+      <!-- 提交按钮 -->
+      <button type="submit" class="register-button">Register</button>
+    </form>
+
+    <p v-if="message">{{ message }}</p>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
+</template>
+
+<script>
 import { register } from "../api";
 
 export default {
@@ -70,8 +69,55 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
-  /* 您可以在這裡加入 CSS 樣式 */
-  </style>
-  
+
+<style scoped>
+.register-container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.register-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #42b983;
+  color: white;
+}
+
+.register-button:hover {
+  background-color: #369f71;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+</style>

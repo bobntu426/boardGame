@@ -23,6 +23,25 @@ export const login = async (credentials) => {
   }
   
 };
+export const logout = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/logout`);
+    return response.data; 
+  } catch (error) {
+    console.error('Error handle logout:', error);
+    throw error; 
+  }
+  
+};
+export const checkLogin = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/check-login`);
+    return response.data; 
+  } catch (error) {
+    console.error('check login fail', error);
+    throw error; 
+  }
+}
 export const register = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/register`, userData);
@@ -105,7 +124,7 @@ export const createTable = async (tableMes) => {
 }
 export const joinTable = async (tableId) => {
   try {
-    const response = await axios.put(`${API_URL}/joinTable/${tableId}`);
+    const response = await axios.put(`${API_URL}/join-table/${tableId}`);
     //console.log(response.data);
     return response.data; 
   } catch (error) {
@@ -115,7 +134,7 @@ export const joinTable = async (tableId) => {
 }
 export const leaveTable = async (tableId) => {
   try {
-    const response = await axios.put(`${API_URL}/leaveTable/${tableId}`);
+    const response = await axios.put(`${API_URL}/leave-table/${tableId}`);
     //console.log(response.data);
     return response.data; 
   } catch (error) {

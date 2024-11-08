@@ -9,8 +9,7 @@ Use App\Models\Card;
 Use App\Models\Table;
 Use App\Models\Player;
 use Illuminate\Support\Facades\Auth;
-use App\Events\TableJoined;
-use Psy\Readline\Hoa\Console;
+
 
 class UserController
 {
@@ -74,39 +73,8 @@ class UserController
         User::find( $id )
         ->delete();
     }
-    public function addResource(array $array1,array $array2){
-        foreach ($array1 as $key => $value) {
-            if (isset($array2[$key])) {
-                $result[$key] = $value + $array2[$key];
-            }
-        }
-        return $result;
-    }
-    public function buyCard(Card $card){
-        $user = Auth::user();
-        $userResource = $user->getResource();
-        $costResource = $card->getCostResource();
-        $gainResource = $card->getGainWhenBuyResource();
-        $data = [
-            'before' => $userResource,
-            'cost'=> $costResource,
-        ];
-        $result = $this->addResource($userResource,$costResource);
-        foreach ($result as $value) {
-            if ($value < 0) {
-                $data["messenge"]="Don't have enough money!";
-                return response()->json($data);
-            }
-        }
-        $userResource = $result;
-        $result = $this->addResource($userResource,$gainResource);
-        $data['gain'] = $gainResource;
-        $data['final'] = $result;
-        $data['getCard']=$card->name;
-        $user->cards()->attach($card->id);
-        $user->update($result);
-        return response()->json($data);
-    }
+    
+    
     public function useCard(Card $card){
         $user = Auth::user();
         $userResource = $user->getResource();
