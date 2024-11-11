@@ -9,32 +9,25 @@ use App\Services\CardService;
 Use App\Models\Player;
 use App\Events\TableCreated;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
+
 class TableController
 {
     protected $tableService;
     public function __construct(TableService $tableService)
     {
         $this->tableService = $tableService;
+        
     }
-    public function index()
+    public function getTable()
     {
         $tables = Table::with('users')->get();
-        return response()->json($tables);
+        return response()->json([
+            'status' => 1,
+            'tables' => $tables
+        ],200);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function createTable(Request $request)
     {
         $user = Auth::user();
         $data = $request->all();
@@ -52,6 +45,45 @@ class TableController
 
 
     }
+    // public function index()
+    // {
+    //     $tables = Table::with('users')->get();
+    //     dd($tables);
+    //     return response()->json([
+    //         'status' => 1,
+    //         'tables' => $tables
+    //     ],200);
+    // }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    // public function store(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $data = $request->all();
+    //     if (!array_key_exists('playerNum', $data)) {
+    //         $data['playerNum'] = 2;
+    //     }
+    //     $table = Table::create($data);
+        
+    //     $player = new Player();
+    //     $player->user()->associate(Auth::user());
+    //     $player->table()->associate($table);
+    //     $player->save();
+        
+    //     TableCreated::dispatch($table, $user);
+
+
+    // }
 
   
     public function edit(string $id)

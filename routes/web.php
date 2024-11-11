@@ -16,21 +16,19 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::put('/join-table/{table}', [PlayerController::class, 'joinTable'])->name('joinTable');
     Route::put('/leave-table/{table}', [PlayerController::class, 'leaveTable'])->name('leaveTable');
-
     Route::put('/players/buy-card', [PlayerController::class, 'buyCard'])->name('buyCard');
     Route::put('/players/use-card', [PlayerController::class, 'useCard'])->name('useCard');
-    
-
+    Route::post('/tables', [TableController::class, 'createTable'])->name('createTable');
 });
 
 
 Route::get('/players/{player}/cards', [PlayerController::class, 'getPlayerCards'])->name('getPlayerCards');
 Route::get('/tables/{table}/cards', [TableController::class, 'getTableCards'])->name('getTableCards');
 Route::get('/players/{table}', [PlayerController::class, 'getPlayerInTable'])->name('getPlayerInTable');
+Route::get('/tables', [TableController::class, 'getTable'])->name('getTable');
 Route::get('/user', [UserController::class, 'getMe']);
 Route::resource('users', UserController::class);
 Route::resource('card-tables', CardController::class);
-Route::resource('tables', TableController::class);
 Route::resource('players', PlayerController::class);
 Route::get('/{any}', function () {
     return view('index'); // 返回 Vue 应用的主视图

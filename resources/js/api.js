@@ -36,6 +36,7 @@ export const logout = async () => {
 export const checkLogin = async () => {
   try {
     const response = await axios.get(`${API_URL}/check-login`);
+    console.log(response.data);
     return response.data; 
   } catch (error) {
     console.error('check login fail', error);

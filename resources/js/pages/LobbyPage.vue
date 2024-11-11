@@ -48,7 +48,8 @@ export default {
   methods: {
     async loadTables() {
       try {
-        this.tables = await fetchTables(); // 調用 API 函數獲取桌子數據
+        const tableObj = await fetchTables();
+        this.tables = tableObj.tables;
       } catch (error) {
         console.error('獲取桌子數據時出錯:', error);
       } finally {

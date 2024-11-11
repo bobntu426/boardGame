@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-Use App\Models\User;
-
+use App\Models\User;
+use App\Http\Requests\RegisterRequest;
 
 class LoginController
 {
@@ -31,10 +31,7 @@ class LoginController
             'message' => 'The provided credentials do not match our records.',
         ], 401);
     }
-    public function register(Request $request){
-        $request->validate([
-            'password' => ['required', 'string','confirmed'],
-        ]);
+    public function register(RegisterRequest $request){
         $hashedPassword = Hash::make($request->password);
         $request['password'] = $hashedPassword;
         User::create($request->all());
