@@ -42,55 +42,8 @@ class TableController
         $player->save();
         
         TableCreated::dispatch($table, $user);
-
-
-    }
-    // public function index()
-    // {
-    //     $tables = Table::with('users')->get();
-    //     dd($tables);
-    //     return response()->json([
-    //         'status' => 1,
-    //         'tables' => $tables
-    //     ],200);
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     $data = $request->all();
-    //     if (!array_key_exists('playerNum', $data)) {
-    //         $data['playerNum'] = 2;
-    //     }
-    //     $table = Table::create($data);
-        
-    //     $player = new Player();
-    //     $player->user()->associate(Auth::user());
-    //     $player->table()->associate($table);
-    //     $player->save();
-        
-    //     TableCreated::dispatch($table, $user);
-
-
-    // }
-
-  
-    public function edit(string $id)
-    {
-        $table = Table::find( $id );
-        return $table;
-    }
 
     /**
      * Update the specified resource in storage.
