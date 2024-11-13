@@ -17,8 +17,17 @@ return new class extends Migration
             $table->integer('worker')->default(0);
             $table->integer('rock')->default(0);
             $table->integer('wood')->default(0);
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');;
-            $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');;
+            $table->integer('order')->nullable();
+            $table->boolean('redPillar')->default(true);
+            $table->boolean('blackPillar')->default(true);
+            $table->boolean('whitePillar')->default(true);
+            $table->boolean('pillar')->default(true);
+            $table->boolean('punish1')->default(true);
+            $table->boolean('punish2')->default(true);
+            $table->boolean('punish3')->default(true);
+            $table->boolean('turn')->default(false);
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');
         });
 
     }
