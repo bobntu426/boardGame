@@ -21,7 +21,8 @@ const router = createRouter({
   routes,
 });
 const globalState = reactive({
-  isLogin: false
+  isLogin: false,
+  user: null
 });
 const app = createApp(App);
 app.config.globalProperties.$state = globalState;

@@ -12,18 +12,20 @@
     <div v-for="user in table.users" :key="user.id" class="table-content">
       玩家：{{ user.name }}
     </div>
-    <button 
-      v-if="!isUserInTable" 
-      class="join-table-button" 
-      @click="joinTable">
-      加入本桌
-    </button>
-    <button 
-      v-if="isUserInTable" 
-      class="leave-table-button" 
-      @click="leaveTable">
-      離開本桌
-    </button>
+    <div v-if="this.$state.isLogin" >
+      <button 
+        v-if="!isUserInTable" 
+        class="join-table-button" 
+        @click="joinTable">
+        加入本桌
+      </button>
+      <button 
+        v-if="isUserInTable" 
+        class="leave-table-button" 
+        @click="leaveTable">
+        離開本桌
+      </button>
+    </div>
   </div>
 </template>
 
@@ -52,8 +54,6 @@ export default {
       return this.table.users.some(user => user.id === this.userId);
     },
     canEnterGame() {
-      console.log(this.table.users.length)
-      console.log(this.table)
       return this.table.users.length == this.table.playerNum; // 當用戶數等於所需的玩家數時，返回 true
     }
   },

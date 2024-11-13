@@ -11,7 +11,7 @@
         v-for="card in player.cards" 
         :key="card.id" 
         :card="card" 
-        :canUse="true"
+        :canUse="this.$state.user.id == this.player.user.id"
         @useCard="useCard"
       />
     </div>
@@ -35,6 +35,10 @@ export default {
     useCard(card) {
       this.$emit('useCard', card);
     }
+  },
+  mounted(){
+    
+    //canUse = (this.$state.user.id == this.player.user.id)
   }
 };
 </script>

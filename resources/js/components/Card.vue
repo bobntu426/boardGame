@@ -44,32 +44,44 @@ export default {
 
 <style scoped>
 .card {
-  border: 1px solid #aaa;
+  width: 120px; /* 固定寬度 */
+  height: 180px; /* 固定高度 */
+  border: 2px solid #aaa;
   border-radius: 8px;
-  padding: 10px;
   background-color: #fff;
   margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+  overflow: hidden; /* 防止內容超出 */
 }
 
 .card-info {
-  margin-bottom: 10px;
+  padding: 10px;
+  overflow-y: auto;
 }
 
 .buy-card-button,
 .use-card-button {
-  padding: 5px 10px;
+  width: 100%; /* 按鈕寬度和卡片寬度一致 */
+  padding: 5px 0;
   border: none;
-  border-radius: 5px;
+  border-radius: 0 0 8px 8px; /* 下方圓角 */
   cursor: pointer;
 }
 
 .buy-card-button {
   background-color: #007bff;
   color: white;
+  border-top: 1px solid #ddd; /* 添加上邊框，分隔信息與按鈕 */
 }
 
 .use-card-button {
   background-color: #28a745;
   color: white;
+}
+
+h3, p {
+  font-size: 12px; /* 調整字體大小，使內容適應卡片 */
+  margin: 0;
+  padding: 3px 0;
 }
 </style>

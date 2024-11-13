@@ -22,7 +22,7 @@ class LoginController
             $request->session()->regenerate();
             return response()->json([
                 'isLogin' => true,
-                'user_name' => Auth::user()->name,
+                'name' => Auth::user()->name,
             ]);
             
         }

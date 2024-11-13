@@ -68,7 +68,7 @@ class PlayerController
         $player->table()->associate($table);
         $player->save();
         if($table->playerNum==$table->players()->count()){
-            $tableService->initGameCard($table->id);
+            $tableService->initGame($table->id);
         }
     }
     public function leaveTable(Table $table){

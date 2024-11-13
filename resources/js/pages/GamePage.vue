@@ -1,18 +1,19 @@
 <template>
   <div class="game-container">
-    <!-- 中央版面 -->
-    <CentralArea 
-      :cards="cards" 
-      @buyCard="handleBuyCard"
-      
-    />
-    
+    <div class="central-area-div">
+      <!-- 中央版面 -->
+      <CentralArea 
+        :cards="cards" 
+        @buyCard="handleBuyCard"
+        class="central-area" 
+      />
+    </div>
     <!-- 玩家版面 -->
     <div v-for="player in players" :key="player.id">
       <PlayerArea 
         :player="player"
         @useCard="handleUseCard"
-       />
+      />
     </div>
   </div>
 </template>
@@ -20,7 +21,7 @@
 <script>
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard } from '../api'; // 確保 api 中有 getTablePlayer 函數
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard } from '../api'; 
 
 export default {
   components: {
@@ -29,32 +30,33 @@ export default {
   },
   data() {
     return {
-      players: [], // 將 players 初始化為空陣列
+      players: [],
       cards: [],
       userId: null 
     };
   },
   async mounted() {
-    this.userId = await this.fetchUserId(); 
+    this.userId = await this.fetchUserId();
+    
     try {
-      // 獲取玩家資訊
       const response = await getTablePlayers(this.$route.params.table_id);
-      this.players = this.sortPlayers(response); // 將獲取的玩家數據賦值給 players 並排序
+      this.players = this.sortPlayers(response);
     } catch (error) {
       console.error("獲取玩家資訊失敗:", error);
     }
+
     try {
-      // 獲取卡片資訊
       const cardsResponse = await getTableCards(this.$route.params.table_id);
       this.cards = cardsResponse;
     } catch (error) {
       console.error("獲取卡片資訊失敗:", error);
     }
+
     try {
       for (const player of this.players) {
         try {
-          const playerCards = await getPlayerCards(player.id);  // 假設 getPlayerCards 根據 player.id 獲取該玩家的卡片
-          player.cards = playerCards; // 將卡片資料放入玩家物件
+          const playerCards = await getPlayerCards(player.id);
+          player.cards = playerCards;
         } catch (error) {
           console.error(`獲取玩家 ${player.id} 卡片資料失敗:`, error);
         }
@@ -62,44 +64,43 @@ export default {
     } catch (error) {
       console.error("獲取卡片資訊失敗:", error);
     }
-    
+
+    console.log(this.$state.user)
   },
   methods: {
     handleBuyCard(card) {
       const data = {
-        "playerId":this.players.find(player => player.user.id === this.userId).id,
-        "card":card
+        "playerId": this.players.find(player => player.user.id === this.userId).id,
+        "card": card
       }
       console.log('購買卡片:', data);
-      buyCard(data)
+      buyCard(data);
     },
     handleUseCard(card) {
       const data = {
-        "playerId":this.players.find(player => player.user.id === this.userId).id,
-        "card":card
+        "playerId": this.players.find(player => player.user.id === this.userId).id,
+        "card": card
       }
       console.log('使用卡片:', card);
-      useCard(card)
+      useCard(card);
     },
     sortPlayers(players) {
-      
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
+      if (currentPlayerIndex === -1) return players;
 
-      if (currentPlayerIndex === -1) return players; // 如果找不到本地玩家，返回原始陣列
-
-      // 將本地玩家移到最上面，並將其他玩家放到後面
       const currentPlayer = players[currentPlayerIndex];
       const otherPlayers = [
-        ...players.slice(currentPlayerIndex + 1), // 當前玩家後面的所有玩家
-        ...players.slice(0, currentPlayerIndex)  // 當前玩家前面的所有玩家
+        ...players.slice(currentPlayerIndex + 1),
+        ...players.slice(0, currentPlayerIndex)
       ];
 
       return [currentPlayer, ...otherPlayers];
     },
     async fetchUserId() {
       try {
-        let user = await fetchUser();
-        return user.id 
+        const user = await fetchUser();
+        this.$state.user = user
+        return user.id;
       } catch (error) {
         console.error('取得使用者資料出錯:', error);
       }
@@ -111,9 +112,24 @@ export default {
 <style scoped>
 .game-container {
   display: flex;
-  flex-direction: column; /* 使用縱向排列 */
-  padding: 20px;
+  flex-direction: column;
+  
+}
+
+.central-area-div {
+  /* 讓 central-area-div 隨內容變長 */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 讓其佔據剩餘的空間 */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+
+.player-area {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>
-
-  

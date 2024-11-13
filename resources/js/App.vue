@@ -6,7 +6,7 @@
         <button @click="navigateToLobby">Lobby</button>
       </div>
       <div class="navbar-right">
-        <a @click="handleAuth">{{ isLogin ? '登出' : '登入' }}</a>
+        <a @click="handleAuth">{{ this.$state.isLogin ? '登出' : '登入' }}</a>
       </div>
     </header>
     <!-- 這裡會顯示路由對應的內容 -->
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { checkLogin, logout } from './api';
+import { checkLogin, logout,fetchUser } from './api';
 
 export default {
   data() {
@@ -24,10 +24,7 @@ export default {
     };
   },
   computed: {
-    isLogin() {
-      console.log(this.$state.isLogin);
-      return this.$state.isLogin;
-    },
+    
   },
   methods: {
     navigateToHome() {
@@ -37,7 +34,7 @@ export default {
       this.$router.push('/lobby');
     },
     async handleAuth() {
-      if (this.isLogin) {
+      if (this.$state.isLogin) {
         try {
           const success = await logout();
           if (success) {
@@ -59,8 +56,7 @@ export default {
   async mounted() {
     try {
       this.$state.isLogin = await checkLogin();
-      console.log(this.$isLogin);
-      
+      this.$state.user = await fetchUser();
     } catch (error) {
       console.error('Failed to check login status', error);
     }

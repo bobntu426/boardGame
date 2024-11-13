@@ -33,7 +33,7 @@ export default {
         const response = await login({ email: this.email, password: this.password });
         console.log('登入成功:', response);
         this.$state.isLogin = true
-        // 登入成功後的操作，例如導向到主頁或顯示成功訊息
+        this.$state.userName = response.name
         this.$router.push('/home'); // 假設成功登入後跳轉到 home 頁面
       } catch (error) {
         this.errorMessage = error.message; // 設置錯誤訊息
