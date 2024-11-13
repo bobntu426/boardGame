@@ -5,7 +5,7 @@
       <CentralArea 
         :cards="cards" 
         @buyCard="handleBuyCard"
-        class="central-area" 
+        
       />
     </div>
     <!-- 玩家版面 -->
