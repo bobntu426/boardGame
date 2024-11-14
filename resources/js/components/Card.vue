@@ -8,12 +8,6 @@
     </div>
 
     <!-- 動態顯示按鈕 -->
-    <button v-if="!canUse" class="buy-card-button" @click="buyCard">
-      買這張卡
-    </button>
-    <button v-else class="use-card-button" @click="useCard">
-      使用卡片
-    </button>
   </div>
 </template>
 
@@ -24,20 +18,10 @@ export default {
       type: Object,
       required: true
     },
-    canUse: {
-      type: Boolean,
-      required: true
-    },
+
   },
   methods: {
-    buyCard() {
-      // 當按下「買卡片」按鈕時，觸發事件並傳遞卡片資訊
-      this.$emit('buyCard', this.card);
-    },
-    useCard() {
-      // 當按下「使用」按鈕時，觸發事件並傳遞卡片資訊
-      this.$emit('useCard', this.card);
-    }
+    
   }
 };
 </script>

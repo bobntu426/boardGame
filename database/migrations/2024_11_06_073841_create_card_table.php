@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('status')->default('deck');//discard,player
+            $table->integer('index')->default(0);
             $table->foreignId('table_id')->constrained()->onDelete('cascade');;
             $table->foreignId('player_id')->nullable()->constrained()->onDelete('cascade');
         });

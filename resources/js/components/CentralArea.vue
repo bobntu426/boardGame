@@ -14,15 +14,22 @@
         @buyCard="buyCard"
       />
     </div>
+    <div>
+      <OtherMove 
+        @decideOrder="decideOrder"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import Tower from './Tower.vue'; // 引入 Tower 组件
-import {getTableCards}  from '../api'; 
+import Tower from './Tower.vue';
+import OtherMove from './OtherMove.vue';
+
 export default {
   components: {
-    Tower
+    Tower,
+    OtherMove
   },
   props: {
     cards: {
@@ -46,15 +53,20 @@ export default {
     buyCard(card) {
       this.$emit('buyCard', card);
     },
+    decideOrder() {
+      this.$emit('decideOrder');
+    },
     filteredCards(color) {
       return this.cards.filter(card => card.color === color);
     }
-  }
+  },
+  
 };
 </script>
 
 <style scoped>
 .central-area {
+  
   display: flex;
   flex-direction: column;
   align-items: center;

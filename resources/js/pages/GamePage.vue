@@ -5,7 +5,7 @@
       <CentralArea 
         :cards="cards" 
         @buyCard="handleBuyCard"
-        
+        @decideOrder="handleDecideOrder"
       />
     </div>
     <!-- 玩家版面 -->
@@ -74,13 +74,20 @@ export default {
     console.log(this.gameInfo)
   },
   methods: {
+    handleDecideOrder() {
+      const data = {
+        "playerId": this.players.find(player => player.user.id === this.userId).id,
+      }
+      console.log('搶先手', data);
+      
+    },
     handleBuyCard(card) {
       const data = {
         "playerId": this.players.find(player => player.user.id === this.userId).id,
         "card": card
       }
       console.log('購買卡片:', data);
-      buyCard(data);
+      //buyCard(data);
     },
     handleUseCard(card) {
       const data = {

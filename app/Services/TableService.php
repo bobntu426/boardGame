@@ -39,24 +39,28 @@ class TableService
     public function drawCardRound1(string $tableId){
         $cards = Card::where('table_id', $tableId)->get();
         
-        $greenCards = $cards->slice(0, 8)->random(4);
-        $blueCards = $cards->slice(24, 8)->random(4);
-        $yellowCards = $cards->slice(48, 8)->random(4);
-        $purpleCards = $cards->slice(72, 8)->random(4);
-        $greenCards->each(function ($card) {
+        $greenCards = $cards->slice(0, 8)->random(4)->shuffle();
+        $blueCards = $cards->slice(24, 8)->random(4)->shuffle();
+        $yellowCards = $cards->slice(48, 8)->random(4)->shuffle();
+        $purpleCards = $cards->slice(72, 8)->random(4)->shuffle();
+        $greenCards->each(function ($card, $index) {
             $card['status'] = 'table';
+            $card['index'] = $index;
             $card->save();  // 修改 status
         });
-        $blueCards->each(function ($card) {
+        $blueCards->each(function ($card, $index) {
             $card['status'] = 'table';
+            $card['index'] = $index;
             $card->save();  // 修改 status
         });
-        $yellowCards->each(function ($card) {
+        $yellowCards->each(function ($card, $index) {
             $card['status'] = 'table';
+            $card['index'] = $index;
             $card->save();  // 修改 status
         });
-        $purpleCards->each(function ($card) {
+        $purpleCards->each(function ($card, $index) {
             $card['status'] = 'table';
+            $card['index'] = $index;
             $card->save();  // 修改 status
         });
     }

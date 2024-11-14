@@ -1,0 +1,26 @@
+.circle-button {
+  width: 40px; /* 按钮宽度 */
+  height: 40px; /* 按钮高度 */
+  background-color: #9da07f;
+  border: none;
+  border-radius: 50%; /* 圆形按钮 */
+  cursor: pointer;
+}
+.circle-button:hover {
+  background-color: #82836c;
+}
+.button {
+  background-color: #9da07f;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #82836c;
+}
+.wide-button {
+  width: 100px;
+  height: 40px;
+  background-color: #9da07f;
+}
+.wide-button:hover {
+  background-color: #82836c;
+}

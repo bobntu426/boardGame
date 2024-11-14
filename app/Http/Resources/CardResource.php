@@ -21,6 +21,7 @@ class CardResource extends JsonResource
             'id'=>$this->id,
             'name'=> $this->name,
             'status'=> $this->status,
+            'index'=> $this->index,
             'image'=>$cardTable->image,
             'color'=> $cardTable->color,
             'cost'=>[

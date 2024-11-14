@@ -68,6 +68,7 @@ class TableController
     {
         $cards = Card::where('table_id', $tableId)
              ->where('status', 'table')
+             ->orderBy('index', 'asc')
              ->get();
         return CardResource::collection($cards);
     }
