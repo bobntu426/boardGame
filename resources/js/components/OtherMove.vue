@@ -1,61 +1,62 @@
 <!-- OtherMove.vue -->
   <template>
     <div class="other-move">
-        <div class="top-section">
-            <!-- 抢先手顺序的按钮 -->
-            <button class="button wide-button" @click="decideOrder">
+      <div class="section">
+          <!-- 抢先手顺序的按钮 -->
+          <button class="button wide-button" @click="decideOrder">
+            <image src=""/>
+          </button>
+      </div>
+  
+      <div class="bottom-section">
+        <div class="section">
+          <div class="row-div">
+            <!-- 生產（圓形） -->
+            <button class="circle-button" @click="handleProduction">
                 <image src=""/>
             </button>
+
+            <!-- 其餘生產（橫向操場型） -->
+            <button class="button wide-button" @click="handleOtherProduction">
+            其餘生產
+            </button>
+          </div>
+          <div class="row-div">
+            <!-- 賺錢（圓形） -->
+            <button class="circle-button" @click="handleEarnMoney">
+            賺錢
+            </button>
+
+            <!-- 賺工人（圓形） -->
+            <button class="button circle-button" @click="handleEarnWorkers">
+            賺工人
+            </button>
+          </div>
         </div>
-  
-        <div class="bottom-section">
-            <div class="top-section">
-                
-                <!-- 生產（圓形） -->
-                <button class="circle-button" @click="handleProduction">
-                    <image src=""/>
-                </button>
-
-                <!-- 其餘生產（橫向操場型） -->
-                <button class="button wide-button" @click="handleOtherProduction">
-                其餘生產
-                </button>
-
-                <!-- 賺錢（圓形） -->
-                <button class="circle-button" @click="handleEarnMoney">
-                賺錢
-                </button>
-
-                <!-- 賺工人（圓形） -->
-                <button class="button circle-button" @click="handleEarnWorkers">
-                賺工人
-                </button>
-                
-            </div>
 
     <!-- 下半区 -->
-            <div class="bottom-section">
-        
-                <!-- 收成（圓形） -->
-                <button class="button circle-button" @click="handleHarvest">
-                收成
-                </button>
+          <div class="section">
+            <div class="row-div">
+              <!-- 收成（圓形） -->
+              <button class="button circle-button" @click="handleHarvest">
+              收成
+              </button>
 
-                <!-- 其餘收成（橫向操場型） -->
-                <button class="button wide-button" @click="handleOtherHarvest">
-                其餘收成
-                </button>
-        
-
-                <!-- 骰子部分 -->
-                    
-                <div class="dice">
-                    <image class="dice-button black-dice" />
-                    <image class="dice-button white-dice" />
-                    <image class="dice-button red-dice" />
-                </div>
-            
+              <!-- 其餘收成（橫向操場型） -->
+              <button class="button wide-button" @click="handleOtherHarvest">
+              其餘收成
+              </button>
             </div>
+
+              <!-- 骰子部分 -->
+            <div class="row-div">
+              <div class="dice">
+                <image class="dice-button black-dice" />
+                <image class="dice-button white-dice" />
+                <image class="dice-button red-dice" />
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </template>
@@ -96,20 +97,37 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    background-color: #f0f0f0; /* 可选：设置背景颜色 */
   }
   
-  /* 上半區 */
-  .top-section {
+  
+  .section {
     width: 100%;
+    height: 150px; /* 设置容器的高度 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    
+  }
+  .row-div {
+    width: 100%;
+    height: 100px; /* 设置容器的高度 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    
+
   }
   
  
   
   /* 下半区 */
   .bottom-section {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
+    
   }
   
   /* 底部按钮部分 */

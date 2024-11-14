@@ -6,6 +6,7 @@
         <button @click="navigateToLobby">Lobby</button>
       </div>
       <div class="navbar-right">
+        {{ this.$state.isLogin ? this.$state.user.name:'guest' }}
         <a @click="handleAuth">{{ this.$state.isLogin ? '登出' : '登入' }}</a>
       </div>
     </header>

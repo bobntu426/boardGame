@@ -74,7 +74,7 @@ export default {
 
 .action-button {
   position: absolute; /* 绝对定位按钮 */
-  right: -40px; /* 调整按钮到塔的右侧，稍微超出 */
+  right: -53px; /* 调整按钮到塔的右侧，稍微超出 */
   top: 50%; /* 垂直居中于卡片 */
   transform: translateY(-50%); /* 确保按钮垂直居中 */
 }
