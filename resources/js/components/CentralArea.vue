@@ -19,7 +19,7 @@
 
 <script>
 import Tower from './Tower.vue'; // 引入 Tower 组件
-
+import {getTableCards}  from '../api'; 
 export default {
   components: {
     Tower

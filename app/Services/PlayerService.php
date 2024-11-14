@@ -12,7 +12,7 @@ class PlayerService{
         }
         return $result;
     }
-    public function HandBuyCard(Player $player, $card) {
+    public function HandleBuyCard(Player $player, $card) {
         $playerResource = $player->getResource();
         $data = [
             'before' => $playerResource,
@@ -37,7 +37,7 @@ class PlayerService{
         $player->update($data['finalResult']);
         return $data;
     }
-    public function handUseCard(Player $player, $card) {    
+    public function handleUseCard(Player $player, $card) {    
        
         $playerResource = $player->getResource();
         

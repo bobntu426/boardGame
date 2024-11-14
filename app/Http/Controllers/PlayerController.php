@@ -14,6 +14,7 @@ use App\Events\TableLeaved;
 use App\Services\TableService;
 use App\Services\CardService;
 use App\Services\PlayerService;
+use App\Http\Resources\CardResource;
 class PlayerController
 {
     protected $playerService;
@@ -31,14 +32,14 @@ class PlayerController
     public function buyCard(Request $request){
         $player = Player::find( $request->playerId );
         $card = $request->card;
-        $resultObj = $this->playerService->HandBuyCard($player, $card);
+        $resultObj = $this->playerService->HandleBuyCard($player, $card);
         return response()->json($resultObj);
     }
     public function useCard(Request $request){
         $cardObj = $request;
         $cardModel = Card::find( $request['id']  );
         $player = $cardModel->player;
-        $resultObj = $this->playerService->HanduseCard($player, $cardObj);
+        $resultObj = $this->playerService->HandleUseCard($player, $cardObj);
         
         
         return response()->json($resultObj);
@@ -53,7 +54,8 @@ class PlayerController
         $cardObjects = $cards->map(function ($card) use ($cardService) {
             return $cardService->formCardObject($card);
         });
-        return response()->json($cardObjects);
+        //return response()->json($cardObjects);
+        return CardResource::collection($cards);
     }
     public function getMe()
     {

@@ -16,9 +16,6 @@ return new class extends Migration
             $table->timestamps();
             $table->string('state')->default('wait');
             $table->integer('playerNum')->default(2);
-            $table->integer('score')->default(0);
-            $table->integer('military')->default(0);
-            $table->integer('belief')->default(1);
             $table->integer('round')->default(1);
             $table->integer('redDice')->default(1);
             $table->integer('blackDice')->default(1);

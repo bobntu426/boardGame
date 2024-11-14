@@ -8,21 +8,7 @@ class Card extends Model
 {
     protected $fillable = [
         'name',
-        'color',
-        'image',
-        'gainMoneyWhenBuy',
-        'gainRockWhenBuy',
-        'gainWoodWhenBuy',
-        'gainWorkerWhenBuy',
-        'gainMoneyWhenUse',
-        'gainRockWhenUse',
-        'gainWorkerWhenUse',
-        'gainWoodWhenUse',
-        'costMoney',
-        'costWood',
-        'costRock',
-        'costWorker',
-        'user_id'
+        'status'
     ];
 
     /**

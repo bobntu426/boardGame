@@ -21,7 +21,7 @@
 <script>
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard } from '../api'; 
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard,getGameInfo } from '../api'; 
 
 export default {
   components: {
@@ -32,6 +32,7 @@ export default {
     return {
       players: [],
       cards: [],
+      gameInfo:{},
       userId: null 
     };
   },
@@ -64,8 +65,13 @@ export default {
     } catch (error) {
       console.error("獲取卡片資訊失敗:", error);
     }
-
-    console.log(this.$state.user)
+    try {
+      const response = await getGameInfo(this.$route.params.table_id);
+      this.gameInfo = response;
+    } catch (error) {
+      console.error("獲取遊戲資訊失敗:", error);
+    }
+    console.log(this.gameInfo)
   },
   methods: {
     handleBuyCard(card) {

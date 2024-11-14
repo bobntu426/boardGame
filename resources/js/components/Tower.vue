@@ -1,7 +1,7 @@
 <!-- Tower.vue -->
 <template>
     <div class="tower">
-      <h3>塔 {{ towerIndex + 1 }}</h3>
+      
       <div class="tower-layers">
         <!-- 每座塔的四层 -->
         <div  class="tower-layer">

@@ -64,6 +64,7 @@ export const fetchUser = async () => {
 export const getTableCards = async (tableId) => {
   try {
     const response = await axios.get(`${API_URL}/tables/${tableId}/cards`);
+    console.log(response)
     return response.data; 
     
   } catch (error) {
@@ -151,4 +152,14 @@ export const getTablePlayers = async (tableId) => {
     console.error('get player fail', error);
     throw error; 
   }
+}
+  export const getGameInfo = async (tableId) => {
+    try {
+      const response = await axios.get(`${API_URL}/games/${tableId}`);
+      return response.data; 
+    } catch (error) {
+      console.error('get gameInfo fail', error);
+      throw error; 
+    }
+
 }

@@ -25,6 +25,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 Route::get('/players/{player}/cards', [PlayerController::class, 'getPlayerCards'])->name('getPlayerCards');
 Route::get('/tables/{table}/cards', [TableController::class, 'getTableCards'])->name('getTableCards');
 Route::get('/players/{table}', [PlayerController::class, 'getPlayerInTable'])->name('getPlayerInTable');
+Route::get('/games/{table}', [TableController::class, 'getGameInfo'])->name('getGameInfo');
 Route::get('/tables', [TableController::class, 'getTable'])->name('getTable');
 Route::get('/user', [UserController::class, 'getMe']);
 Route::resource('users', UserController::class);

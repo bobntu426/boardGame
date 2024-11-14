@@ -9,7 +9,8 @@ use App\Services\CardService;
 Use App\Models\Player;
 use App\Events\TableCreated;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Routing\Controllers\HasMiddleware;
+use App\Http\Resources\CardResource;
+use App\Http\Resources\GameResource;
 
 class TableController
 {
@@ -65,12 +66,17 @@ class TableController
     
     public function getTableCards(string $tableId)
     {
-        $cards =Card::where('table_id', $tableId)->get();
-        $cardService = new CardService();
-        $cardObjects = $cards->map(function ($card) use ($cardService) {
-            return $cardService->formCardObject($card);
-        });
-        return response()->json($cardObjects);
+        $cards = Card::where('table_id', $tableId)
+             ->where('status', 'table')
+             ->get();
+        return CardResource::collection($cards);
+    }
+    public function getGameInfo(string $tableId)
+    {
+        $table =Table::find($tableId);
+        
+        return new GameResource($table);
+       
     }
     
 }

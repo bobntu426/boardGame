@@ -17,6 +17,9 @@ return new class extends Migration
             $table->integer('worker')->default(0);
             $table->integer('rock')->default(0);
             $table->integer('wood')->default(0);
+            $table->integer('score')->default(0);
+            $table->integer('military')->default(0);
+            $table->integer('belief')->default(1);
             $table->integer('order')->nullable();
             $table->boolean('redPillar')->default(true);
             $table->boolean('blackPillar')->default(true);
