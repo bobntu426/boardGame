@@ -15,6 +15,7 @@ use App\Services\TableService;
 use App\Services\CardService;
 use App\Services\PlayerService;
 use App\Http\Resources\CardResource;
+use App\Http\Resources\PlayerResource;
 class PlayerController
 {
     protected $playerService;
@@ -87,8 +88,11 @@ class PlayerController
     }
     public function getPlayerInTable(Table $table){
         $user = Auth::user();
-        $players = Player::with('user')->where('table_id', $table->id)->get();
+        // $players = Player::with('user')->where('table_id', $table->id)->get();
         
-        return response()->json($players);
+        //return response()->json($players);
+        $players = Player::where('table_id', $table->id)->get();
+        
+        return PlayerResource::collection($players);
     }
 }

@@ -19,8 +19,8 @@
       <button 
         class = pillar @click="choosePillar('red')"
         :class="{
-          'choose-pillar': pillarColor === 'red',
-          'unchoose-pillar': pillarColor !== 'red'
+          'choose-pillar': player.chooseColor === 'red',
+          'unchoose-pillar': player.chooseColor !== 'red'
         }" 
       >
         <image src=""></image>
@@ -28,8 +28,8 @@
       <button 
         class = pillar @click="choosePillar('black')"
         :class="{
-          'choose-pillar': pillarColor === 'black',
-          'unchoose-pillar': pillarColor !== 'black'
+          'choose-pillar': player.chooseColor === 'black',
+          'unchoose-pillar': player.chooseColor !== 'black'
         }" 
       >
         <image src=""></image>
@@ -37,8 +37,8 @@
       <button 
         class = pillar @click="choosePillar('white')"
         :class="{
-          'choose-pillar': pillarColor === 'white',
-          'unchoose-pillar': pillarColor !== 'white'
+          'choose-pillar': player.chooseColor === 'white',
+          'unchoose-pillar': player.chooseColor !== 'white'
         }" 
       >
         <image src=""></image>
@@ -46,8 +46,8 @@
       <button 
         class = pillar @click="choosePillar('pillar')"
         :class="{
-          'choose-pillar': pillarColor === 'pillar',
-          'unchoose-pillar': pillarColor !== 'pillar'
+          'choose-pillar': player.chooseColor === 'pillar',
+          'unchoose-pillar': player.chooseColor !== 'pillar'
         }" 
       >
         <image src=""></image>
@@ -73,9 +73,6 @@ export default {
       type: Object,
       required: true
     },
-    pillarColor:{
-      type:String
-    }
   },
   methods:{
     useCard(card) {

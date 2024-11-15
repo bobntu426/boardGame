@@ -18,7 +18,6 @@
     <div v-for="player in players" :key="player.id">
       <PlayerArea 
         :player="player"
-        :pillarColor = this.pillarColor
         @useCard="handleUseCard"
         @choosePillar="handleChoosePillar"
       />
@@ -46,7 +45,6 @@ export default {
       gameInfo:{},
       playerId:null,
       userId: null ,
-      pillarColor:null,
     };
   },
   
@@ -58,6 +56,10 @@ export default {
       // 获取玩家信息
       const playerResponse = await getTablePlayers(this.$route.params.table_id);
       this.players = this.sortPlayers(playerResponse);
+      this.players.forEach(player => {
+        player.chooseColor = null
+      });
+      console.log(this.players)
       if(this.userId)
         this.playerId = this.players.find(player => player.user.id === this.userId).id;
 
@@ -89,7 +91,7 @@ export default {
     handleDecideOrder() {
       const data = {
         "playerId": this.playerId,
-        "color": this.pillarColor
+        
       }
       console.log('搶先手', data);
       
@@ -97,7 +99,7 @@ export default {
     handleBuyCard(card) {
       const data = {
         "playerId": this.playerId,
-        "color": this.pillarColor,
+        
         "card": card
       }
       console.log('購買卡片:', data);
@@ -105,7 +107,7 @@ export default {
     },
     handleProduction() {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
       }
       console.log('執行生產', data);
@@ -113,7 +115,7 @@ export default {
     },
     handleOtherProduction() {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
       }
       console.log('執行其他生產', data);
@@ -121,7 +123,7 @@ export default {
     },
     handleHarvest() {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
       }
       console.log('執行收成', data);
@@ -129,7 +131,7 @@ export default {
     },
     handleOtherHarvest() {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
       }
       console.log('執行其他收成', data);
@@ -137,7 +139,7 @@ export default {
     },
     handleEarnMoney() {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
       }
       console.log('獲取金幣', data);
@@ -145,7 +147,7 @@ export default {
     },
     handleEarnWorker() {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
       }
       console.log('獲取工人', data);
@@ -153,20 +155,22 @@ export default {
     },
     handleUseCard(card) {
       const data = {
-        "color": this.pillarColor,
+        
         "playerId": this.playerId,
         "card": card
       }
       console.log('使用卡片:', card);
       useCard(card);
     },
-    handleChoosePillar(color) {
-      this.pillarColor = this.pillarColor != color?color:null
-      const data ={
-        "playerId":this.playerId,
-        "color":this.pillarColor
+    handleChoosePillar(color,player) {
+      if(this.playerId==player.id){
+        player.chooseColor = player.chooseColor != color?color:null
+        console.log('選取柱子:', player.chooseColor);
       }
-      console.log('選取柱子:', data);
+      else{
+        player.chooseColor = null
+      }
+      
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
