@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class TableService
 {
+
     public function initGame(string $tableId)
     {
         // 取得所有卡片名稱
@@ -35,6 +36,8 @@ class TableService
             $player->save();
         } 
         $this->drawCardRound1($tableId);
+        $this->dice($table);
+        $this->decideOrder($table);
     }
     public function drawCardRound1(string $tableId){
         $cards = Card::where('table_id', $tableId)->get();
@@ -63,5 +66,21 @@ class TableService
             $card['index'] = $index;
             $card->save();  // 修改 status
         });
+    }
+    public function dice($table){
+        $table->redDice = rand(1,7);
+        $table->whiteDice = rand(1,7);
+        $table->blackDice = rand(1,7);
+        $table->save();
+    }
+    public function decideOrder($table){
+        $players = $table->players()->get()->shuffle();
+        foreach ($players as $index => $player) {
+            $player->order = $index + 1;
+            if($player->order == 1){
+                $player->turn = true;
+            }
+            $player->save();
+        }
     }
 }

@@ -12,23 +12,23 @@
         <div class="section">
           <div class="row-div">
             <!-- 生產（圓形） -->
-            <button class="circle-button" @click="handleProduction">
+            <button class="circle-button" @click="production">
                 <image src=""/>
             </button>
 
             <!-- 其餘生產（橫向操場型） -->
-            <button class="button wide-button" @click="handleOtherProduction">
+            <button class="button wide-button" @click="otherProduction">
             其餘生產
             </button>
           </div>
           <div class="row-div">
             <!-- 賺錢（圓形） -->
-            <button class="circle-button" @click="handleEarnMoney">
+            <button class="circle-button" @click="earnMoney">
             賺錢
             </button>
 
             <!-- 賺工人（圓形） -->
-            <button class="button circle-button" @click="handleEarnWorkers">
+            <button class="button circle-button" @click="earnWorker">
             賺工人
             </button>
           </div>
@@ -38,12 +38,12 @@
           <div class="section">
             <div class="row-div">
               <!-- 收成（圓形） -->
-              <button class="button circle-button" @click="handleHarvest">
+              <button class="button circle-button" @click="harvest">
               收成
               </button>
 
               <!-- 其餘收成（橫向操場型） -->
-              <button class="button wide-button" @click="handleOtherHarvest">
+              <button class="button wide-button" @click="otherHarvest">
               其餘收成
               </button>
             </div>
@@ -65,28 +65,27 @@
   export default {
     methods: {
       // 抢先手顺序的处理函数
-    decideOrder() {
-     this.$emit('decideOrder'); // 通过事件将信息传递给父组件
-    },
-    handleProduction() {
-      console.log('執行生產');
-      // 你可以在這裡寫對應的處理邏輯
-    },
-    handleOtherProduction() {
-      console.log('執行其餘生產');
-    },
-    handleEarnMoney() {
-      console.log('執行賺錢');
-    },
-    handleEarnWorkers() {
-      console.log('執行賺工人');
-    },
-    handleHarvest() {
-      console.log('執行收成');
-    },
-    handleOtherHarvest() {
-      console.log('執行其餘收成');
-    },
+      decideOrder() {
+        this.$emit('decideOrder'); // 通过事件将信息传递给父组件
+      },
+      production() {
+        this.$emit('production');
+      },
+      otherProduction() {
+        this.$emit('otherProduction');
+      },
+      earnMoney() {
+        this.$emit('earnMoney');
+      },
+      earnWorker() {
+        this.$emit('earnWorker');
+      },
+      harvest() {
+        this.$emit('harvest');
+      },
+      otherHarvest() {
+        this.$emit('otherHarvest');
+      },
     }
   };
   </script>

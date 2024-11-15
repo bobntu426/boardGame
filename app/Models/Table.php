@@ -10,6 +10,7 @@ class Table extends Model
     protected $fillable = [
         'playerNum'
     ];
+    protected $guarded = [];
     public function users()
     {
         return $this->hasManyThrough(User::class, Player::class, 'table_id', 'id', 'id', 'user_id');

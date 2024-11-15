@@ -21,10 +21,10 @@ return new class extends Migration
             $table->integer('military')->default(0);
             $table->integer('belief')->default(1);
             $table->integer('order')->nullable();
-            $table->boolean('redPillar')->default(true);
-            $table->boolean('blackPillar')->default(true);
-            $table->boolean('whitePillar')->default(true);
-            $table->boolean('pillar')->default(true);
+            $table->string('redPillar')->default(value: 'hand');
+            $table->string('blackPillar')->default('hand');
+            $table->string('whitePillar')->default('hand');
+            $table->string('pillar')->default('hand');
             $table->boolean('punish1')->default(true);
             $table->boolean('punish2')->default(true);
             $table->boolean('punish3')->default(true);

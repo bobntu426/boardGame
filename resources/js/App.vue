@@ -6,7 +6,7 @@
         <button @click="navigateToLobby">Lobby</button>
       </div>
       <div class="navbar-right">
-        {{ this.$state.isLogin ? this.$state.user.name:'guest' }}
+        {{ this.$state.user ? this.$state.user.name:'guest' }}
         <a @click="handleAuth">{{ this.$state.isLogin ? '登出' : '登入' }}</a>
       </div>
     </header>
@@ -40,6 +40,7 @@ export default {
           const success = await logout();
           if (success) {
             this.$state.isLogin = false; // 假设登出成功，设置 isLogin 为 false
+            this.$state.user = null
             this.$router.push('/login');
             
           } else {
@@ -60,7 +61,7 @@ export default {
       this.$state.user = await fetchUser();
     } catch (error) {
       console.error('Failed to check login status', error);
-    }
+    } 
   }
 };
 </script>

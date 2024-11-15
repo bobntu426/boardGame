@@ -15,6 +15,44 @@
         @useCard="useCard"
       />
     </div>
+    <div class = pillars-container>
+      <button 
+        class = pillar @click="choosePillar('red')"
+        :class="{
+          'choose-pillar': pillarColor === 'red',
+          'unchoose-pillar': pillarColor !== 'red'
+        }" 
+      >
+        <image src=""></image>
+      </button>
+      <button 
+        class = pillar @click="choosePillar('black')"
+        :class="{
+          'choose-pillar': pillarColor === 'black',
+          'unchoose-pillar': pillarColor !== 'black'
+        }" 
+      >
+        <image src=""></image>
+      </button>      
+      <button 
+        class = pillar @click="choosePillar('white')"
+        :class="{
+          'choose-pillar': pillarColor === 'white',
+          'unchoose-pillar': pillarColor !== 'white'
+        }" 
+      >
+        <image src=""></image>
+      </button>      
+      <button 
+        class = pillar @click="choosePillar('pillar')"
+        :class="{
+          'choose-pillar': pillarColor === 'pillar',
+          'unchoose-pillar': pillarColor !== 'pillar'
+        }" 
+      >
+        <image src=""></image>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -22,6 +60,11 @@
 import Card from './Card.vue'; // 引入 Card 組件
 
 export default {
+  data(){
+    return{
+      
+    }
+  },
   components: {
     Card
   },
@@ -29,12 +72,18 @@ export default {
     player: {
       type: Object,
       required: true
+    },
+    pillarColor:{
+      type:String
     }
   },
   methods:{
     useCard(card) {
       this.$emit('useCard', card);
-    }
+    },
+    choosePillar(color) {
+      this.$emit('choosePillar',color,this.player); // 通过事件将信息传递给父组件
+    },
   },
   mounted(){
     
@@ -57,5 +106,23 @@ export default {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+.pillars-container {
+  gap: 10px;
+  
+}
+.pillar {
+  width: 50px; /* 按钮宽度 */
+  height: 50px; /* 按钮高度 */
+  border-radius: 50%; /* 圆形按钮 */
+  cursor: pointer;
+  background-color: red;
+  
+}
+.unchoose-pillar {
+  border: none;
+}
+.choose-pillar {
+  border: 2px solid rgb(92, 134, 196);
 }
 </style>

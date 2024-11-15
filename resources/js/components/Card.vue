@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   props: {
     card: {
@@ -20,9 +21,11 @@ export default {
     },
 
   },
+ 
   methods: {
-    
+
   }
+
 };
 </script>
 

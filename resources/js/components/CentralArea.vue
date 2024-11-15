@@ -17,6 +17,12 @@
       <div class="other-move-container">
         <OtherMove 
           @decideOrder="decideOrder"
+          @production="production"
+          @otherProduction="otherProduction"
+          @earnMoney="earnMoney"
+          @earnWorker ="earnWorker"
+          @harvest="harvest"
+          @otherHarvest="otherHarvest"
         />
       </div>
     </div>
@@ -59,7 +65,25 @@ export default {
     },
     filteredCards(color) {
       return this.cards.filter(card => card.color === color);
-    }
+    },
+    production() {
+        this.$emit('production');
+      },
+      otherProduction() {
+        this.$emit('otherProduction');
+      },
+      earnMoney() {
+        this.$emit('earnMoney');
+      },
+      earnWorker() {
+        this.$emit('earnWorker');
+      },
+      harvest() {
+        this.$emit('harvest');
+      },
+      otherHarvest() {
+        this.$emit('otherHarvest');
+      },
   },
   
 };

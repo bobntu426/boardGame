@@ -14,6 +14,7 @@ class GameResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $boardPillar = [];
         $gameMes=[
             'id' => $this->id,
             'playerNum' => $this->playerNum,

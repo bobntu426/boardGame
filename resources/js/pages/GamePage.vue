@@ -6,13 +6,21 @@
         :cards="cards" 
         @buyCard="handleBuyCard"
         @decideOrder="handleDecideOrder"
+        @production="handleProduction"
+        @otherProduction="handleOtherProduction"
+        @earnMoney="handleEarnMoney"
+        @earnWorker ="handleEarnWorker"
+        @harvest="handleHarvest"
+        @otherHarvest="handleOtherHarvest"
       />
     </div>
     <!-- 玩家版面 -->
     <div v-for="player in players" :key="player.id">
       <PlayerArea 
         :player="player"
+        :pillarColor = this.pillarColor
         @useCard="handleUseCard"
+        @choosePillar="handleChoosePillar"
       />
     </div>
   </div>
@@ -22,80 +30,143 @@
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
 import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard,getGameInfo } from '../api'; 
-
 export default {
+  
   components: {
     CentralArea,
     PlayerArea
+  },
+  setup(){
+
   },
   data() {
     return {
       players: [],
       cards: [],
       gameInfo:{},
-      userId: null 
+      playerId:null,
+      userId: null ,
+      pillarColor:null,
     };
   },
+  
   async mounted() {
-    this.userId = await this.fetchUserId();
-    
     try {
-      const response = await getTablePlayers(this.$route.params.table_id);
-      this.players = this.sortPlayers(response);
-    } catch (error) {
-      console.error("獲取玩家資訊失敗:", error);
-    }
+    // 获取用户ID
+      this.userId = await this.fetchUserId();
+      
+      // 获取玩家信息
+      const playerResponse = await getTablePlayers(this.$route.params.table_id);
+      this.players = this.sortPlayers(playerResponse);
+      if(this.userId)
+        this.playerId = this.players.find(player => player.user.id === this.userId).id;
 
-    try {
+      // 获取卡片信息
       const cardsResponse = await getTableCards(this.$route.params.table_id);
       this.cards = cardsResponse;
-    } catch (error) {
-      console.error("獲取卡片資訊失敗:", error);
-    }
 
-    try {
-      for (const player of this.players) {
+      // 获取所有玩家的卡片信息
+      const playerCardPromises = this.players.map(async player => {
         try {
           const playerCards = await getPlayerCards(player.id);
           player.cards = playerCards;
         } catch (error) {
           console.error(`獲取玩家 ${player.id} 卡片資料失敗:`, error);
         }
-      }
+      });
+      await Promise.all(playerCardPromises);
+
+      // 获取游戏信息
+      const gameInfoResponse = await getGameInfo(this.$route.params.table_id);
+      this.gameInfo = gameInfoResponse;
+
+      console.log(this.gameInfo);
     } catch (error) {
-      console.error("獲取卡片資訊失敗:", error);
+      console.error("初始化資料失敗:", error);
     }
-    try {
-      const response = await getGameInfo(this.$route.params.table_id);
-      this.gameInfo = response;
-    } catch (error) {
-      console.error("獲取遊戲資訊失敗:", error);
-    }
-    console.log(this.gameInfo)
   },
   methods: {
     handleDecideOrder() {
       const data = {
-        "playerId": this.players.find(player => player.user.id === this.userId).id,
+        "playerId": this.playerId,
+        "color": this.pillarColor
       }
       console.log('搶先手', data);
       
     },
     handleBuyCard(card) {
       const data = {
-        "playerId": this.players.find(player => player.user.id === this.userId).id,
+        "playerId": this.playerId,
+        "color": this.pillarColor,
         "card": card
       }
       console.log('購買卡片:', data);
       //buyCard(data);
     },
+    handleProduction() {
+      const data = {
+        "color": this.pillarColor,
+        "playerId": this.playerId,
+      }
+      console.log('執行生產', data);
+      //buyCard(data);
+    },
+    handleOtherProduction() {
+      const data = {
+        "color": this.pillarColor,
+        "playerId": this.playerId,
+      }
+      console.log('執行其他生產', data);
+      //buyCard(data);
+    },
+    handleHarvest() {
+      const data = {
+        "color": this.pillarColor,
+        "playerId": this.playerId,
+      }
+      console.log('執行收成', data);
+      //buyCard(data);
+    },
+    handleOtherHarvest() {
+      const data = {
+        "color": this.pillarColor,
+        "playerId": this.playerId,
+      }
+      console.log('執行其他收成', data);
+      //buyCard(data);
+    },
+    handleEarnMoney() {
+      const data = {
+        "color": this.pillarColor,
+        "playerId": this.playerId,
+      }
+      console.log('獲取金幣', data);
+      //buyCard(data);
+    },
+    handleEarnWorker() {
+      const data = {
+        "color": this.pillarColor,
+        "playerId": this.playerId,
+      }
+      console.log('獲取工人', data);
+      //buyCard(data);
+    },
     handleUseCard(card) {
       const data = {
-        "playerId": this.players.find(player => player.user.id === this.userId).id,
+        "color": this.pillarColor,
+        "playerId": this.playerId,
         "card": card
       }
       console.log('使用卡片:', card);
       useCard(card);
+    },
+    handleChoosePillar(color) {
+      this.pillarColor = this.pillarColor != color?color:null
+      const data ={
+        "playerId":this.playerId,
+        "color":this.pillarColor
+      }
+      console.log('選取柱子:', data);
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
@@ -112,8 +183,7 @@ export default {
     async fetchUserId() {
       try {
         const user = await fetchUser();
-        this.$state.user = user
-        return user.id;
+        return user?user.id:null
       } catch (error) {
         console.error('取得使用者資料出錯:', error);
       }
