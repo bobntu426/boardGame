@@ -70,6 +70,7 @@ class TableController
              ->where('status', 'table')
              ->orderBy('index', 'asc')
              ->get();
+        
         return CardResource::collection($cards);
     }
     public function getGameInfo(string $tableId)

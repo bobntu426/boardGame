@@ -1,7 +1,7 @@
 <!-- Tower.vue -->
 <template>
   <div>
-    <div v-for="card in cards" :key="card.id" class="card">
+    <div v-for="card in cards" :key="card.id" class="card-div">
       <Card
         :card="card"
       />
@@ -37,17 +37,9 @@ export default {
 </script>
 
 <style scoped>
-.tower-div {
-  
-  background-color: #00000081;
 
-  position: absolute;
-  display: flex;
-  flex-direction: column-reverse; /* 垂直堆叠塔的层 */
-  
-}
 
-.card {
+.card-div {
   width: 100%;
   height: 25%;
   position: relative; /* 使得按钮可以相对于卡片定位 */

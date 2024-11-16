@@ -21,8 +21,6 @@ class CardService
                 'worker'=>$cardTable->costWorker,
                 'rock'=>$cardTable->costRock,
                 'wood'=>$cardTable->costWood
-                
-                
             ],
             'buyEffect'=>[
                 'money'=>$cardTable->gainMoneyWhenBuy,
@@ -39,6 +37,6 @@ class CardService
                 'wood'=>$cardTable->gainWoodWhenUse,
             ]
         ];
-        return $cardObj;
+        return collect($cardObj);
     }
 }

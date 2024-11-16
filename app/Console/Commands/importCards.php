@@ -29,23 +29,23 @@ class importCards extends Command
             $data = [
                 'name'=>"card$i",
                 'color'=>"green",
-                'image'=>"images/card$i"
+                'image'=>"images/cards/green/$i"
             ];
             DB::table('card_tables')->insert($data);
         }
         for( $i = 25; $i <= 48; $i++ ) {
             $data = [
                 'name'=>"card$i",
-                'color'=>"blue",
-                'image'=>"images/card$i"
+                'color'=>"yellow",
+                'image'=>"images/cards/yellow/$i"
             ];
             DB::table('card_tables')->insert($data);
         }
         for( $i = 49; $i <= 72; $i++ ) {
             $data = [
                 'name'=>"card$i",
-                'color'=>"yellow",
-                'image'=>"images/card$i"
+                'color'=>"blue",
+                'image'=>"images/cards/blue/$i"
             ];
             DB::table('card_tables')->insert($data);
         }
@@ -53,7 +53,7 @@ class importCards extends Command
             $data = [
                 'name'=>"card$i",
                 'color'=>"purple",
-                'image'=>"images/card$i"
+                'image'=>"images/cards/purple/$i"
             ];
             DB::table('card_tables')->insert($data);
         }

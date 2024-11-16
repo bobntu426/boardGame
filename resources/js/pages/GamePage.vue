@@ -59,14 +59,14 @@ export default {
       this.players.forEach(player => {
         player.chooseColor = null
       });
-      console.log(this.players)
+      
       if(this.userId)
         this.playerId = this.players.find(player => player.user.id === this.userId).id;
 
       // 获取卡片信息
       const cardsResponse = await getTableCards(this.$route.params.table_id);
       this.cards = cardsResponse;
-
+      console.log(this.cards)
       // 获取所有玩家的卡片信息
       const playerCardPromises = this.players.map(async player => {
         try {
