@@ -1,20 +1,62 @@
 <template>
   <div class = "board">
-    <div class="central-area">
-      <h2>中央版面</h2>
-      <p>排堆：</p>
-
-      <div class="towers">
-        <!-- 四座塔 -->
-        <Tower
+    
+      
+      <div class="towers-div">
+        
+        <!-- <Tower
           v-for="(tower, towerIndex) in towers"
           :key="towerIndex"
           :color="tower.color"
           :cards="filteredCards(tower.color)"
           @buyCard="buyCard"
+        /> -->
+        <Tower
+          :color="towers[0].color"
+          :cards="filteredCards(towers[0].color)"
+          @buyCard="buyCard"
+          class="tower"
+          :style="{
+            width: '14%',
+            height: '100%',
+            left: '3.5%'
+          }"
+        />
+        <Tower
+          :color="towers[1].color"
+          :cards="filteredCards(towers[1].color)"
+          @buyCard="buyCard"
+          class="tower"
+          :style="{
+            width: '14%',
+            height: '100%',
+            left: '27.5%'
+          }"
+        />
+        <Tower
+          :color="towers[2].color"
+          :cards="filteredCards(towers[2].color)"
+          @buyCard="buyCard"
+          class="tower"
+          :style="{
+            width: '14%',
+            height: '100%',
+            left: '52%'
+          }"
+        />
+        <Tower
+          :color="towers[3].color"
+          :cards="filteredCards(towers[3].color)"
+          @buyCard="buyCard"
+          class="tower"
+          :style="{
+            width: '14%',
+            height: '100%',
+            left: '76.5%'
+          }"
         />
       </div>
-      <div class="other-move-container">
+      <!-- <div class="other-move-container">
         <OtherMove 
           @decideOrder="decideOrder"
           @production="production"
@@ -24,8 +66,7 @@
           @harvest="harvest"
           @otherHarvest="otherHarvest"
         />
-      </div>
-    </div>
+      </div> -->
   </div>
 </template>
 
@@ -90,29 +131,42 @@ export default {
 </script>
 
 <style scoped>
-.central-area {
-  width: 90%;
-  background-color: #e4c5ad;
+
+.tower{
+  position: absolute;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column-reverse; /* 垂直堆叠塔的层 */
+}
+.towers-div {
+  display: flex;
+  left: 5%;
+  top: 5%;
+  position: absolute;
+  width: 78%;
+  height: 50%;
+  justify-content: space-around;
 }
 
-.towers {
-  display: flex;
-  justify-content: space-around;
-  gap: 30px;
-}
 
 .other-move-container {
   width: 100%;
 }
-.board{
-    width: 100%;
-    display: flex;
-    justify-content: center; /* 水平居中 */
-     /* 可选：设置背景颜色 */
+
+.board {
+  position: relative;
+  width: 60%;
+  aspect-ratio: 1108 / 1477;
+  min-height: 500px; 
+  min-width: 700px;
+  flex-direction: column;
+  align-items: center;
+  
+  background-image: url('/images/board.jpg'); /* 设置背景图片 */
+  background-size: contain; /* 确保背景图片完全适应容器 */
+  background-position: center; /* 背景图片居中对齐 */
+  background-repeat: no-repeat; /* 防止背景图片重复 */
+  justify-content: center; /* 水平居中 */
+  /* 可选：设置背景颜色 */
 }
 </style>
 

@@ -205,6 +205,7 @@ export default {
 
 .central-area-div {
   /* 讓 central-area-div 隨內容變長 */
+  align-items: center;
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* 讓其佔據剩餘的空間 */

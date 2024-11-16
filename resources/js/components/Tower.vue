@@ -1,18 +1,13 @@
 <!-- Tower.vue -->
 <template>
-  <div class="tower">
-    <div class="tower-layers">
-      <!-- 每座塔的四层 -->
-      <div class="tower-layer" >
-        <div v-for="card in cards" :key="card.id" class="card-container">
-          <Card
-            :card="card"
-          />
-          
-          <!-- 圆形按钮，使用绝对定位在每张卡片右侧 -->
-          <button class="action-button circle-button" @click="buyCard(card)"></button>
-        </div>
-      </div>
+  <div>
+    <div v-for="card in cards" :key="card.id" class="card">
+      <Card
+        :card="card"
+      />
+      
+      <!-- 圆形按钮，使用绝对定位在每张卡片右侧 -->
+      <button class="action-button circle-button" @click="buyCard(card)"></button>
     </div>
   </div>
 </template>
@@ -42,34 +37,22 @@ export default {
 </script>
 
 <style scoped>
-.tower {
-  width: 150px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  position: relative;
+.tower-div {
+  
+  background-color: #00000081;
+
+  position: absolute;
   display: flex;
   flex-direction: column-reverse; /* 垂直堆叠塔的层 */
-  overflow: visible
-}
-
-.tower-layers {
-  display: flex;
-  flex-direction: column-reverse; /* 垂直堆叠 */
-  gap: 5px;
-  justify-content: flex-end;
-}
-
-.tower-layer {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 居中卡片 */
-}
-
-.card-container {
-  position: relative; /* 使得按钮可以相对于卡片定位 */
   
+}
+
+.card {
+  width: 100%;
+  height: 25%;
+  position: relative; /* 使得按钮可以相对于卡片定位 */
+  background-color: rgba(0, 61, 115, 0.463);
+  margin-bottom: 3%;
 }
 
 .action-button {

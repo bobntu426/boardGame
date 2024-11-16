@@ -1,18 +1,17 @@
 <template>
-  <div class="card">
-    <div class="card-info">
+  <image src = "/"/>
+    <!-- <div class="card-info">
       <h3>{{ card.name }}</h3>
       <p><strong>價格：</strong>{{ card.cost }}</p>
       <p><strong>購買效果：</strong>{{ card.buyEffect }}</p>
       <p><strong>使用效果：</strong>{{ card.useEffect }}</p>
-    </div>
+    </div> -->
 
     <!-- 動態顯示按鈕 -->
-  </div>
 </template>
 
 <script>
-import { inject } from "vue";
+
 export default {
   props: {
     card: {
@@ -21,7 +20,9 @@ export default {
     },
 
   },
- 
+  mounted(){
+    console.log(this.card.image)
+  },
   methods: {
 
   }
@@ -30,20 +31,9 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  width: 120px; /* 固定寬度 */
-  height: 180px; /* 固定高度 */
-  border: 2px solid #aaa;
-  border-radius: 8px;
-  background-color: #fff;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
-  overflow: hidden; /* 防止內容超出 */
-}
-
 .card-info {
+  
   padding: 10px;
-  overflow-y: auto;
 }
 
 .buy-card-button,
