@@ -15,13 +15,27 @@
       />
     </div>
     <!-- 玩家版面 -->
-    <div v-for="player in players" :key="player.id">
+    <div v-if="loading">加載中...</div>
+
+    <div v-else  class = "play-area-div">
+      <div class = "choose-player-board-div">
+        <div v-for="player in players" :key="player.id">
+          <button 
+            class = "choose-player-board-button" 
+            @click = "handleChoosePlayerBoard(player)"
+          >
+          {{ player.user.name }}
+          </button>
+        </div>
+      </div> 
       <PlayerArea 
-        :player="player"
+        :player="playerBoard"
         @useCard="handleUseCard"
         @choosePillar="handleChoosePillar"
       />
+      
     </div>
+    
   </div>
 </template>
 
@@ -35,16 +49,20 @@ export default {
     CentralArea,
     PlayerArea
   },
-  setup(){
-
+  
+  computed:{
+    
   },
+  
   data() {
     return {
       players: [],
       cards: [],
       gameInfo:{},
-      playerId:null,
+      player:{},
       userId: null ,
+      playerBoard:{},
+      loading:true
     };
   },
   
@@ -60,13 +78,19 @@ export default {
         player.chooseColor = null
       });
       
-      if(this.userId)
-        this.playerId = this.players.find(player => player.user.id === this.userId).id;
+      if(this.userId){
+        this.player = this.players.find(player => player.user.id === this.userId)
+        this.playerBoard = this.player
+      }
+      
+      else
+        this.playerBoard = this.players[0]
+      console.log(this.player)
 
       // 获取卡片信息
       const cardsResponse = await getTableCards(this.$route.params.table_id);
       this.cards = cardsResponse;
-      console.log(this.cards)
+      
       // 获取所有玩家的卡片信息
       const playerCardPromises = this.players.map(async player => {
         try {
@@ -82,23 +106,25 @@ export default {
       const gameInfoResponse = await getGameInfo(this.$route.params.table_id);
       this.gameInfo = gameInfoResponse;
 
-      console.log(this.gameInfo);
+      
     } catch (error) {
       console.error("初始化資料失敗:", error);
+    }finally{
+      this.loading = false
     }
+   
   },
   methods: {
     handleDecideOrder() {
       const data = {
-        "playerId": this.playerId,
-        
+        "playerId": this.player.id,
       }
       console.log('搶先手', data);
       
     },
     handleBuyCard(card) {
       const data = {
-        "playerId": this.playerId,
+        "playerId": this.player.id,
         
         "card": card
       }
@@ -108,7 +134,7 @@ export default {
     handleProduction() {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
       }
       console.log('執行生產', data);
       //buyCard(data);
@@ -116,7 +142,7 @@ export default {
     handleOtherProduction() {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
       }
       console.log('執行其他生產', data);
       //buyCard(data);
@@ -124,7 +150,7 @@ export default {
     handleHarvest() {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
       }
       console.log('執行收成', data);
       //buyCard(data);
@@ -132,7 +158,7 @@ export default {
     handleOtherHarvest() {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
       }
       console.log('執行其他收成', data);
       //buyCard(data);
@@ -140,7 +166,7 @@ export default {
     handleEarnMoney() {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
       }
       console.log('獲取金幣', data);
       //buyCard(data);
@@ -148,7 +174,7 @@ export default {
     handleEarnWorker() {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
       }
       console.log('獲取工人', data);
       //buyCard(data);
@@ -156,14 +182,15 @@ export default {
     handleUseCard(card) {
       const data = {
         
-        "playerId": this.playerId,
+        "playerId": this.player.id,
         "card": card
       }
       console.log('使用卡片:', card);
       useCard(card);
     },
     handleChoosePillar(color,player) {
-      if(this.playerId==player.id){
+      console.log("choose",this.player)
+      if(this.player==player){
         player.chooseColor = player.chooseColor != color?color:null
         console.log('選取柱子:', player.chooseColor);
       }
@@ -171,6 +198,10 @@ export default {
         player.chooseColor = null
       }
       
+    },
+    handleChoosePlayerBoard(player) {
+      this.playerBoard = player
+      console.log("chooseBoard",this.playerBoard)
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
@@ -198,26 +229,30 @@ export default {
 
 <style scoped>
 .game-container {
+  width : 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.central-area-div {
+  width : 70%;
+  align-items: center;
   display: flex;
   flex-direction: column;
   
 }
 
-.central-area-div {
-  /* 讓 central-area-div 隨內容變長 */
-  align-items: center;
+.play-area-div{
+  width : 80%;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  flex-grow: 1; /* 讓其佔據剩餘的空間 */
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
+.choose-player-board-div{
+  display: flex;
+}
+.choose-player-board-button{
 
-
-
-
-.player-area {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 </style>

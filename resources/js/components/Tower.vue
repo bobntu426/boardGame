@@ -7,7 +7,7 @@
       />
       
       <!-- 圆形按钮，使用绝对定位在每张卡片右侧 -->
-      <button class="action-button circle-button" @click="buyCard(card)"></button>
+      <button class="tower-button button circle" @click="buyCard(card)"></button>
     </div>
   </div>
 </template>
@@ -41,17 +41,18 @@ export default {
 
 .card-div {
   width: 100%;
-  height: 25%;
+  height: 24.6%;
   position: relative; /* 使得按钮可以相对于卡片定位 */
   background-color: rgba(0, 61, 115, 0.463);
   margin-bottom: 3%;
 }
 
-.action-button {
+.tower-button {
   position: absolute; /* 绝对定位按钮 */
-  right: -53px; /* 调整按钮到塔的右侧，稍微超出 */
-  top: 50%; /* 垂直居中于卡片 */
-  transform: translateY(-50%); /* 确保按钮垂直居中 */
+  width: 62%; /* 按钮宽度 */
+  aspect-ratio: 1/1;
+  left:104%;
+  top: 32%; 
 }
 
 

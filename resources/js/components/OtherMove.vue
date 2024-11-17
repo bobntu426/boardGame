@@ -1,63 +1,101 @@
 <!-- OtherMove.vue -->
   <template>
-    <div class="other-move">
-      <div class="section">
-          <!-- 抢先手顺序的按钮 -->
-          <button class="button wide-button" @click="decideOrder">
-            <image src=""/>
-          </button>
+    <div class="other-move-div">
+      
+      <!-- 抢先手顺序的按钮 -->
+      <button class="button order-button" @click="decideOrder"></button>
+      
+      <!-- 生產（圓形） -->
+      <button 
+        class="button circle trigger-card-button" 
+        @click="production"
+        :style="{
+          left: '6.5%',
+          bottom: '29.5%'
+        }"
+      >
+      </button>
+
+      <!-- 收成（圓形） -->
+      <button 
+        class="button circle trigger-card-button" 
+        @click="harvest"
+        :style="{
+          left: '6.5%',
+          bottom: '10.5%'
+        }"
+      ></button>
+
+      <!-- 其餘生產（橫向操場型） -->
+      <button 
+        class="button trigger-other-card-button"
+        @click="otherProduction"
+        :style="{
+          left: '17%',
+          bottom: '29.5%'
+        }"
+      >
+      </button>
+    
+        <!-- 其餘收成（橫向操場型） -->
+      <button 
+        class="button trigger-other-card-button"
+        @click="otherHarvest"
+        :style="{
+          left: '17%',
+          bottom: '10.5%'
+        }"
+      >
+      </button>
+    
+      <!-- 賺錢（圓形） -->
+      <button 
+        class="circle button gain-resource-button" 
+        @click="earnMoney"
+        :style="{
+          right: '39%',
+          bottom: '33%'
+        }"
+      >
+      </button>
+
+      <!-- 賺工人（圓形） -->
+      <button 
+        class="circle button gain-resource-button"
+        @click="earnWorker"
+        :style="{
+          right: '30%',
+          bottom: '33%'
+        }"
+      >  
+      </button>
+
+      <div class="dice-div">
+        <img
+          class="dice" 
+          :src = "'/images/black-dice/1.png'"
+          :style="{
+            left: '1.5%',
+          }"
+        />
+        <img
+          class="dice" 
+          :src = "`/images/white-dice/1.png`"
+          :style="{
+            left: '38.2%',
+          }"
+        />
+        <img
+          class="dice" 
+          :src = "`/images/red-dice/1.png`"
+          :style="{
+            left: '75%',
+          }"
+        />
       </div>
-  
-      <div class="bottom-section">
-        <div class="section">
-          <div class="row-div">
-            <!-- 生產（圓形） -->
-            <button class="circle-button" @click="production">
-                <image src=""/>
-            </button>
-
-            <!-- 其餘生產（橫向操場型） -->
-            <button class="button wide-button" @click="otherProduction">
-            其餘生產
-            </button>
-          </div>
-          <div class="row-div">
-            <!-- 賺錢（圓形） -->
-            <button class="circle-button" @click="earnMoney">
-            賺錢
-            </button>
-
-            <!-- 賺工人（圓形） -->
-            <button class="button circle-button" @click="earnWorker">
-            賺工人
-            </button>
-          </div>
-        </div>
-
-    <!-- 下半区 -->
-          <div class="section">
-            <div class="row-div">
-              <!-- 收成（圓形） -->
-              <button class="button circle-button" @click="harvest">
-              收成
-              </button>
-
-              <!-- 其餘收成（橫向操場型） -->
-              <button class="button wide-button" @click="otherHarvest">
-              其餘收成
-              </button>
-            </div>
-
-              <!-- 骰子部分 -->
-            <div class="row-div">
-              <div class="dice">
-                <image class="dice-button black-dice" />
-                <image class="dice-button white-dice" />
-                <image class="dice-button red-dice" />
-              </div>
-            </div>
-          </div>
-        </div>
+            
+          
+        
     </div>
   </template>
   
@@ -91,79 +129,54 @@
   </script>
   
   <style scoped>
-  .other-move {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    background-color: #f0f0f0; /* 可选：设置背景颜色 */
+  .order-button{
+    position: absolute; 
+    left: 46%;
+    top:-1%;
+    width: 27%; /* 按钮宽度 */
+    height: 17%;
+    border-radius: 25%;
   }
-  
-  
-  .section {
-    width: 100%;
-    height: 150px; /* 设置容器的高度 */
-    display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
+  .other-move-div {
+    position: absolute; 
+    width: 100%; /* 按钮宽度 */
+    height: 44%;
+    background-color: rgba(255, 228, 196, 0);
+    bottom:0%;
     
   }
-  .row-div {
-    width: 100%;
-    height: 100px; /* 设置容器的高度 */
-    display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    
+  .trigger-card-button{
+    position: absolute; /* 绝对定位按钮 */
+    width: 8%; /* 按钮宽度 */
+    aspect-ratio: 1/1;
+  }
 
+  .trigger-other-card-button{
+    position: absolute; /* 绝对定位按钮 */
+    width: 20.5%; /* 按钮宽度 */
+    height: 13.5%;
+  }
+
+  .gain-resource-button{
+    position: absolute; /* 绝对定位按钮 */
+    width: 8%; /* 按钮宽度 */
+    aspect-ratio: 1/1;
   }
   
- 
-  
-  /* 下半区 */
-  .bottom-section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    
+  .dice-div {
+    background-color: rgba(255, 255, 255, 0);
+    right: 23%;
+    position: absolute;
+    bottom:9%;
+    height: 12%;
+    width: 25%;
   }
   
-  /* 底部按钮部分 */
-  .bottom-buttons {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-  }
-  
-  .dice-section {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-  }
-  
-  .dice {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .dice-button {
-    width: 50px;
-    height: 50px;
-    background-color: #ccc;
-    border-radius: 4px;
-  }
-  
-  .black-dice {
-    background-color: black;
-  }
-  
-  .white-dice {
-    background-color: white;
-  }
-  
-  .red-dice {
-    background-color: red;
+  .dice{
+    position: absolute;
+    bottom:8%;
+    height: 82%;
+    aspect-ratio: 1/1;
   }
   </style>
   

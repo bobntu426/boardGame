@@ -23,7 +23,7 @@ export default {
 
   },
   mounted(){
-    console.log(`/${this.card.image}.jpg`)
+    
   },
   methods: {
 
