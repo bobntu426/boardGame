@@ -131,9 +131,9 @@
   <style scoped>
   .order-button{
     position: absolute; 
-    left: 46%;
+    left: 46.8%;
     top:-1%;
-    width: 27%; /* 按钮宽度 */
+    width: 25%; /* 按钮宽度 */
     height: 17%;
     border-radius: 25%;
   }
@@ -155,6 +155,7 @@
     position: absolute; /* 绝对定位按钮 */
     width: 20.5%; /* 按钮宽度 */
     height: 13.5%;
+    border-radius: 30%;
   }
 
   .gain-resource-button{

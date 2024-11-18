@@ -38,7 +38,8 @@ export default {
 }
 .card-image{
   width: 100%;  /* 寬度填滿父容器 */
-  height: auto;
+  
+  border: 2px solid black;
 }
 
 </style>

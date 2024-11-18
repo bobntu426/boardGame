@@ -83,4 +83,23 @@ class TableService
             $player->save();
         }
     }
+    public function getBoardPillarInfo($table){
+        $players = $table->players()->get();
+        $pillarPositions = collect([]);
+        
+        $players->each(function ($player) use ($pillarPositions) {
+            $playerPillarPositions = [
+                'black' => $player->blackPillar, 
+                'white' => $player->whitePillar,
+                'red' => $player->redPillar,
+                'pillar' => $player->pillar
+            ];
+        
+            collect($playerPillarPositions)
+            ->each(function ($position, $color) use ($pillarPositions, $player) {
+                $pillarPositions->push(['playerId' => $player->id, 'color' => $color, 'position' => $position]);
+            });
+        });
+        return $pillarPositions;
+    }
 }

@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 Use App\Models\Table;
 Use App\Models\Card;
 use App\Services\TableService;
-use App\Services\CardService;
 Use App\Models\Player;
 use App\Events\TableCreated;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +75,6 @@ class TableController
     public function getGameInfo(string $tableId)
     {
         $table =Table::find($tableId);
-        
         return new GameResource($table);
        
     }

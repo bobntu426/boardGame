@@ -4,17 +4,19 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Services\TableService;
 
 class GameResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
+    protected $tableService;
+    public function __construct(TableService $tableService)
+    {
+        $this->tableService = $tableService;
+        
+    }
     public function toArray(Request $request): array
     {
-        $boardPillar = [];
+        
         $gameMes=[
             'id' => $this->id,
             'playerNum' => $this->playerNum,
@@ -25,6 +27,7 @@ class GameResource extends JsonResource
             'punish1' => $this->punish1,
             'punish2' => $this->punish2,
             'punish3' => $this->punish3,
+            'pillarInfo' => $this->tableService->getBoardPillarInfo($this)
         ];
         return $gameMes;
     }

@@ -1,15 +1,16 @@
 .circle{
   
-  background-color: #9da07fe8;
+  background-color: #00000000;
   border: none;
   border-radius: 50%; /* 圆形按钮 */
   
 }
 .button {
-  background-color: #9da07f94;
+  background-color: #00000000;
+  border: none;
   cursor: pointer;
   
 }
 .button:hover {
-  background-color: #82836cea;
+  background-color: #0000001b;
 }
