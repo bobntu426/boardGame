@@ -73,21 +73,21 @@
       <div class="dice-div">
         <img
           class="dice" 
-          :src = "'/images/black-dice/1.png'"
+          :src = "`/images/dice/black/${gameInfo.blackDice}.png`"
           :style="{
             left: '1.5%',
           }"
         />
         <img
           class="dice" 
-          :src = "`/images/white-dice/1.png`"
+          :src = "`/images/dice/white/${gameInfo.whiteDice}.png`"
           :style="{
             left: '38.2%',
           }"
         />
         <img
           class="dice" 
-          :src = "`/images/red-dice/1.png`"
+          :src = "`/images/dice/red/${gameInfo.redDice}.png`"
           :style="{
             left: '75%',
           }"
@@ -101,6 +101,15 @@
   
   <script>
   export default {
+    mounted(){
+        console.log(this.gameInfo.blackDice)
+    },
+    props:{
+      gameInfo: {
+        type: Object,
+        required: true
+      }
+    },
     methods: {
       // 抢先手顺序的处理函数
       decideOrder() {

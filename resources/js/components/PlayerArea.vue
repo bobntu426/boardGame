@@ -2,7 +2,7 @@
   <div class="player-board-div">
     <img 
       class = side-bar
-      :src = "`/images/sideBar/1.png`"
+      :src = "`/images/side-bar/1.png`"
       :style = {}
     />
     

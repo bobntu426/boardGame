@@ -4,7 +4,7 @@
       
     <div class="towers-div">
       <Tower
-        :color="towers[0].color"
+        :pillarPosition = gameInfo.pillarInfo.green
         :cards="filteredCards(towers[0].color)"
         @buyCard="buyCard"
         class="tower"
@@ -13,7 +13,7 @@
         }"
       />
       <Tower
-        :color="towers[1].color"
+        :pillarPosition = gameInfo.pillarInfo.blue
         :cards="filteredCards(towers[1].color)"
         @buyCard="buyCard"
         class="tower"
@@ -22,7 +22,7 @@
         }"
       />
       <Tower
-        :color="towers[2].color"
+        :pillarPosition = gameInfo.pillarInfo.yellow
         :cards="filteredCards(towers[2].color)"
         @buyCard="buyCard"
         class="tower"
@@ -31,7 +31,7 @@
         }"
       />
       <Tower
-        :color="towers[3].color"
+        :pillarPosition = gameInfo.pillarInfo.purple
         :cards="filteredCards(towers[3].color)"
         @buyCard="buyCard"
         class="tower"
@@ -42,6 +42,7 @@
     </div>
       
     <OtherMove 
+      :gameInfo = "this.gameInfo"
       @decideOrder="decideOrder"
       @production="production"
       @otherProduction="otherProduction"
@@ -67,11 +68,14 @@ export default {
     cards: {
       type: Array,
       required: true
+    },
+    gameInfo:{
+      type: Object,
+      required: true
     }
   },
   data() {
     return {
-      // 塔的结构，每座塔有四层
       towers: [
         {color:'green'},
         {color:'blue'},

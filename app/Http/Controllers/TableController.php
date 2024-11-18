@@ -75,6 +75,7 @@ class TableController
     public function getGameInfo(string $tableId)
     {
         $table =Table::find($tableId);
+        $table['pillarInfo'] = $this->tableService->getBoardPillarInfo($table);
         return new GameResource($table);
        
     }

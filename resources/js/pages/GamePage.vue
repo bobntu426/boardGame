@@ -1,9 +1,12 @@
 <template>
-  <div class="game-container">
+  <div v-if="loading">加載中...</div>
+  <div v-else class="game-container">
+    
     <div class="central-area-div">
       <!-- 中央版面 -->
       <CentralArea 
         :cards="cards" 
+        :gameInfo="gameInfo"
         @buyCard="handleBuyCard"
         @decideOrder="handleDecideOrder"
         @production="handleProduction"
@@ -15,9 +18,9 @@
       />
     </div>
     <!-- 玩家版面 -->
-    <div v-if="loading">加載中...</div>
 
-    <div v-else  class = "play-area-div">
+
+    <div class = "play-area-div">
       <div class = "choose-player-board-div">
         <div v-for="player in players" :key="player.id">
           <button 
@@ -85,7 +88,6 @@ export default {
       
       else
         this.playerBoard = this.players[0]
-      console.log(this.player)
 
       // 获取卡片信息
       const cardsResponse = await getTableCards(this.$route.params.table_id);
@@ -105,7 +107,7 @@ export default {
       // 获取游戏信息
       const gameInfoResponse = await getGameInfo(this.$route.params.table_id);
       this.gameInfo = gameInfoResponse;
-
+      console.log(this.gameInfo)
       
     } catch (error) {
       console.error("初始化資料失敗:", error);
@@ -236,7 +238,7 @@ export default {
 }
 
 .central-area-div {
-  width : 70%;
+  width : 50%;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -244,7 +246,7 @@ export default {
 }
 
 .play-area-div{
-  width : 80%;
+  width : 60%;
   display: flex;
   align-items: center;
   flex-direction: column;

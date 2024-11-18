@@ -28,11 +28,13 @@ class TableService
         DB::table('cards')->insert($data);
         $table = Table::findOrFail($tableId);
         $players = $table->players;
-        foreach ($players as $player) {
+        $colorArray = collect(['blue','brown','yellow'])->shuffle();
+        foreach ($players as $index=>$player) {
             $player->money = 10;
             $player->rock = 10;
             $player->worker = 10;
             $player->wood = 10;
+            $player->color = $colorArray[$index];
             $player->save();
         } 
         $this->drawCardRound1($tableId);
@@ -85,8 +87,22 @@ class TableService
     }
     public function getBoardPillarInfo($table){
         $players = $table->players()->get();
-        $pillarPositions = collect([]);
         
+        $pillarPositions = collect([
+            'green' => collect([null, null, null, null]),
+            'blue' => collect([null, null, null, null]),
+            'yellow' => collect([null, null, null, null]),
+            'purple' => collect([null, null, null, null]),
+            'hand'=> collect([]),
+            'order' => collect([]),
+            'production' => collect([]),
+            'otherProduction' => collect([]),
+            'harvest' => collect([]),
+            'otherHarvest' => collect([]),
+            'earnMoney' => collect([]),
+            'earnWorker' => collect([])
+        ]);
+
         $players->each(function ($player) use ($pillarPositions) {
             $playerPillarPositions = [
                 'black' => $player->blackPillar, 
@@ -95,11 +111,29 @@ class TableService
                 'pillar' => $player->pillar
             ];
         
-            collect($playerPillarPositions)
-            ->each(function ($position, $color) use ($pillarPositions, $player) {
-                $pillarPositions->push(['playerId' => $player->id, 'color' => $color, 'position' => $position]);
+            collect($playerPillarPositions)->each(function ($position, $color) use ($pillarPositions, $player) {
+                if (strpos($position, 'green') === 0 || strpos($position, 'blue') === 0 || strpos($position, 'yellow') === 0 || strpos($position, 'purple') === 0) {
+                    $parts = explode('_', $position); // Assume positions like 'green_1'
+                    $towerColor = $parts[0]; // 'green'
+                    $index = intval($parts[1]) - 1; // '1' to 0 index
+                    
+                    // Update the tower position
+                    $pillarPositions[$towerColor][$index] = [
+                        'playerId' => $player->id,
+                        'playerColor' =>$player->color,
+                        'color' => $color
+                    ];
+                } else {
+                    $pillarPositions->get($position)->push([
+                        'playerId' => $player->id,
+                        'playerColor' =>$player->color,
+                        'color' => $color
+                    ]);
+                }
             });
         });
+
         return $pillarPositions;
     }
+
 }

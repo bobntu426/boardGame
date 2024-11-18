@@ -1,13 +1,26 @@
 <!-- Tower.vue -->
 <template>
   <div>
-    <div v-for="card in cards" :key="card.id" class="card-div">
+    <div 
+      v-for="(card,index) in cards" 
+      :key="card.id" 
+      class="card-div"
+    >
       <Card
         :card="card"
       />
-      
-      <!-- 圆形按钮，使用绝对定位在每张卡片右侧 -->
-      <button class="tower-button button circle" @click="buyCard(card)"></button>
+      <img 
+        v-if = pillarPosition[index] 
+        :src = "getPillarSrc(pillarPosition[index])"
+        class="pillar"
+      >
+      </img>
+      <button
+        v-else
+        class="tower-button button circle" 
+        @click="buyCard(card)" >
+      </button>
+
     </div>
   </div>
 </template>
@@ -24,13 +37,20 @@ export default {
       type: Array,
       required: true
     },
-    color: {
-      type: String
+    pillarPosition:{
+      type: Array,
+      required: true
     }
+  },
+  computed:{
+    
   },
   methods: {
     buyCard(card) {
       this.$emit('buyCard', card);
+    },
+    getPillarSrc(posInfo){     
+      return `/images/pillars/${posInfo.playerColor}-${posInfo.color}.png`
     }
   }
 };
@@ -54,6 +74,11 @@ export default {
   left:104%;
   top: 32%; 
 }
-
+.pillar{
+  position: absolute; /* 绝对定位按钮 */
+  width: 50%; /* 按钮宽度 */
+  left:111%;
+  top: 11%; 
+}
 
 </style>
