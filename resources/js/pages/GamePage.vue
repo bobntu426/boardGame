@@ -17,26 +17,27 @@
         @otherHarvest="handleOtherHarvest"
       />
     </div>
-    <!-- 玩家版面 -->
 
 
-    <div class = "play-area-div">
+    <div class = "player-area-div">
       <div class = "choose-player-board-div">
-        <div v-for="player in players" :key="player.id">
+        
           <button 
-            class = "choose-player-board-button" 
+          v-for="player in players" 
+          :key="player.id"
             @click = "handleChoosePlayerBoard(player)"
+            :class = "`choose-player-board-button`" 
           >
           {{ player.user.name }}
           </button>
-        </div>
+        
       </div> 
+
       <PlayerArea 
         :player="playerBoard"
         @useCard="handleUseCard"
         @choosePillar="handleChoosePillar"
-      />
-      
+      /> 
     </div>
     
   </div>
@@ -235,6 +236,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 
 .central-area-div {
@@ -242,10 +244,12 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-  
+  margin-top: 5%;
+  margin-bottom: 10%;
 }
 
-.play-area-div{
+.player-area-div{
+  position: relative;
   width : 60%;
   display: flex;
   align-items: center;
@@ -253,8 +257,14 @@ export default {
 }
 .choose-player-board-div{
   display: flex;
+  position: absolute;
+  height:6%;
+  width:30%;
+  left: 2%;
+  top: -6%;
 }
 .choose-player-board-button{
-
+  height:100%;
+  width:100%;
 }
 </style>

@@ -21,6 +21,7 @@ class PlayerResource extends JsonResource
         
         $player =[
             'id'=> $this->id,
+            'sideBar'=>$this->sideBar,
             'money'=>$this->money,
             'worker'=>$this->worker,
             'rock'=>$this->rock,
@@ -37,6 +38,7 @@ class PlayerResource extends JsonResource
             'punish2'=>$this->punish2,
             'punish3'=>$this->punish3,
             'turn'=>$this->turn,
+            'color'=>$this->color,
             'user'=>$user,
         ];
         

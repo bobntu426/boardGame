@@ -2,16 +2,75 @@
   <div class="player-board-div">
     <img 
       class = side-bar
-      :src = "`/images/side-bar/1.png`"
-      :style = {}
+      :src = "`/images/side-bar/${player.sideBar}.png`"
     />
+    <div 
+      class="resource-div" 
+      :style="{
+        left:'2.5%',
+        bottom:'11%',
+      }"
+    >
+      <img 
+        :src = "'/images/resource/money.png'"
+        :style = "{
+          height:'65%',
+        }"
+      ><p class = "resource-quantity"> {{ player.money }}</p>
+      </img >
+    </div>
     
+    <div 
+      class="resource-div" 
+      :style="{
+        left:'20%',
+        bottom:'13%',
+      }"
+    >
+      <img 
+        :src = "'/images/resource/wood.png'"
+        :style = "{
+          height:'70%',
+        }"
+      ><p class = "resource-quantity"> {{ player.wood }}</p>
+      </img >
+    </div>
+    <div 
+      class="resource-div" 
+      :style="{
+        left:'36%',
+        bottom:'13%',
+      }"
+    >
+      <img 
+        :src = "'/images/resource/rock.png'"
+        :style = "{
+          height:'70%',
+        }"
+      ><p class = "resource-quantity"> {{ player.rock }}</p>
+      </img >
+    </div>
+    <div 
+      class="resource-div" 
+      :style="{
+        left:'50.5%',
+        bottom:'6%',
+      }"
+    >
+      <img 
+        :src = "'/images/resource/worker.png'"
+        :style = "{
+          height:'100%',
+        }"
+      ><p class = "resource-quantity"> {{ player.worker }}</p>
+      </img >
+    </div>
+
+
       <h2>{{ player.user.name }}</h2>
-      <p>錢幣：{{ player.money }}</p>
-      <p>石頭：{{ player.rock }}</p>
-      <p>木頭：{{ player.wood }}</p>
-      <p>工人：{{ player.worker }}</p>
-      <p>持有的卡牌：</p>
+      
+
+
       <div class="cards-container">
         <Card 
           v-for="card in player.cards" 
@@ -21,42 +80,14 @@
           @useCard="useCard"
         />
       </div>
-      <div class = pillars-container>
-        <button 
-          class = pillar @click="choosePillar('red')"
-          :class="{
-            'choose-pillar': player.chooseColor === 'red',
-            'unchoose-pillar': player.chooseColor !== 'red'
-          }" 
+
+
+      <div class = pillars-div>
+        
+        <button v-for="color in ['black','white','red','pillar']"
+          :class = "'pillar-button'"
+          :style="getButtonStyle(color)" @click="choosePillar(color)"
         >
-          <image src=""></image>
-        </button>
-        <button 
-          class = pillar @click="choosePillar('black')"
-          :class="{
-            'choose-pillar': player.chooseColor === 'black',
-            'unchoose-pillar': player.chooseColor !== 'black'
-          }" 
-        >
-          <image src=""></image>
-        </button>      
-        <button 
-          class = pillar @click="choosePillar('white')"
-          :class="{
-            'choose-pillar': player.chooseColor === 'white',
-            'unchoose-pillar': player.chooseColor !== 'white'
-          }" 
-        >
-          <image src=""></image>
-        </button>      
-        <button 
-          class = pillar @click="choosePillar('pillar')"
-          :class="{
-            'choose-pillar': player.chooseColor === 'pillar',
-            'unchoose-pillar': player.chooseColor !== 'pillar'
-          }" 
-        >
-          <image src=""></image>
         </button>
       </div>
     
@@ -73,6 +104,10 @@ export default {
       
     }
   },
+  computed: {
+    // 动态计算按钮的样式
+    
+  },
   components: {
     Card
   },
@@ -83,6 +118,16 @@ export default {
     },
   },
   methods:{
+    getButtonStyle(color){
+      return {
+        height: '100%', // 设置按钮的高度
+        width:'12.5%',
+        backgroundImage: `url(/images/pillars/${this.player.color}-${color}.png)`,
+        backgroundSize: 'contain', // 确保图片覆盖整个按钮
+        backgroundPosition: 'center',
+        border:this.player.chooseColor == color?'2px solid rgb(210, 1, 1)':'none'
+      }
+    },
     useCard(card) {
       this.$emit('useCard', card);
     },
@@ -100,16 +145,26 @@ export default {
 <style scoped>
 .side-bar{
   position: absolute;
-  height:35.9%;
-  left: -6.9%;
+  height:79.5%;
+  left: -6.8%;
 }
-
+.resource-div{
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center;    /* 垂直居中 */
+  height: 10%;
+  width: 11%;
+  position: absolute
+}
+.resource-quantity{
+  position:absolute;
+}
 .player-board-div {
-  aspect-ratio: 1049 / 1558;
+  aspect-ratio: 1558 / 1049;
   width:90%;
   position: relative;
   left: 3%;
-  background-image: url('/images/playerBoard.png'); /* 设置背景图片 */
+  background-image: url('/images/player-board.png'); /* 设置背景图片 */
   background-size: contain;
   background-repeat: no-repeat; /* 防止背景图片重复 */
   
@@ -120,22 +175,20 @@ export default {
   flex-wrap: wrap;
   gap: 10px;
 }
-.pillars-container {
-  gap: 10px;
-  
+.pillars-div {
+  position: absolute;
+  display:flex;
+  height: 15%;
+  width: 50%;
+  right:2%;
+  top:-18%;
+  gap:2%;
 }
-.pillar {
-  width: 50px; /* 按钮宽度 */
-  height: 50px; /* 按钮高度 */
-  border-radius: 50%; /* 圆形按钮 */
-  cursor: pointer;
-  background-color: red;
-  
+.pillar-button{
+  background-color: rgba(0, 0, 0, 0) 
 }
-.unchoose-pillar {
-  border: none;
-}
-.choose-pillar {
-  border: 2px solid rgb(92, 134, 196);
+.pillar-button:hover {
+  background-color: rgba(182, 190, 28, 0.46);
+  cursor: pointer; /* 显示手形光标 */
 }
 </style>

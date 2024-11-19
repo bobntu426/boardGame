@@ -29,12 +29,14 @@ class TableService
         $table = Table::findOrFail($tableId);
         $players = $table->players;
         $colorArray = collect(['blue','brown','yellow'])->shuffle();
+        $sideBarArray = collect(range(1, 6))->shuffle();
         foreach ($players as $index=>$player) {
             $player->money = 10;
             $player->rock = 10;
             $player->worker = 10;
             $player->wood = 10;
             $player->color = $colorArray[$index];
+            $player->sideBar = $sideBarArray[$index];
             $player->save();
         } 
         $this->drawCardRound1($tableId);
@@ -70,9 +72,9 @@ class TableService
         });
     }
     public function dice($table){
-        $table->redDice = rand(1,7);
-        $table->whiteDice = rand(1,7);
-        $table->blackDice = rand(1,7);
+        $table->redDice = rand(1,6);
+        $table->whiteDice = rand(1,6);
+        $table->blackDice = rand(1,6);
         $table->save();
     }
     public function decideOrder($table){
