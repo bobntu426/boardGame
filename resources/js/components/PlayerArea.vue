@@ -1,90 +1,87 @@
 <template>
   <div class="player-board-div">
-    <img 
-      class = side-bar
-      :src = "`/images/side-bar/${player.sideBar}.png`"
-    />
-    <div 
-      class="resource-div" 
-      :style="{
-        left:'2.5%',
-        bottom:'11%',
-      }"
-    >
-      <img 
-        :src = "'/images/resource/money.png'"
-        :style = "{
-          height:'65%',
-        }"
-      ><p class = "resource-quantity"> {{ player.money }}</p>
+    <img class = side-bar :src = "`/images/side-bar/${player.sideBar}.png`"/>
+
+    <div class="resource-div" :style="{left:'2.5%',bottom:'11%',}">
+      <img :src = "'/images/resource/money.png'":style = "{height:'65%',}">
+        <p class = "resource-quantity"> {{ player.money }}</p>
       </img >
     </div>
     
     <div 
-      class="resource-div" 
-      :style="{
-        left:'20%',
-        bottom:'13%',
-      }"
-    >
-      <img 
-        :src = "'/images/resource/wood.png'"
-        :style = "{
-          height:'70%',
-        }"
-      ><p class = "resource-quantity"> {{ player.wood }}</p>
-      </img >
-    </div>
-    <div 
-      class="resource-div" 
-      :style="{
-        left:'36%',
-        bottom:'13%',
-      }"
-    >
-      <img 
-        :src = "'/images/resource/rock.png'"
-        :style = "{
-          height:'70%',
-        }"
-      ><p class = "resource-quantity"> {{ player.rock }}</p>
-      </img >
-    </div>
-    <div 
-      class="resource-div" 
-      :style="{
-        left:'50.5%',
-        bottom:'6%',
-      }"
-    >
-      <img 
-        :src = "'/images/resource/worker.png'"
-        :style = "{
-          height:'100%',
-        }"
-      ><p class = "resource-quantity"> {{ player.worker }}</p>
+      class="resource-div" :style="{left:'20%',bottom:'13%',}">
+      <img :src = "'/images/resource/wood.png'":style = "{height:'70%',}">
+        <p class = "resource-quantity"> {{ player.wood }}</p>
       </img >
     </div>
 
+    <div class="resource-div" :style="{left:'36%',bottom:'13%',}">
+      <img :src = "'/images/resource/rock.png'":style = "{height:'70%',}">
+        <p class = "resource-quantity"> {{ player.rock }}</p>
+      </img >
+    </div>
 
-      <h2>{{ player.user.name }}</h2>
+    <div class="resource-div" :style="{left:'50.5%',bottom:'6%',}">
+      <img :src = "'/images/resource/worker.png'":style = "{height:'100%'}">
+        <p class = "resource-quantity"> {{ player.worker }}</p>
+      </img >
+    </div>
+
+      <h2 
+        :style = "{
+          position:'absolute',
+          top:'-10%',
+          left:'70%'
+        }"
+      >{{ player.user.name }}</h2>
       
+      <div class="green-yellow-cards-div" :style="{top:'0.6%'}">
+        <div v-for="card in yellowCards"  class="green-yellow-card-div">
+          <Card 
+            :key="card.id" 
+            :card="card" 
+            :canUse="this.$state.user.id == this.player.user.id"
+            @useCard="useCard"
+          />
+        </div>
+      </div>
 
+      <div class="green-yellow-cards-div" :style="{bottom:'21.1%'}">
+        <div v-for="card in greenCards"  class="green-yellow-card-div">
+          <Card 
+            :key="card.id" 
+            :card="card" 
+            :canUse="this.$state.user.id == this.player.user.id"
+            @useCard="useCard"
+          />
+        </div>
+      </div>
 
-      <div class="cards-container">
-        <Card 
-          v-for="card in player.cards" 
-          :key="card.id" 
-          :card="card" 
-          :canUse="this.$state.user.id == this.player.user.id"
-          @useCard="useCard"
-        />
+      <div class="blue-purple-cards-div" :style="{top:'0.4%'}">
+        <div v-for="card in purpleCards"  class="blue-purple-card-div">
+          <Card 
+            :key="card.id" 
+            :card="card" 
+            :canUse="this.$state.user.id == this.player.user.id"
+            @useCard="useCard"
+          />
+          </div>
+      </div>
+
+      <div class="blue-purple-cards-div" :style="{bottom:'23%'}">
+        <div v-for="card in blueCards"  class="blue-purple-card-div">
+          <Card 
+            :key="card.id" 
+            :card="card" 
+            :canUse="this.$state.user.id == this.player.user.id"
+            @useCard="useCard"
+          />
+        </div>
       </div>
 
 
       <div class = pillars-div>
-        
-        <button v-for="color in ['black','white','red','pillar']"
+        <button v-for="color in playerPillars"
           :class = "'pillar-button'"
           :style="getButtonStyle(color)" @click="choosePillar(color)"
         >
@@ -105,7 +102,34 @@ export default {
     }
   },
   computed: {
-    // 动态计算按钮的样式
+    playerPillars(){
+      const pillarArrayPos = [
+        {'pos':this.player.blackPillar,'color':'black'},
+        {'pos':this.player.whitePillar,'color':'white'},
+        {'pos':this.player.redPillar,'color':'red'},
+        {'pos':this.player.pillar,'color':'pillar'}
+      ]
+      let playerPillarArray = [] 
+      pillarArrayPos.forEach(element => {
+        if(element.pos == 'hand'){
+          playerPillarArray.push(element.color)
+        }
+      });
+      return playerPillarArray
+    },
+    greenCards(){
+      return this.player.cards.filter(item => item.color === 'green');
+    },
+    blueCards(){
+      return this.player.cards.filter(item => item.color === 'blue');
+    },
+    yellowCards(){
+      return this.player.cards.filter(item => item.color === 'yellow');
+    },
+    purpleCards(){
+      return this.player.cards.filter(item => item.color === 'purple');
+    },
+
     
   },
   components: {
@@ -161,7 +185,7 @@ export default {
 }
 .player-board-div {
   aspect-ratio: 1558 / 1049;
-  width:90%;
+  width:60%;
   position: relative;
   left: 3%;
   background-image: url('/images/player-board.png'); /* 设置背景图片 */
@@ -170,18 +194,42 @@ export default {
   
 }
 
-.cards-container {
+.green-yellow-cards-div {
+  padding-left: 1.2%;
+  position: absolute;
+  width: 96%;
+  height: 34.8%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: row;
+}
+.green-yellow-card-div {
+  margin-right: 1.55%;
+  position: relative;
+  width: 15.3%;
+  height: 100%;
+}
+.blue-purple-cards-div {
+  left: 100%;
+  position: absolute;
+  height: 33.2%;
+  display: flex;
+  flex-direction: row;
+  
+}
+.blue-purple-card-div {
+  margin-right: 0.3vw;
+  position: relative;
+  aspect-ratio: 239 / 365;
+  height: 100%;
+
 }
 .pillars-div {
   position: absolute;
   display:flex;
   height: 15%;
   width: 50%;
-  right:2%;
-  top:-18%;
+  right:-60%;
+  bottom:0%;
   gap:2%;
 }
 .pillar-button{

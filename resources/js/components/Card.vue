@@ -1,7 +1,7 @@
 <template>
-  <div >
-    <img :src="`/${card.image}.png`" alt="Card Image" class = card-image />
-  </div>
+  
+  <img :src="`/${card.image}.png`" alt="Card Image" class = card-image />
+  
   
     <!-- <div class="card-info">
       <h3>{{ card.name }}</h3>
@@ -38,8 +38,7 @@ export default {
 }
 .card-image{
   width: 100%;  /* 寬度填滿父容器 */
-  
-  border: 2px solid black;
+  border: 0.15vh solid black;
 }
 
 </style>

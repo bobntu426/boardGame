@@ -68,17 +68,17 @@ export default {
 }
 
 .tower-button {
-  position: absolute; /* 绝对定位按钮 */
-  width: 62%; /* 按钮宽度 */
+  position: absolute; 
+  width: 62%; 
   aspect-ratio: 1/1;
   left:104%;
   top: 32%; 
 }
 .pillar{
-  position: absolute; /* 绝对定位按钮 */
-  width: 50%; /* 按钮宽度 */
-  left:111%;
-  top: 11%; 
+  position: absolute;
+  width: 45%; 
+  left:112%;
+  top: 13%; 
 }
 
 </style>

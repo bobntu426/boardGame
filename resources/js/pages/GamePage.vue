@@ -28,7 +28,7 @@
             @click = "handleChoosePlayerBoard(player)"
             :class = "`choose-player-board-button`" 
           >
-          {{ player.user.name }}
+          {{player.user.name}}
           </button>
         
       </div> 
@@ -128,7 +128,6 @@ export default {
     handleBuyCard(card) {
       const data = {
         "playerId": this.player.id,
-        
         "card": card
       }
       console.log('購買卡片:', data);
@@ -250,9 +249,9 @@ export default {
 
 .player-area-div{
   position: relative;
-  width : 60%;
+  width : 90%;
   display: flex;
-  align-items: center;
+  
   flex-direction: column;
 }
 .choose-player-board-div{
