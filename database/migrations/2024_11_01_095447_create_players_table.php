@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('whitePillar')->default('hand');
             $table->string('pillar')->default('hand');
             $table->string('color')->nullable();
-            $table->boolean('punish1')->default(true);
-            $table->boolean('punish2')->default(true);
-            $table->boolean('punish3')->default(true);
+            $table->boolean('punish1')->default(false);
+            $table->boolean('punish2')->default(false);
+            $table->boolean('punish3')->default(false);
             $table->boolean('turn')->default(false);
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');

@@ -1,5 +1,5 @@
 .circle{
-  
+  aspect-ratio: 1/1;
   background-color: #00000000;
   border: none;
   border-radius: 50%; /* 圆形按钮 */

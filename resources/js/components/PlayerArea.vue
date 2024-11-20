@@ -26,14 +26,20 @@
         <p class = "resource-quantity"> {{ player.worker }}</p>
       </img >
     </div>
-
-      <h2 
-        :style = "{
-          position:'absolute',
-          top:'-10%',
-          left:'70%'
-        }"
-      >{{ player.user.name }}</h2>
+    <div  
+    :style="{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: '-10%',
+        left: '70%',
+        height: '10%'
+    }"
+    >
+      <h2>{{ player.user.name }}</h2>
+    </div>
+     
       
       <div class="green-yellow-cards-div" :style="{top:'0.6%'}">
         <div v-for="card in yellowCards"  class="green-yellow-card-div">
@@ -231,6 +237,7 @@ export default {
   right:-60%;
   bottom:0%;
   gap:2%;
+  
 }
 .pillar-button{
   background-color: rgba(0, 0, 0, 0) 

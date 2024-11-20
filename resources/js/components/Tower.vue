@@ -51,7 +51,8 @@ export default {
     },
     getPillarSrc(posInfo){     
       return `/images/pillars/${posInfo.playerColor}-${posInfo.color}.png`
-    }
+    },
+    
   }
 };
 </script>
@@ -76,7 +77,7 @@ export default {
 }
 .pillar{
   position: absolute;
-  width: 45%; 
+  width:2.5vw; 
   left:112%;
   top: 13%; 
 }

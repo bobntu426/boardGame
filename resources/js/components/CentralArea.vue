@@ -1,43 +1,14 @@
 <template>
   <div class = "board">
-    
-      
     <div class="towers-div">
       <Tower
-        :pillarPosition = gameInfo.pillarInfo.green
-        :cards="filteredCards(towers[0].color)"
+        v-for = "(tower,index) in towersInfo"
+        :key = "index"
+        :pillarPosition = tower.pillarPosition
+        :cards="filteredCards(tower.color)"
         @buyCard="buyCard"
         class="tower"
-        :style="{
-          left: '3.5%'
-        }"
-      />
-      <Tower
-        :pillarPosition = gameInfo.pillarInfo.blue
-        :cards="filteredCards(towers[1].color)"
-        @buyCard="buyCard"
-        class="tower"
-        :style="{
-          left: '27.5%'
-        }"
-      />
-      <Tower
-        :pillarPosition = gameInfo.pillarInfo.yellow
-        :cards="filteredCards(towers[2].color)"
-        @buyCard="buyCard"
-        class="tower"
-        :style="{
-          left: '52%'
-        }"
-      />
-      <Tower
-        :pillarPosition = gameInfo.pillarInfo.purple
-        :cards="filteredCards(towers[3].color)"
-        @buyCard="buyCard"
-        class="tower"
-        :style="{
-          left: '76.5%'
-        }"
+        :style=tower.style
       />
     </div>
       
@@ -60,6 +31,16 @@ import Tower from './Tower.vue';
 import OtherMove from './OtherMove.vue';
 
 export default {
+  data(){
+    return{
+      towersInfo: [
+        {color:'green',pillarPosition:this.gameInfo.pillarInfo.green,style:{left:'3.5%'}},
+        {color:'blue',pillarPosition:this.gameInfo.pillarInfo.blue,style:{left:'27.5%'}},
+        {color:'yellow',pillarPosition:this.gameInfo.pillarInfo.yellow,style:{left:'52%'}},
+        {color:'purple',pillarPosition:this.gameInfo.pillarInfo.purple,style:{left:'76.5%'}},
+      ],
+    }
+  },
   components: {
     Tower,
     OtherMove
@@ -74,16 +55,7 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      towers: [
-        {color:'green'},
-        {color:'blue'},
-        {color:'yellow'},
-        {color:'purple'},
-      ]
-    };
-  },
+
   methods: {
     // 购买卡片的处理函数
     buyCard(card) {
