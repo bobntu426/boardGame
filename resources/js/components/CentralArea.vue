@@ -13,7 +13,7 @@
     </div>
       
     <OtherMove 
-      :gameInfo = "this.gameInfo"
+      :gameInfo = "gameInfo"
       @decideOrder="decideOrder"
       @production="production"
       @otherProduction="otherProduction"
@@ -22,14 +22,18 @@
       @harvest="harvest"
       @otherHarvest="otherHarvest"
     />
-      
   </div>
+  
+  <PlayerDataArea 
+    :players="players"
+  /> 
+  
 </template>
 
 <script>
-import Tower from './Tower.vue';
-import OtherMove from './OtherMove.vue';
-
+import Tower from './Tower.vue'
+import OtherMove from './OtherMove.vue'
+import PlayerDataArea from './PlayerDataArea.vue'
 export default {
   data(){
     return{
@@ -43,7 +47,8 @@ export default {
   },
   components: {
     Tower,
-    OtherMove
+    OtherMove,
+    PlayerDataArea
   },
   props: {
     cards: {
@@ -53,8 +58,13 @@ export default {
     gameInfo:{
       type: Object,
       required: true
+    },
+    players:{
+      type:Array,
+      required:true
     }
   },
+  
 
   methods: {
     // 购买卡片的处理函数
@@ -114,13 +124,12 @@ export default {
   position: relative;
   width: 100%;
   aspect-ratio: 1108 / 1477;
-  
+  margin-right: 10%;
   background-image: url('/images/board.jpg'); /* 设置背景图片 */
   background-size: contain; /* 确保背景图片完全适应容器 */
   background-position: center; /* 背景图片居中对齐 */
   background-repeat: no-repeat; /* 防止背景图片重复 */
-  
-  /* 可选：设置背景颜色 */
 }
+
 </style>
 

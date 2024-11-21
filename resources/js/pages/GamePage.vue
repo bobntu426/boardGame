@@ -5,6 +5,7 @@
     <div class="central-area-div">
       <!-- 中央版面 -->
       <CentralArea 
+        :players="players"
         :cards="cards" 
         :gameInfo="gameInfo"
         @buyCard="handleBuyCard"
@@ -17,7 +18,9 @@
         @otherHarvest="handleOtherHarvest"
       />
     </div>
-
+    
+    
+  
 
     <div class = "player-area-div">
       <div class = "choose-player-board-div">
@@ -40,6 +43,7 @@
       /> 
     </div>
     
+    
   </div>
 </template>
 
@@ -51,7 +55,8 @@ export default {
   
   components: {
     CentralArea,
-    PlayerArea
+    PlayerArea,
+
   },
   
   computed:{
@@ -239,10 +244,10 @@ export default {
 }
 
 .central-area-div {
-  width : 50%;
-  align-items: center;
+  width : 70%;
+ 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: 5%;
   margin-bottom: 10%;
 }
@@ -266,4 +271,5 @@ export default {
   height:100%;
   width:100%;
 }
+
 </style>

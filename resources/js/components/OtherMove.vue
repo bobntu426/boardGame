@@ -1,24 +1,21 @@
 <!-- OtherMove.vue -->
   <template>
-    <div class="other-move-div">
-      
-      <!-- 抢先手顺序的按钮 -->
-      <button class="button order-button" @click="decideOrder"></button>
+    <div class="other-move-div"> 
 
       <div v-for="buttonInfo in buttonInfoArray"
         class="button-div"
         :style="buttonInfo.divStyle"
       >
-      <div class="pillar-image-div"
-        v-if = "gameInfo.pillarInfo[buttonInfo.name].length > 0"
-        v-for="(pillarInfo) in gameInfo.pillarInfo[buttonInfo.name]"
-      >
-        <img 
-          :src = "getPillarSrc(pillarInfo)"
-          class="pillar"
-        ></img>
-      </div>
-        
+        <div class="pillar-image-div"
+          v-if = "gameInfo.pillarInfo[buttonInfo.name].length > 0"
+          v-for="(pillarInfo) in gameInfo.pillarInfo[buttonInfo.name]"
+        >
+          <img 
+            :src = "getPillarSrc(pillarInfo)"
+            class="pillar"
+          ></img>
+        </div>
+          
 
         <button v-else
           @click="buttonInfo.click"
@@ -44,6 +41,10 @@
     data(){
       return{
         buttonInfoArray:[
+          {
+            divStyle:{left:'46.8%',top: '-1%',width: '25%',height:'17%'},
+            buttonClass: 'order-button',click:this.decideOrder,name:'order'
+          },
           {
             divStyle:{left:'6.5%',bottom: '29.5%',width: '8%',aspectRatio:'1/1'},
             buttonClass: 'circle-button',click:this.production,name:'production'
@@ -76,10 +77,6 @@
           {style: {left: '75%'},src:`/images/dice/red/${this.gameInfo.redDice}.png`}
         ]
       }
-    },
-    mounted(){
-      console.log(this.gameInfo.pillarInfo['harvest'][0]);
-
     },
     props:{
       gameInfo: {
@@ -118,11 +115,8 @@
   
   <style scoped>
   .order-button{
-    position: absolute; 
-    left: 46.8%;
-    top:-1%;
-    width: 25%; /* 按钮宽度 */
-    height: 17%;
+    width: 100%; /* 按钮宽度 */
+    height: 100%;
     border-radius: 25%;
   }
   .other-move-div {
@@ -131,6 +125,7 @@
     height: 44%;
     background-color: rgba(255, 228, 196, 0);
     bottom:0%;
+    z-index: 10
   }
  
   .circle-button{
