@@ -77,9 +77,9 @@ export default {
 }
 .pillar{
   position: absolute;
-  width:2.5vw; 
-  left:112%;
-  top: 13%; 
+  width:2vw; 
+  left:117%;
+  top: 22%; 
 }
 
 </style>

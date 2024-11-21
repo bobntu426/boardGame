@@ -9,12 +9,16 @@
         class="button-div"
         :style="buttonInfo.divStyle"
       >
+      <div class="pillar-image-div"
+        v-if = "gameInfo.pillarInfo[buttonInfo.name].length > 0"
+        v-for="(pillarInfo) in gameInfo.pillarInfo[buttonInfo.name]"
+      >
         <img 
-          v-if = "gameInfo.pillarInfo[buttonInfo.name].length > 0"
-          v-for="(pillarInfo) in gameInfo.pillarInfo[buttonInfo.name]"
           :src = "getPillarSrc(pillarInfo)"
           class="pillar"
         ></img>
+      </div>
+        
 
         <button v-else
           @click="buttonInfo.click"
@@ -164,9 +168,17 @@
     aspect-ratio: 1/1;
   }
   .pillar{
-    position: absolute;
-    width: 2.5vw; 
-    bottom:25%;
+    position:absolute;
+    width: 2vw; 
+    aspect-ratio: 273/450;
+    bottom:28%;
+  }
+  .pillar-image-div{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width:20% ;
   }
   </style>
   
