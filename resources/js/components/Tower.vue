@@ -18,7 +18,7 @@
       <button
         v-else
         class="tower-button button circle" 
-        @click="buyCard(card)" >
+        @click="buyCard(card,index)" >
       </button>
 
     </div>
@@ -46,8 +46,8 @@ export default {
     
   },
   methods: {
-    buyCard(card) {
-      this.$emit('buyCard', card);
+    buyCard(card,index) {
+      this.$emit('buyCard', card,index);
     },
     getPillarSrc(posInfo){     
       return `/images/pillars/${posInfo.playerColor}-${posInfo.color}.png`
@@ -77,9 +77,9 @@ export default {
 }
 .pillar{
   position: absolute;
-  width:2vw; 
+  width:1.7vw; 
   left:117%;
-  top: 22%; 
+  top: 25%; 
 }
 
 </style>

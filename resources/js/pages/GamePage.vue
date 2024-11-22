@@ -2,7 +2,11 @@
   <div v-if="loading">加載中...</div>
   <div v-else class="game-container">
     
-    <div class="central-area-div">
+      <GameMessage 
+        :actionPlayer = "actionPlayer"
+        :eventObject = "eventObject"
+        @chooseReel="handleChooseReel"
+       />
       <!-- 中央版面 -->
       <CentralArea 
         :players="players"
@@ -14,13 +18,12 @@
         @otherProduction="handleOtherProduction"
         @earnMoney="handleEarnMoney"
         @earnWorker ="handleEarnWorker"
+        @earnMoneyMilitary="handleEarnMoneyMilitary"
+        @earnTwoReel ="handleEarnTwoReel"
         @harvest="handleHarvest"
         @otherHarvest="handleOtherHarvest"
       />
-    </div>
     
-    
-  
 
     <div class = "player-area-div">
       <div class = "choose-player-board-div">
@@ -38,7 +41,6 @@
 
       <PlayerArea 
         :player="playerBoard"
-        @useCard="handleUseCard"
         @choosePillar="handleChoosePillar"
       /> 
     </div>
@@ -50,13 +52,14 @@
 <script>
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,useCard,getGameInfo } from '../api'; 
+import GameMessage from '../components/GameMessage.vue';
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo } from '../api'; 
 export default {
   
   components: {
     CentralArea,
     PlayerArea,
-
+    GameMessage
   },
   
   computed:{
@@ -69,9 +72,11 @@ export default {
       cards: [],
       gameInfo:{},
       player:{},
+      actionPlayer:null,
       userId: null ,
       playerBoard:{},
-      loading:true
+      loading:true,
+      eventObject:{}
     };
   },
   
@@ -79,19 +84,21 @@ export default {
     try {
     // 获取用户ID
       this.userId = await this.fetchUserId();
-      
-      // 获取玩家信息
+
+      //獲取玩家
       const playerResponse = await getTablePlayers(this.$route.params.table_id);
       this.players = this.sortPlayers(playerResponse);
       this.players.forEach(player => {
         player.chooseColor = null
+        if(player.needAction != 'wait'){
+          this.actionPlayer = player
+        }
       });
       
       if(this.userId){
         this.player = this.players.find(player => player.user.id === this.userId)
         this.playerBoard = this.player
       }
-      
       else
         this.playerBoard = this.players[0]
 
@@ -108,9 +115,10 @@ export default {
           console.error(`獲取玩家 ${player.id} 卡片資料失敗:`, error);
         }
       });
+
       await Promise.all(playerCardPromises);
 
-      // 获取游戏信息
+      //獲取遊戲資訊
       const gameInfoResponse = await getGameInfo(this.$route.params.table_id);
       this.gameInfo = gameInfoResponse;
       console.log(this.gameInfo)
@@ -124,77 +132,98 @@ export default {
   },
   methods: {
     handleDecideOrder() {
-      const data = {
+      this.eventObject = {
         "playerId": this.player.id,
+        "chooseColor":this.player.chooseColor,
+        "action":'order'
       }
-      console.log('搶先手', data);
+      console.log('搶先手',this.eventObject);
       
     },
-    handleBuyCard(card) {
-      const data = {
+    handleBuyCard(card,index) {
+      this.eventObject = {
         "playerId": this.player.id,
-        "card": card
+        "card": card,
+        "index":index,
+        "chooseColor":this.player.chooseColor,
+        "action":'buyCard'
       }
-      console.log('購買卡片:', data);
+      console.log('購買卡片:',this.eventObject);
       //buyCard(data);
     },
     handleProduction() {
-      const data = {
-        
+      this.eventObject = {
         "playerId": this.player.id,
+        "chooseColor":this.player.chooseColor ,
+        "action":'production'
       }
-      console.log('執行生產', data);
+      console.log('執行生產',this.eventObject);
       //buyCard(data);
     },
     handleOtherProduction() {
-      const data = {
-        
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
         "playerId": this.player.id,
+        "action":'otherProduction'
       }
-      console.log('執行其他生產', data);
+      console.log('執行其他生產',this.eventObject);
       //buyCard(data);
     },
     handleHarvest() {
-      const data = {
-        
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
         "playerId": this.player.id,
+        "action":'收成'
       }
-      console.log('執行收成', data);
+      console.log('harvest',this.eventObject);
       //buyCard(data);
     },
     handleOtherHarvest() {
-      const data = {
-        
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
         "playerId": this.player.id,
+        "action":'otherHarvest'
       }
-      console.log('執行其他收成', data);
+      console.log('執行其他收成',this.eventObject);
       //buyCard(data);
     },
     handleEarnMoney() {
-      const data = {
-        
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
         "playerId": this.player.id,
+        "action":'earnMoney'
       }
-      console.log('獲取金幣', data);
+      console.log('獲取金幣',this.eventObject);
       //buyCard(data);
     },
     handleEarnWorker() {
-      const data = {
-        
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
         "playerId": this.player.id,
+        "action":'earnWorker'
       }
-      console.log('獲取工人', data);
+      console.log('獲取工人',this.eventObject);
       //buyCard(data);
     },
-    handleUseCard(card) {
-      const data = {
-        
+    handleEarnMoneyMilitary() {
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
         "playerId": this.player.id,
-        "card": card
+        "action":'earnMoneyMilitary'
       }
-      console.log('使用卡片:', card);
-      useCard(card);
+      console.log('獲取錢+軍事值',this.eventObject);
+      //buyCard(data);
     },
+    handleEarnTwoReel() {
+      this.eventObject = {
+        "chooseColor":this.player.chooseColor,
+        "playerId": this.player.id,
+        "action":'earnTwoReel'
+      }
+      console.log('獲取2卷軸',this.eventObject);
+      //buyCard(data);
+    },
+
     handleChoosePillar(color,player) {
       console.log("choose",this.player)
       if(this.player==player){
@@ -209,6 +238,14 @@ export default {
     handleChoosePlayerBoard(player) {
       this.playerBoard = player
       console.log("chooseBoard",this.playerBoard)
+    },
+    handleChooseReel(reels) {
+      this.eventObject = {
+        "reel":reels,
+        "playerId": this.player.id,
+        "action":'chooseReel'
+      }
+      console.log("chooseReel")
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
@@ -234,29 +271,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .game-container {
-  width : 100vw;
+  width : 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
-.central-area-div {
-  width : 70%;
- 
-  display: flex;
-  flex-direction: row;
-  margin-top: 5%;
-  margin-bottom: 10%;
-}
+
 
 .player-area-div{
   position: relative;
   width : 90%;
   display: flex;
-  
   flex-direction: column;
 }
 .choose-player-board-div{

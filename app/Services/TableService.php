@@ -29,7 +29,7 @@ class TableService
         $table = Table::findOrFail($tableId);
         $players = $table->players;
         $colorArray = collect(['blue','brown','yellow'])->shuffle();
-        $sideBarArray = collect(range(1, 6))->shuffle();
+        $sideBarArray = collect(range(1, 5))->shuffle();
         foreach ($players as $index=>$player) {
             $player->money = 10;
             $player->rock = 10;
@@ -82,7 +82,7 @@ class TableService
         foreach ($players as $index => $player) {
             $player->order = $index + 1;
             if($player->order == 1){
-                $player->turn = true;
+                $player->needAction = 'putPillar';
             }
             $player->save();
         }
@@ -102,7 +102,9 @@ class TableService
             'harvest' => collect([]),
             'otherHarvest' => collect([]),
             'earnMoney' => collect([]),
-            'earnWorker' => collect([])
+            'earnWorker' => collect([]),
+            'earnMoneyMilitary' => collect([]),
+            'earnTwoReel' => collect([]),
         ]);
 
         $players->each(function ($player) use ($pillarPositions) {

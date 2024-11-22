@@ -69,6 +69,14 @@
             divStyle:{right:'30%',bottom: '33%',width:'8%',aspectRatio:'1/1'},
             buttonClass:'circle-button', click:this.earnWorker,name:'earnWorker'
           },
+          {
+            divStyle:{right:'21.8%',bottom: '29%',width:'8%',aspectRatio:'1/1'},
+            buttonClass: 'circle-button', click:this.earnMoneyMilitary,name:'earnMoneyMilitary'
+          },
+          {
+            divStyle:{right:'14.8%',bottom: '19%',width:'8%',aspectRatio:'1/1'},
+            buttonClass:'circle-button', click:this.earnTwoReel,name:'earnTwoReel'
+          },
           
         ],
         diceInfoArray:[
@@ -84,6 +92,7 @@
         required: true
       }
     },
+    
     methods: {
       getPillarSrc(posInfo){     
         return `/images/pillars/${posInfo.playerColor}-${posInfo.color}.png`
@@ -109,6 +118,12 @@
       otherHarvest() {
         this.$emit('otherHarvest');
       },
+      earnMoneyMilitary() {
+        this.$emit('earnMoneyMilitary');
+      },
+      earnTwoReel() {
+        this.$emit('earnTwoReel');
+      }
     }
   };
   </script>
@@ -121,30 +136,32 @@
   }
   .other-move-div {
     position: absolute; 
-    width: 100%; /* 按钮宽度 */
+    width: 100%; 
     height: 44%;
     background-color: rgba(255, 228, 196, 0);
     bottom:0%;
-    z-index: 10
+    z-index: 10;
+    
   }
  
   .circle-button{
     width: 100%; 
     height: 100%;
     border-radius: 50%;
+    
   }
 
   .oval-button{
     width: 100%; 
     height: 100%;
     border-radius: 30%;
+    
   }
 
   .button-div{
     position: absolute;
     display: flex;
-    justify-content: center;  /* 水平置中 */
-    
+    justify-content: center; 
   }
   
   .dice-div {
@@ -164,7 +181,7 @@
   }
   .pillar{
     position:absolute;
-    width: 2vw; 
+    width: 1.7vw; 
     aspect-ratio: 273/450;
     bottom:28%;
   }

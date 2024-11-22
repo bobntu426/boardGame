@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('belief')->default(1);
             $table->integer('order')->nullable();
             $table->integer('sideBar')->nullable();
+            $table->string('needAction')->default('wait')->comment('玩家需要做甚麼行動，顯示訊息用');
             $table->string('redPillar')->default(value: 'hand');
             $table->string('blackPillar')->default('hand');
             $table->string('whitePillar')->default('hand');
@@ -30,7 +31,6 @@ return new class extends Migration
             $table->boolean('punish1')->default(false);
             $table->boolean('punish2')->default(false);
             $table->boolean('punish3')->default(false);
-            $table->boolean('turn')->default(false);
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');
         });

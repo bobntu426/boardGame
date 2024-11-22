@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const API_URL = 'http://practice.test';
-//axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 export const getUsers = async () => {
   try {

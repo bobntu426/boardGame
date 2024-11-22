@@ -47,7 +47,6 @@
             :key="card.id" 
             :card="card" 
             :canUse="this.$state.user.id == this.player.user.id"
-            @useCard="useCard"
           />
         </div>
       </div>
@@ -58,7 +57,6 @@
             :key="card.id" 
             :card="card" 
             :canUse="this.$state.user.id == this.player.user.id"
-            @useCard="useCard"
           />
         </div>
       </div>
@@ -69,7 +67,6 @@
             :key="card.id" 
             :card="card" 
             :canUse="this.$state.user.id == this.player.user.id"
-            @useCard="useCard"
           />
           </div>
       </div>
@@ -80,7 +77,6 @@
             :key="card.id" 
             :card="card" 
             :canUse="this.$state.user.id == this.player.user.id"
-            @useCard="useCard"
           />
         </div>
       </div>
@@ -160,9 +156,7 @@ export default {
         border:this.player.chooseColor == color?'2px solid rgb(210, 1, 1)':'none'
       }
     },
-    useCard(card) {
-      this.$emit('useCard', card);
-    },
+ 
     choosePillar(color) {
       this.$emit('choosePillar',color,this.player); // 通过事件将信息传递给父组件
     },
@@ -236,8 +230,8 @@ export default {
   display:flex;
   height: 15%;
   width: 50%;
-  right:-60%;
-  bottom:0%;
+  right:-35%;
+  bottom:105%;
   gap:2%;
   
 }
