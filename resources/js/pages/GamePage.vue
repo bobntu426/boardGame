@@ -245,7 +245,7 @@ export default {
         "playerId": this.player.id,
         "action":'chooseReel'
       }
-      console.log("chooseReel")
+      console.log(this.eventObject)
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Card;
 use App\Models\Player;
 use App\Models\Table;
+use App\Models\TempStorage;
 use Illuminate\Support\Facades\DB;
 
 class TableService
@@ -30,18 +31,25 @@ class TableService
         $players = $table->players;
         $colorArray = collect(['blue','brown','yellow'])->shuffle();
         $sideBarArray = collect(range(1, 5))->shuffle();
+        $this->decideOrder($players);
         foreach ($players as $index=>$player) {
             $player->money = 10;
             $player->rock = 10;
             $player->worker = 10;
             $player->wood = 10;
+            
+            TempStorage::create(
+                array_merge(
+                    $player->only(['pillar', 'money', 'wood', 'rock', 'score', 'military', 'belief', 'order']),
+                    ['player_id' => $player->id]
+                )
+            );
             $player->color = $colorArray[$index];
             $player->sideBar = $sideBarArray[$index];
             $player->save();
         } 
         $this->drawCardRound1($tableId);
         $this->dice($table);
-        $this->decideOrder($table);
     }
     public function drawCardRound1(string $tableId){
         $cards = Card::where('table_id', $tableId)->get();
@@ -77,14 +85,13 @@ class TableService
         $table->blackDice = rand(1,6);
         $table->save();
     }
-    public function decideOrder($table){
-        $players = $table->players()->get()->shuffle();
+    public function decideOrder($players){
+        $players = $players->shuffle();
         foreach ($players as $index => $player) {
             $player->order = $index + 1;
             if($player->order == 1){
                 $player->needAction = 'putPillar';
             }
-            $player->save();
         }
     }
     public function getBoardPillarInfo($table){
@@ -118,7 +125,7 @@ class TableService
             collect($playerPillarPositions)->each(function ($position, $color) use ($pillarPositions, $player) {
                 if (strpos($position, 'green') === 0 || strpos($position, 'blue') === 0 || strpos($position, 'yellow') === 0 || strpos($position, 'purple') === 0) {
                     $parts = explode('_', $position); // Assume positions like 'green_1'
-                    $towerColor = $parts[0]; // 'green'
+                    $towerColor = $parts[0]; 
                     $index = intval($parts[1]) - 1; // '1' to 0 index
                     
                     // Update the tower position
@@ -139,5 +146,8 @@ class TableService
 
         return $pillarPositions;
     }
-
+    public function getPlayerOrderInfo($table){
+        $players = $table->players()->orderBy('order')->get();
+        return $players;
+    }
 }

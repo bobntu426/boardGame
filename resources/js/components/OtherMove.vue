@@ -32,6 +32,14 @@
           :style="diceInfo.style"
         />
       </div>
+      <div class="order-div">
+        <img
+          v-for = "(player,index) in this.gameInfo.orderInfo"
+          class="order-circle" 
+          :src = "`/images/circles/${player.color}.png`"
+          :style="orderInfoArray[index].style"
+        />
+      </div>
 
     </div>
   </template>
@@ -83,6 +91,12 @@
           {style: {left: '1.5%'},src:`/images/dice/black/${this.gameInfo.blackDice}.png`},
           {style: {left: '38.2%'},src:`/images/dice/white/${this.gameInfo.whiteDice}.png`},
           {style: {left: '75%'},src:`/images/dice/red/${this.gameInfo.redDice}.png`}
+        ],
+        orderInfoArray:[
+          {style: {top: '0%'}},
+          {style: {top: '24%'}},
+          {style: {top: '48%'}},
+          {style: {top: '72%'}}
         ]
       }
     },
@@ -191,6 +205,17 @@
     justify-content: center;
     height: 100%;
     width:20% ;
+  }
+  .order-div{
+    position:absolute;
+    right: 18.5%;
+    width: 4%;
+    top: -5.3%;
+    height:36%
+  }
+  .order-circle{
+    position: absolute;
+    width: 100%;
   }
   </style>
   

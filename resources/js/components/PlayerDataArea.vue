@@ -43,9 +43,7 @@ export default {
         },
     },
     computed:{
-        playerFinalScoreStyle(){
-            return this.playerScoreStyle
-        }
+ 
     },
     methods: {
         
