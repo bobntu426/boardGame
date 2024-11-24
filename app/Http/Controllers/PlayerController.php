@@ -95,4 +95,8 @@ class PlayerController
         
         return PlayerResource::collection($players);
     }
+    public function decideOrder(Request $request){
+        $player = $request->player;
+        dd($request);
+    }
 }

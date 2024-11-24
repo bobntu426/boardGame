@@ -2,7 +2,7 @@
     <div class="message-div">
         <h2 v-if="actionPlayer" :style="{fontSize:'1.7vw'}">{{ actionPlayer.user.name }}</h2>
 
-        <h2 v-if="actionPlayer.needAction == 'putPillar'">必須放置家族柱</h2>
+        <h2 :style="{fontSize:'1.7vw'}" v-if="actionPlayer.needAction == 'putPillar'">必須放置家族成員</h2>
 
         <div v-else-if="actionPlayer.needAction.includes('chooseReel')" class = "choose-reel-div">
             <h2 :style="{fontSize:'1.7vw'}">需要選擇{{actionPlayer.needAction.slice(-1) }}個卷軸資源</h2>
@@ -16,17 +16,17 @@
                     @click="selectReel(reel)"> 
                 </button>
             </div>
-        <div class="submit-reselect-div">
-            <button 
-                @click="submitSelection" 
-                :disabled="chooseReelArray.length != actionPlayer.needAction.slice(-1)"
-            >確定
-            </button>
-            <button 
-                @click="reselect" 
-            >清除
-            </button>
-        </div>
+            <div class="submit-reselect-div">
+                <button 
+                    @click="submitSelection" 
+                    :disabled="chooseReelArray.length != actionPlayer.needAction.slice(-1)"
+                >確定
+                </button>
+                <button 
+                    @click="reselect" 
+                >清除
+                </button>
+            </div>
            
         </div>
         

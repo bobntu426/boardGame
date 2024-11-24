@@ -152,13 +152,21 @@ export const getTablePlayers = async (tableId) => {
     throw error; 
   }
 }
-  export const getGameInfo = async (tableId) => {
-    try {
-      const response = await axios.get(`${API_URL}/games/${tableId}`);
-      return response.data; 
-    } catch (error) {
-      console.error('get gameInfo fail', error);
-      throw error; 
-    }
-
+export const getGameInfo = async (tableId) => {
+  try {
+    const response = await axios.get(`${API_URL}/games/${tableId}`);
+    return response.data; 
+  } catch (error) {
+    console.error('get gameInfo fail', error);
+    throw error; 
+  }   
+}
+export const decideOrder = async (eventObject) => {
+  try {
+    const response = await axios.put(`${API_URL}/games/decide-order`,eventObject);
+    return response.data; 
+  } catch (error) {
+    console.error('handle decideOrder fail', error);
+    throw error; 
+  }   
 }

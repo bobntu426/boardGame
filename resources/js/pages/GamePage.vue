@@ -53,7 +53,7 @@
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
 import GameMessage from '../components/GameMessage.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo } from '../api'; 
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo,decideOrder } from '../api'; 
 export default {
   
   components: {
@@ -80,56 +80,7 @@ export default {
     };
   },
   
-  async mounted() {
-    try {
-    // 获取用户ID
-      this.userId = await this.fetchUserId();
-
-      //獲取玩家
-      const playerResponse = await getTablePlayers(this.$route.params.table_id);
-      this.players = this.sortPlayers(playerResponse);
-      this.players.forEach(player => {
-        player.chooseColor = null
-        if(player.needAction != 'wait'){
-          this.actionPlayer = player
-        }
-      });
-      
-      if(this.userId){
-        this.player = this.players.find(player => player.user.id === this.userId)
-        this.playerBoard = this.player
-      }
-      else
-        this.playerBoard = this.players[0]
-
-      // 获取卡片信息
-      const cardsResponse = await getTableCards(this.$route.params.table_id);
-      this.cards = cardsResponse;
-      
-      // 获取所有玩家的卡片信息
-      const playerCardPromises = this.players.map(async player => {
-        try {
-          const playerCards = await getPlayerCards(player.id);
-          player.cards = playerCards;
-        } catch (error) {
-          console.error(`獲取玩家 ${player.id} 卡片資料失敗:`, error);
-        }
-      });
-
-      await Promise.all(playerCardPromises);
-
-      //獲取遊戲資訊
-      const gameInfoResponse = await getGameInfo(this.$route.params.table_id);
-      this.gameInfo = gameInfoResponse;
-      console.log(this.gameInfo)
-      
-    } catch (error) {
-      console.error("初始化資料失敗:", error);
-    }finally{
-      this.loading = false
-    }
-   
-  },
+  
   methods: {
     handleDecideOrder() {
       this.eventObject = {
@@ -137,6 +88,8 @@ export default {
         "chooseColor":this.player.chooseColor,
         "action":'order'
       }
+      this.actionPlayer.needAction = "chooseReel1"
+      decideOrder(this.eventObject);
       console.log('搶先手',this.eventObject);
       
     },
@@ -240,11 +193,8 @@ export default {
       console.log("chooseBoard",this.playerBoard)
     },
     handleChooseReel(reels) {
-      this.eventObject = {
-        "reel":reels,
-        "playerId": this.player.id,
-        "action":'chooseReel'
-      }
+      //return (reels)
+      this.eventObject.reels = reels
       console.log(this.eventObject)
     },
     sortPlayers(players) {
@@ -267,7 +217,57 @@ export default {
         console.error('取得使用者資料出錯:', error);
       }
     },
-  }
+  },
+  async mounted() {
+    try {
+    // 获取用户ID
+      this.userId = await this.fetchUserId();
+
+      //獲取玩家
+      const playerResponse = await getTablePlayers(this.$route.params.table_id);
+      this.players = this.sortPlayers(playerResponse);
+      this.players.forEach(player => {
+        player.chooseColor = null
+        if(player.needAction != 'wait'){
+          this.actionPlayer = player
+        }
+      });
+      
+      if(this.userId){
+        this.player = this.players.find(player => player.user.id === this.userId)
+        this.playerBoard = this.player
+      }
+      else
+        this.playerBoard = this.players[0]
+
+      // 获取卡片信息
+      const cardsResponse = await getTableCards(this.$route.params.table_id);
+      this.cards = cardsResponse;
+      
+      // 获取所有玩家的卡片信息
+      const playerCardPromises = this.players.map(async player => {
+        try {
+          const playerCards = await getPlayerCards(player.id);
+          player.cards = playerCards;
+        } catch (error) {
+          console.error(`獲取玩家 ${player.id} 卡片資料失敗:`, error);
+        }
+      });
+
+      await Promise.all(playerCardPromises);
+
+      //獲取遊戲資訊
+      const gameInfoResponse = await getGameInfo(this.$route.params.table_id);
+      this.gameInfo = gameInfoResponse;
+      console.log(this.gameInfo)
+      
+    } catch (error) {
+      console.error("初始化資料失敗:", error);
+    }finally{
+      this.loading = false
+    }
+   
+  },
 };
 </script>
 
