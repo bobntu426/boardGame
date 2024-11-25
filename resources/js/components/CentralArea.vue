@@ -15,6 +15,7 @@
         
       <OtherMove 
         :gameInfo = "gameInfo"
+        :player = "player"
         @decideOrder="decideOrder"
         @production="production"
         @otherProduction="otherProduction"
@@ -65,6 +66,10 @@ export default {
     players:{
       type:Array,
       required:true
+    },
+    player:{
+      type: Object,
+      required: true
     }
   },
   

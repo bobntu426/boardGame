@@ -31,7 +31,7 @@ class TableService
         $players = $table->players;
         $colorArray = collect(['blue','brown','yellow'])->shuffle();
         $sideBarArray = collect(range(1, 5))->shuffle();
-        $this->decideOrder($players);
+        $this->decideStartOrder($players);
         foreach ($players as $index=>$player) {
             $player->money = 10;
             $player->rock = 10;
@@ -40,7 +40,7 @@ class TableService
             
             TempStorage::create(
                 array_merge(
-                    $player->only(['pillar', 'money', 'wood', 'rock', 'score', 'military', 'belief', 'order']),
+                    $player->only(['money', 'wood', 'rock', 'score', 'military', 'belief']),
                     ['player_id' => $player->id]
                 )
             );
@@ -85,7 +85,7 @@ class TableService
         $table->blackDice = rand(1,6);
         $table->save();
     }
-    public function decideOrder($players){
+    public function decideStartOrder($players){
         $players = $players->shuffle();
         foreach ($players as $index => $player) {
             $player->order = $index + 1;
@@ -119,7 +119,7 @@ class TableService
                 'black' => $player->blackPillar, 
                 'white' => $player->whitePillar,
                 'red' => $player->redPillar,
-                'pillar' => $player->pillar
+                'normal' => $player->normalPillar
             ];
         
             collect($playerPillarPositions)->each(function ($position, $color) use ($pillarPositions, $player) {
@@ -149,5 +149,8 @@ class TableService
     public function getPlayerOrderInfo($table){
         $players = $table->players()->orderBy('order')->get();
         return $players;
+    }
+    public function nextRound(){
+        dd('nextRound');
     }
 }

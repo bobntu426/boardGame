@@ -111,7 +111,7 @@ export default {
         {'pos':this.player.blackPillar,'color':'black'},
         {'pos':this.player.whitePillar,'color':'white'},
         {'pos':this.player.redPillar,'color':'red'},
-        {'pos':this.player.pillar,'color':'pillar'}
+        {'pos':this.player.normalPillar,'color':'normal'}
       ]
       let playerPillarArray = [] 
       pillarArrayPos.forEach(element => {

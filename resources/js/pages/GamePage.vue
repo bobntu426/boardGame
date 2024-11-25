@@ -9,7 +9,7 @@
         :back = "back"
         @chooseReel="handleChooseReel"
        />
-      <Message
+      <ErrorMessage
         :messageArray = "messageArray"
        />
       <!-- 中央版面 -->
@@ -17,6 +17,7 @@
         :players="players"
         :cards="cards" 
         :gameInfo="gameInfo"
+        :player="player"
         @buyCard="handleBuyCard"
         @decideOrder="handleDecideOrder"
         @production="handleProduction"
@@ -58,8 +59,8 @@
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
 import GameProcess from '../components/GameProcess.vue';
+import ErrorMessage from '../components/ErrorMessage.vue';
 import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo} from '../api'; 
-import Message from '../components/Message.vue';
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
 
@@ -69,7 +70,7 @@ export default {
     CentralArea,
     PlayerArea,
     GameProcess,
-    Message
+    ErrorMessage
   },
   
   computed:{

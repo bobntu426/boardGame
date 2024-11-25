@@ -95,6 +95,9 @@ class PlayerController
         $player = Player::find($playerId);
         $pillarColor = $request->chooseColor;
         $player["$pillarColor"."Pillar"] = 'order';
-        dd($player);
+        $this->playerService->setOrderAhead($player);
+        $this->playerService->earnResourceFromReel($player,$request->reels);
+        $this->playerService->decideNextAction($player);
+        $player->save();
     }
 }

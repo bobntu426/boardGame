@@ -12,6 +12,7 @@
             
             
         <button 
+            v-if="actionPlayer == player"
             :style="{position:'absolute',right:'10%'}"
             @click="back" 
         >重置回合

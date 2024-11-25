@@ -15,14 +15,15 @@
             class="pillar"
           ></img>
         </div>
-          
-
-        <button v-else
+        <button 
+          v-if = "gameInfo.pillarInfo[buttonInfo.name].length == 0||buttonInfo.multiplayer"
           @click="buttonInfo.click"
           :class="buttonInfo.buttonClass+' button'" 
         ></button>
-        
       </div>
+
+
+      
 
       <div class="dice-div">
         <img
@@ -51,39 +52,39 @@
         buttonInfoArray:[
           {
             divStyle:{left:'46.8%',top: '-1%',width: '25%',height:'17%'},
-            buttonClass: 'order-button',click:this.decideOrder,name:'order'
+            buttonClass: 'order-button',click:this.decideOrder,name:'order',multiplayer:true
           },
           {
             divStyle:{left:'6.5%',bottom: '29.5%',width: '8%',aspectRatio:'1/1'},
-            buttonClass: 'circle-button',click:this.production,name:'production'
+            buttonClass: 'circle-button',click:this.production,name:'production',multiplayer:false
           },
           {
             divStyle:{left:'6.5%',bottom: '10.5%',width: '8%',aspectRatio:'1/1'},
-            buttonClass: 'circle-button',click:this.harvest,name:'harvest'
+            buttonClass: 'circle-button',click:this.harvest,name:'harvest',multiplayer:false
           },
           {
             divStyle:{left:'17%',bottom: '29.5%',width: '20.5%',height: '13.5%'},
-            buttonClass: 'oval-button', click:this.otherProduction,name:'otherProduction'
+            buttonClass: 'oval-button', click:this.otherProduction,name:'otherProduction',multiplayer:true
           },
           {
             divStyle:{left:'17%',bottom: '10.5%',width: '20.5%',height: '13.5%'},
-            buttonClass: 'oval-button', click:this.otherHarvest,name:'otherHarvest'
+            buttonClass: 'oval-button', click:this.otherHarvest,name:'otherHarvest',multiplayer:true
           },
           {
             divStyle:{right:'39%',bottom: '33%',width:'8%',aspectRatio:'1/1'},
-            buttonClass: 'circle-button', click:this.earnMoney,name:'earnMoney'
+            buttonClass: 'circle-button', click:this.earnMoney,name:'earnMoney',multiplayer:false
           },
           {
             divStyle:{right:'30%',bottom: '33%',width:'8%',aspectRatio:'1/1'},
-            buttonClass:'circle-button', click:this.earnWorker,name:'earnWorker'
+            buttonClass:'circle-button', click:this.earnWorker,name:'earnWorker',multiplayer:false
           },
           {
             divStyle:{right:'21.8%',bottom: '29%',width:'8%',aspectRatio:'1/1'},
-            buttonClass: 'circle-button', click:this.earnMoneyMilitary,name:'earnMoneyMilitary'
+            buttonClass: 'circle-button', click:this.earnMoneyMilitary,name:'earnMoneyMilitary',multiplayer:false
           },
           {
             divStyle:{right:'14.8%',bottom: '19%',width:'8%',aspectRatio:'1/1'},
-            buttonClass:'circle-button', click:this.earnTwoReel,name:'earnTwoReel'
+            buttonClass:'circle-button', click:this.earnTwoReel,name:'earnTwoReel',multiplayer:false
           },
           
         ],
@@ -102,6 +103,10 @@
     },
     props:{
       gameInfo: {
+        type: Object,
+        required: true
+      },
+      player:{
         type: Object,
         required: true
       }
@@ -144,6 +149,7 @@
   
   <style scoped>
   .order-button{
+    position: absolute;
     width: 100%; /* 按钮宽度 */
     height: 100%;
     border-radius: 25%;
@@ -166,6 +172,7 @@
   }
 
   .oval-button{
+    position: absolute;
     width: 100%; 
     height: 100%;
     border-radius: 30%;

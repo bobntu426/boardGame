@@ -15,8 +15,13 @@ export function decideOrderMethod(data) {
           console.log('搶先手',data.eventObject);
         }      
       }
-      else{
+      else if(data.player.needAction == "wait"){
         data.messageArray.push('不是您的回合')
+        setTimeout(() => {
+          data.messageArray.pop();
+        }, 3000);
+      }else{
+        data.messageArray.push('請執行指示動作')
         setTimeout(() => {
           data.messageArray.pop();
         }, 3000);

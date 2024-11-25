@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('player_id');
-            $table->string('pillar');
+            $table->string('pillar')->nullable();
             $table->integer('money')->default(0);
             $table->integer('worker')->default(0);
             $table->integer('rock')->default(0);
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('score')->default(0);
             $table->integer('military')->default(0);
             $table->integer('belief')->default(0);
-            $table->integer('order')->default(0);
+            $table->integer('nextOrder')->nullable();
         });
         
     }

@@ -19,14 +19,15 @@ return new class extends Migration
             $table->integer('wood')->default(0);
             $table->integer('score')->default(0);
             $table->integer('military')->default(0);
-            $table->integer('belief')->default(1);
+            $table->integer('belief')->default(0);
             $table->integer('order')->nullable();
+            $table->integer('nextOrder')->nullable();
             $table->integer('sideBar')->nullable();
             $table->string('needAction')->default('wait')->comment('玩家需要做甚麼行動，顯示訊息用');
             $table->string('redPillar')->default(value: 'hand');
             $table->string('blackPillar')->default('hand');
             $table->string('whitePillar')->default('hand');
-            $table->string('pillar')->default('hand');
+            $table->string('normalPillar')->default('hand');
             $table->string('color')->nullable();
             $table->boolean('punish1')->default(false);
             $table->boolean('punish2')->default(false);
