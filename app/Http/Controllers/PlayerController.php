@@ -87,16 +87,14 @@ class PlayerController
         TableLeaved::dispatch($tempTable, $user);
     }
     public function getPlayerInTable(Table $table){
-        $user = Auth::user();
-        // $players = Player::with('user')->where('table_id', $table->id)->get();
-        
-        //return response()->json($players);
         $players = Player::where('table_id', $table->id)->get();
-        
         return PlayerResource::collection($players);
     }
     public function decideOrder(Request $request){
-        $player = $request->player;
-        dd($request);
+        $playerId = $request->playerId;
+        $player = Player::find($playerId);
+        $pillarColor = $request->chooseColor;
+        $player["$pillarColor"."Pillar"] = 'order';
+        dd($player);
     }
 }

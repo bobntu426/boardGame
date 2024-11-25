@@ -1,10 +1,7 @@
+<!-- Tower.vue -->
 <template>
-    <div class="message-div">
-        <h2 v-if="actionPlayer" :style="{fontSize:'1.7vw'}">{{ actionPlayer.user.name }}</h2>
-
-        <h2 :style="{fontSize:'1.7vw'}" v-if="actionPlayer.needAction == 'putPillar'">必須放置家族成員</h2>
-
-        <div v-else-if="actionPlayer.needAction.includes('chooseReel')" class = "choose-reel-div">
+    <div class = "choose-reel-div">
+            
             <h2 :style="{fontSize:'1.7vw'}">需要選擇{{actionPlayer.needAction.slice(-1) }}個卷軸資源</h2>
             <div class="reels-div">
                 <button 
@@ -27,13 +24,11 @@
                 >清除
                 </button>
             </div>
-           
         </div>
-        
-    </div>
-</template>
-<script>
-    export default {
+  </template>
+  
+  <script>
+   export default {
         data(){
             return{
                 reels: ['resource', 'worker', 'money', 'military', 'belief'],
@@ -41,13 +36,10 @@
             }
         },
         props:{
-            eventObject: {
-                type: Object,
-                required: true
-            },
             actionPlayer:{
                 type:Object,
-            }
+            },
+ 
         },
         mounted(){
             
@@ -71,28 +63,22 @@
             },
             submitSelection() {
                 this.$emit('chooseReel', this.chooseReelArray);
-                this.reel = [];
             },
             reselect(){
                 this.chooseReelArray = []
-            }
+            },
+
         },
         
 
     }
     
-</script>
-<style scoped>
-    .message-div{
-        display: flex;
-        height: 7vh;
-        width: 90%;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-        background-color: rgb(197, 255, 109);
-    }
-    .choose-reel-div{
+  </script>
+  
+  <style scoped>
+  
+  
+  .choose-reel-div{
         display: flex;
         flex-direction: row;
         height: 90%;
@@ -125,4 +111,6 @@
         width: 20%;
         flex-direction: row-reverse;
     }
-</style>
+  
+  </style>
+  

@@ -2,10 +2,15 @@
   <div v-if="loading">加載中...</div>
   <div v-else class="game-container">
     
-      <GameMessage 
+      <GameProcess 
         :actionPlayer = "actionPlayer"
         :eventObject = "eventObject"
+        :player = "player"
+        :back = "back"
         @chooseReel="handleChooseReel"
+       />
+      <Message
+        :messageArray = "messageArray"
        />
       <!-- 中央版面 -->
       <CentralArea 
@@ -52,14 +57,19 @@
 <script>
 import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
-import GameMessage from '../components/GameMessage.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo,decideOrder } from '../api'; 
+import GameProcess from '../components/GameProcess.vue';
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo} from '../api'; 
+import Message from '../components/Message.vue';
+import { decideOrderMethod } from '../methods/decideOrderMethod';
+import { chooseReelMethod } from '../methods/chooseReelMethod';
+
 export default {
   
   components: {
     CentralArea,
     PlayerArea,
-    GameMessage
+    GameProcess,
+    Message
   },
   
   computed:{
@@ -76,22 +86,15 @@ export default {
       userId: null ,
       playerBoard:{},
       loading:true,
-      eventObject:{}
+      eventObject:{},
+      messageArray : []
     };
   },
   
   
   methods: {
     handleDecideOrder() {
-      this.eventObject = {
-        "playerId": this.player.id,
-        "chooseColor":this.player.chooseColor,
-        "action":'order'
-      }
-      this.actionPlayer.needAction = "chooseReel1"
-      decideOrder(this.eventObject);
-      console.log('搶先手',this.eventObject);
-      
+      decideOrderMethod(this.$data)
     },
     handleBuyCard(card,index) {
       this.eventObject = {
@@ -193,9 +196,11 @@ export default {
       console.log("chooseBoard",this.playerBoard)
     },
     handleChooseReel(reels) {
-      //return (reels)
-      this.eventObject.reels = reels
-      console.log(this.eventObject)
+      chooseReelMethod(this.$data,reels)
+    },
+    back(){
+      this.eventObject = {}
+      this.actionPlayer.needAction = "putPillar"
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);

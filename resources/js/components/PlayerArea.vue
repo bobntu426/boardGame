@@ -148,8 +148,8 @@ export default {
   methods:{
     getButtonStyle(color){
       return {
-        height: '100%', // 设置按钮的高度
-        width:'12.5%',
+        height: '99.5%', // 设置按钮的高度
+        width:'12.2%',
         backgroundImage: `url(/images/pillars/${this.player.color}-${color}.png)`,
         backgroundSize: 'contain', // 确保图片覆盖整个按钮
         backgroundPosition: 'center',
