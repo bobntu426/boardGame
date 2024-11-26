@@ -16,6 +16,7 @@ use App\Services\CardService;
 use App\Services\PlayerService;
 use App\Http\Resources\CardResource;
 use App\Http\Resources\PlayerResource;
+use App\Events\OrderEvent;
 class PlayerController
 {
     protected $playerService;
@@ -98,6 +99,7 @@ class PlayerController
         $this->playerService->setOrderAhead($player);
         $this->playerService->earnResourceFromReel($player,$request->reels);
         $this->playerService->decideNextAction($player);
-        $player->save();
+        OrderEvent::dispatch($player);
+        //$player->save();
     }
 }

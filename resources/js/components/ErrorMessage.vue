@@ -1,6 +1,6 @@
 <template>
     <div class="message-div">
-        <div v-for="message in messageArray" class="message">
+        <div v-for="message in errorMessageArray" class="message">
             <h3 :style="{margin:'1%'}">{{message}}</h3>
         </div>
     </div>
@@ -12,7 +12,7 @@
             
         },
         props:{
-            messageArray:{
+            errorMessageArray:{
                 type:Array,
                 required:true
             }

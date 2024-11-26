@@ -3,7 +3,7 @@
 namespace App\Services;
 Use App\Models\Player;
 Use App\Models\Card;
-
+use App\Events\NeedActionUpdated;
 class PlayerService{
     protected $tableService;
     public function __construct(TableService $tableService)
@@ -109,7 +109,8 @@ class PlayerService{
             $nextPlayer = Player::where('order',$targetPlayer->order+1)->first();
             $nextPlayer->needAction = 'putPillar';
             $targetPlayer->needAction = "wait";
-            $nextPlayer->save();
+            NeedActionUpdated::dispatch($targetPlayer,$nextPlayer);
+            //$nextPlayer->save();
         }else {    
             if($this->getPillarNum($targetPlayer)==0){
                 $this->tableService->nextRound();
@@ -117,7 +118,8 @@ class PlayerService{
                 $nextPlayer = Player::where('order',1)->first();
                 $nextPlayer->needAction = 'putPillar';
                 $targetPlayer->needAction = "wait";
-                $nextPlayer->save();
+                NeedActionUpdated::dispatch($targetPlayer,$nextPlayer);
+                //$nextPlayer->save();
             }
         }
         

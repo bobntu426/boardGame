@@ -1,9 +1,9 @@
 export function decideOrderMethod(data) {
     if(data.player.needAction == "putPillar"){
         if(!data.player.chooseColor){
-          data.messageArray.push('請選擇家族成員')
+          data.errorMessageArray.push('請選擇家族成員')
           setTimeout(() => {
-            data.messageArray.pop();
+            data.errorMessageArray.pop();
           }, 3000);
         }else{
           data.eventObject = {
@@ -16,14 +16,14 @@ export function decideOrderMethod(data) {
         }      
       }
       else if(data.player.needAction == "wait"){
-        data.messageArray.push('不是您的回合')
+        data.errorMessageArray.push('不是您的回合')
         setTimeout(() => {
-          data.messageArray.pop();
+          data.errorMessageArray.pop();
         }, 3000);
       }else{
-        data.messageArray.push('請執行指示動作')
+        data.errorMessageArray.push('請執行指示動作')
         setTimeout(() => {
-          data.messageArray.pop();
+          data.errorMessageArray.pop();
         }, 3000);
       }
       

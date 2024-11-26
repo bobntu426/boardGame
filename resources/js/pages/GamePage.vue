@@ -10,7 +10,7 @@
         @chooseReel="handleChooseReel"
        />
       <ErrorMessage
-        :messageArray = "messageArray"
+        :errorMessageArray = "errorMessageArray"
        />
       <!-- 中央版面 -->
       <CentralArea 
@@ -63,6 +63,7 @@ import ErrorMessage from '../components/ErrorMessage.vue';
 import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo} from '../api'; 
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
+import { listenForOrderEvent,listenForNeedActionUpdated } from '../methods/listenEvent';
 
 export default {
   
@@ -88,7 +89,7 @@ export default {
       playerBoard:{},
       loading:true,
       eventObject:{},
-      messageArray : []
+      errorMessageArray : []
     };
   },
   
@@ -223,8 +224,12 @@ export default {
         console.error('取得使用者資料出錯:', error);
       }
     },
+
   },
   async mounted() {
+    listenForOrderEvent(this.$route.params.table_id)
+    listenForNeedActionUpdated(this.$route.params.table_id)
+  
     try {
     // 获取用户ID
       this.userId = await this.fetchUserId();
@@ -274,7 +279,11 @@ export default {
     }
    
   },
+  beforeUnmount() {
+      window.Echo.leave(`table.${this.$route.params.table_id}`);
+  },
 };
+
 </script>
 
 <style>
