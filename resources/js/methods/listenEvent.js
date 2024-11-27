@@ -1,7 +1,8 @@
 export function listenForOrderEvent(tableId) {
     window.Echo.channel(`table.${tableId}`)
       .listen('OrderEvent', (e) => {
-        console.log('接收到新遊戲process事件:', e); 
+        console.log('接收到order事件:', e); 
+        this.player = e.playerNewData
       });
 }
 export function listenForNeedActionUpdated(tableId) {

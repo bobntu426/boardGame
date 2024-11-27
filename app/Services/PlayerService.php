@@ -109,7 +109,7 @@ class PlayerService{
             $nextPlayer = Player::where('order',$targetPlayer->order+1)->first();
             $nextPlayer->needAction = 'putPillar';
             $targetPlayer->needAction = "wait";
-            NeedActionUpdated::dispatch($targetPlayer,$nextPlayer);
+            NeedActionUpdated::dispatch($nextPlayer);
             //$nextPlayer->save();
         }else {    
             if($this->getPillarNum($targetPlayer)==0){

@@ -224,11 +224,26 @@ export default {
         console.error('取得使用者資料出錯:', error);
       }
     },
-
+    listenForOrderEvent(tableId) {
+      window.Echo.channel(`table.${tableId}`)
+        .listen('OrderEvent', (e) => {
+          console.log('接收到order事件:', e); 
+          this.player = e.playerNewData
+          
+        });
+    },
+    listenForNeedActionUpdated(tableId) {
+    window.Echo.channel(`table.${tableId}`)
+      .listen('NeedActionUpdated', (e) => {
+        console.log('接收到更換玩家動作事件:', e); 
+        let nextPlayer = this.players.find((player)=>player.id == e.nextPlayerId)
+        this.actionPlayer = nextPlayer
+      });
+}
   },
   async mounted() {
-    listenForOrderEvent(this.$route.params.table_id)
-    listenForNeedActionUpdated(this.$route.params.table_id)
+    this.listenForOrderEvent(this.$route.params.table_id)
+    this.listenForNeedActionUpdated(this.$route.params.table_id)
   
     try {
     // 获取用户ID

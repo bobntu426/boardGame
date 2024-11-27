@@ -20,25 +20,22 @@ class NeedActionUpdated implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      */
-    public $player;
     public $nextPlayer;
    
-    public function __construct(Player $player,Player $nextPlayer)
+    public function __construct(Player $nextPlayer)
     {
-        $this->player = $player;
         $this->nextPlayer = $nextPlayer;
     }
     public function broadcastOn(): array
     {
-        $tableId = $this->player->table->id;
+        $tableId = $this->nextPlayer->table->id;
         return [
             new Channel('table.'.$tableId)
         ];
     }
     public function broadcastWith(){
         return [
-            'player'=>$this->player->needAction,
-            'nextPlayer'=>$this->nextPlayer->needAction,
+            'nextPlayerId'=>$this->nextPlayer->id
         ];
     }
 }

@@ -21,7 +21,7 @@ export function decideOrderMethod(data) {
           data.errorMessageArray.pop();
         }, 3000);
       }else{
-        data.errorMessageArray.push('請執行指示動作')
+        data.errorMessageArray.push('目前無法執行指示動作')
         setTimeout(() => {
           data.errorMessageArray.pop();
         }, 3000);
