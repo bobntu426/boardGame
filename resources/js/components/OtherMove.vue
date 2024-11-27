@@ -35,9 +35,9 @@
       </div>
       <div class="order-div">
         <img
-          v-for = "(player,index) in this.gameInfo.orderInfo"
+          v-for = "(info,index) in this.gameInfo.orderColorInfo"
           class="order-circle" 
-          :src = "`/images/circles/${player.color}.png`"
+          :src = "`/images/circles/${info.color}.png`"
           :style="orderInfoArray[index].style"
         />
       </div>

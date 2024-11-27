@@ -21,9 +21,11 @@ class NeedActionUpdated implements ShouldBroadcastNow
      * Create a new event instance.
      */
     public $nextPlayer;
+    public $nowPlayer;
    
-    public function __construct(Player $nextPlayer)
+    public function __construct(Player $nowPlayer,Player $nextPlayer)
     {
+        $this->nowPlayer = $nowPlayer;
         $this->nextPlayer = $nextPlayer;
     }
     public function broadcastOn(): array
@@ -35,6 +37,7 @@ class NeedActionUpdated implements ShouldBroadcastNow
     }
     public function broadcastWith(){
         return [
+            'nowPlayerId'=>$this->nowPlayer->id,
             'nextPlayerId'=>$this->nextPlayer->id
         ];
     }

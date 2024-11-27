@@ -76,7 +76,7 @@ class TableController
     {
         $table =Table::find($tableId);
         $table['pillarInfo'] = $this->tableService->getBoardPillarInfo($table);
-        $table['orderInfo'] = $this->tableService->getPlayerOrderInfo($table);
+        $table['orderColorInfo'] = $this->tableService->getPlayerOrderInfo($table);
         return new GameResource($table);
     }
     

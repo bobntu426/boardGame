@@ -147,7 +147,7 @@ class TableService
         return $pillarPositions;
     }
     public function getPlayerOrderInfo($table){
-        $players = $table->players()->orderBy('order')->get();
+        $players = $table->players()->orderBy('order')->select('color')->get();
         return $players;
     }
     public function nextRound(){

@@ -3,9 +3,9 @@
   <div v-else class="game-container">
     
       <GameProcess 
-        :actionPlayer = "actionPlayer"
+        :actionPlayer = "players.find(player=>player.needAction != 'wait')"
         :eventObject = "eventObject"
-        :player = "player"
+        :player = "players.find(player => player.user.id === userId)"
         :back = "back"
         @chooseReel="handleChooseReel"
        />
@@ -17,7 +17,7 @@
         :players="players"
         :cards="cards" 
         :gameInfo="gameInfo"
-        :player="player"
+        :player="players.find(player => player.user.id === userId)"
         @buyCard="handleBuyCard"
         @decideOrder="handleDecideOrder"
         @production="handleProduction"
@@ -73,18 +73,20 @@ export default {
     GameProcess,
     ErrorMessage
   },
-  
   computed:{
-    
+    player(){
+      return  this.players.find(player => player.id === this.playerId)
+    }
   },
+ 
   
   data() {
     return {
       players: [],
       cards: [],
       gameInfo:{},
-      player:{},
-      actionPlayer:null,
+      playerId:null,
+      //actionPlayer:null,
       userId: null ,
       playerBoard:{},
       loading:true,
@@ -96,6 +98,7 @@ export default {
   
   methods: {
     handleDecideOrder() {
+      console.log("player:"+this.player.needAction)
       decideOrderMethod(this.$data)
     },
     handleBuyCard(card,index) {
@@ -202,7 +205,7 @@ export default {
     },
     back(){
       this.eventObject = {}
-      this.actionPlayer.needAction = "putPillar"
+      this.players.find(player=>player.needAction != 'wait').needAction = "putPillar"
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
@@ -224,26 +227,10 @@ export default {
         console.error('取得使用者資料出錯:', error);
       }
     },
-    listenForOrderEvent(tableId) {
-      window.Echo.channel(`table.${tableId}`)
-        .listen('OrderEvent', (e) => {
-          console.log('接收到order事件:', e); 
-          this.player = e.playerNewData
-          
-        });
-    },
-    listenForNeedActionUpdated(tableId) {
-    window.Echo.channel(`table.${tableId}`)
-      .listen('NeedActionUpdated', (e) => {
-        console.log('接收到更換玩家動作事件:', e); 
-        let nextPlayer = this.players.find((player)=>player.id == e.nextPlayerId)
-        this.actionPlayer = nextPlayer
-      });
-}
   },
   async mounted() {
-    this.listenForOrderEvent(this.$route.params.table_id)
-    this.listenForNeedActionUpdated(this.$route.params.table_id)
+    listenForOrderEvent(this.$route.params.table_id,this.$data)
+    listenForNeedActionUpdated(this.$route.params.table_id,this.$data)
   
     try {
     // 获取用户ID
@@ -254,14 +241,15 @@ export default {
       this.players = this.sortPlayers(playerResponse);
       this.players.forEach(player => {
         player.chooseColor = null
-        if(player.needAction != 'wait'){
-          this.actionPlayer = player
-        }
+        // if(player.needAction != 'wait'){
+        //   this.actionPlayer = player
+        // }
       });
       
       if(this.userId){
-        this.player = this.players.find(player => player.user.id === this.userId)
-        this.playerBoard = this.player
+        const player = this.players.find(player => player.user.id === this.userId)
+        this.playerId = player.id
+        this.playerBoard = player
       }
       else
         this.playerBoard = this.players[0]

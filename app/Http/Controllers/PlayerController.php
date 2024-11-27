@@ -99,7 +99,7 @@ class PlayerController
         $this->playerService->setOrderAhead($player);
         $this->playerService->earnResourceFromReel($player,$request->reels);
         $this->playerService->decideNextAction($player);
-        OrderEvent::dispatch($player);
-        //$player->save();
+        OrderEvent::dispatch($player,$pillarColor);
+        $player->save();
     }
 }

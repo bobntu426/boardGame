@@ -1,21 +1,23 @@
 export function decideOrderMethod(data) {
-    if(data.player.needAction == "putPillar"){
-        if(!data.player.chooseColor){
+    const id = data.playerId
+    if(data.players.find(player => player.id === id).needAction == "putPillar"){
+        if(!data.players.find(player => player.id === id).chooseColor){
           data.errorMessageArray.push('請選擇家族成員')
           setTimeout(() => {
             data.errorMessageArray.pop();
           }, 3000);
         }else{
           data.eventObject = {
-            "playerId": data.player.id,
-            "chooseColor":data.player.chooseColor,
+            "playerId": id,
+            "chooseColor":data.players.find(player => player.id === id).chooseColor,
             "action":'order'
           }
-          data.actionPlayer.needAction = "chooseReel1"
+          
+          data.players.find(player=>player.needAction != 'wait').needAction = "chooseReel1"
           console.log('搶先手',data.eventObject);
         }      
       }
-      else if(data.player.needAction == "wait"){
+      else if(data.players.find(player => player.id === id).needAction == "wait"){
         data.errorMessageArray.push('不是您的回合')
         setTimeout(() => {
           data.errorMessageArray.pop();

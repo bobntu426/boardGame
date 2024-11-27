@@ -22,10 +22,12 @@ class OrderEvent implements ShouldBroadcastNow
      * Create a new event instance.
      */
     public $player;
+    public $pillarColor;
    
-    public function __construct(Player $player)
+    public function __construct(Player $player,$pillarColor)
     {
         $this->player = $player;
+        $this->pillarColor = $pillarColor;
     }
     public function broadcastOn(): array
     {
@@ -36,7 +38,13 @@ class OrderEvent implements ShouldBroadcastNow
     }
     public function broadcastWith(){
         return [
-            'playerNewData'=>new PlayerResource($this->player)
+            'playerNewData'=>new PlayerResource($this->player),
+            'newOrderPillar' => [
+                'playerId'=>$this->player->id,
+                'playerColor'=>$this->player->color,
+                'color'=>$this->pillarColor
+            ],
+            'orderColorInfo'=> $this->player->table->players()->orderBy('order')->select('color')->get()
         ];
     }
 }
