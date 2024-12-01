@@ -94,59 +94,7 @@ class TableService
             }
         }
     }
-    public function getBoardPillarInfo($table){
-        $players = $table->players()->get();
-        
-        $pillarPositions = collect([
-            'green' => collect([null, null, null, null]),
-            'blue' => collect([null, null, null, null]),
-            'yellow' => collect([null, null, null, null]),
-            'purple' => collect([null, null, null, null]),
-            'hand'=> collect([]),
-            'order' => collect([]),
-            'production' => collect([]),
-            'otherProduction' => collect([]),
-            'harvest' => collect([]),
-            'otherHarvest' => collect([]),
-            'earnMoney' => collect([]),
-            'earnWorker' => collect([]),
-            'earnMoneyMilitary' => collect([]),
-            'earnTwoReel' => collect([]),
-        ]);
-
-        $players->each(function ($player) use ($pillarPositions) {
-            $playerPillarPositions = [
-                'black' => $player->blackPillar, 
-                'white' => $player->whitePillar,
-                'red' => $player->redPillar,
-                'normal' => $player->normalPillar
-            ];
-        
-            collect($playerPillarPositions)->each(function ($position, $color) use ($pillarPositions, $player) {
-                if (strpos($position, 'green') === 0 || strpos($position, 'blue') === 0 || strpos($position, 'yellow') === 0 || strpos($position, 'purple') === 0) {
-                    $parts = explode('_', $position); // Assume positions like 'green_1'
-                    $towerColor = $parts[0]; 
-                    $index = intval($parts[1]) - 1; // '1' to 0 index
-                    
-                    // Update the tower position
-                    $pillarPositions[$towerColor][$index] = [
-                        'playerId' => $player->id,
-                        'playerColor' =>$player->color,
-                        'color' => $color
-                    ];
-                } else {
-                    $pillarPositions->get($position)->push([
-                        'playerId' => $player->id,
-                        'playerColor' =>$player->color,
-                        'color' => $color
-                    ]);
-                }
-            });
-        });
-
-        return $pillarPositions;
-    }
-    public function getPlayerOrderInfo($table){
+       public function getPlayerOrderInfo($table){
         $players = $table->players()->orderBy('order')->select('color')->get();
         return $players;
     }

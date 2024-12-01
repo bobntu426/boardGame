@@ -13,7 +13,7 @@
             <h2 :style="{fontSize:'1.7vw'}">需確認行動</h2>
             <button 
                 :style="{position:'relative'}"
-                @click="endTurn" 
+                @click="handleEndTurn" 
             >結束回合
             </button>
         </div>
@@ -27,7 +27,7 @@
             
             
         <button 
-            v-if="actionPlayer == player"
+            v-if="actionPlayer.id == player.id&&player.needAction =='sure' "
             :style="{position:'absolute',right:'10%'}"
             @click="handleReset" 
         >重置回合
@@ -57,6 +57,10 @@ import ChooseReel from './ChooseReel.vue';
             handleReset:{
                 type: Function,
                 required: true
+            },
+            handleEndTurn:{
+                type: Function,
+                required: true
             }
         },
         mounted(){
@@ -65,9 +69,6 @@ import ChooseReel from './ChooseReel.vue';
         methods:{
             chooseReel(chooseReelArray) {
                 this.$emit('chooseReel',chooseReelArray);
-            },
-            endTurn() {
-                this.$emit('endTurn');
             },
         },
         

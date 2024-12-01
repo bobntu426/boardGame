@@ -22,7 +22,6 @@ class GameResource extends JsonResource
             'punish1' => $this->punish1,
             'punish2' => $this->punish2,
             'punish3' => $this->punish3,
-            'pillarInfo' => $this->pillarInfo,
             'orderColorInfo'=> $this->orderColorInfo,
             
         ];

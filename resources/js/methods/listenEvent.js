@@ -22,7 +22,7 @@ export function listenForResetEvent(tableId,data) {
       Object.assign(data.players.find(player => player.id === e.playerNewData.id), e.playerNewData);
       if(e.action!='buyCard'){
         data.gameInfo.pillarInfo[e.action] = data.gameInfo.pillarInfo[e.action].filter(pillar=>{
-          !(pillar.playerId == e.playerNewData.id&&pillar.color==e.pillarColor)
+          return !(pillar.playerId == e.playerNewData.id&&pillar.color==e.pillarColor)
         });
       }
       

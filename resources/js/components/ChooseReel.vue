@@ -6,7 +6,7 @@
             <div class="reels-div">
                 <button 
                     v-for="(reel, index) in reels" 
-                    class="reel-button"
+                    class="reel-button button"
                     :style="getButtonStyle(reel)"
                     :key="index" 
                     :disabled="isButtonSelected(reel)" 
@@ -47,7 +47,7 @@
         methods:{
             getButtonStyle(reel){
                 return {
-                    backgroundImage: `url(/images/reels/1.png)`,
+                    backgroundImage: `url(/images/reels/${reel}.png)`,
                     backgroundSize: 'contain', // 确保图片覆盖整个按钮
                     backgroundPosition: 'center',
                     border:this.chooseReelArray.includes(reel)?'2px solid rgb(210, 1, 1)':'none'

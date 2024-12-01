@@ -97,21 +97,22 @@ class PlayerController
         $playerId = $request->playerId;
         $player = Player::find($playerId);
         $pillarColor = $request->chooseColor;
-        $player["$pillarColor"."Pillar"] = 'order';
+        $player[$pillarColor."Pillar"] = 'order';
         $this->playerService->setOrderAhead($player);
         $this->playerService->earnResourceFromReel($player,$request->reels);
         $originalPlayer = TempStorage::where('player_id',$playerId)->first();
         $originalPlayer->update(['pillarColor'=>$pillarColor,'action'=>$request->action]);
-        //$this->playerService->toSureAction($player);
         $player->needAction = "sure";
         OrderEvent::dispatch($player,$pillarColor);
         $player->save();
     }
-    public function sure(Request $request){
+    public function endTurn(Request $request){
         $playerId = $request->playerId;
         $player = Player::find($playerId);
-        $this->playerService->decideNextAction($playerId);
-        ToNextPlayer::dispatch($player);
+        $originalPlayer = TempStorage::where('player_id',$playerId)->first();
+        $this->playerService->updateTempStorage($player,$originalPlayer);
+        $this->playerService->decideNextAction($player);
+        $player->save();
     }
     public function reset(Request $request){
         $playerId = $request->playerId;

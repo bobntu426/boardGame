@@ -179,3 +179,12 @@ export const reset = async (eventObject) => {
     throw error; 
   }   
 }
+export const endTurn = async (eventObject) => {
+  try {
+    const response = await axios.put(`${API_URL}/games/endTurn`,eventObject);
+    return response.data; 
+  } catch (error) {
+    console.error('handle reset fail', error);
+    throw error; 
+  }   
+}

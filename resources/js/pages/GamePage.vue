@@ -7,7 +7,9 @@
         :eventObject = "eventObject"
         :player = "players.find(player => player.user.id === userId)"
         :handleReset = "handleReset"
+        :handleEndTurn="handleEndTurn"
         @chooseReel="handleChooseReel"
+        
        />
       <ErrorMessage
         :errorMessageArray = "errorMessageArray"
@@ -60,10 +62,11 @@ import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
 import GameProcess from '../components/GameProcess.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,reset,getGameInfo} from '../api'; 
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,reset,getGameInfo,endTurn} from '../api'; 
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
 import { listenForOrderEvent,listenForToNextPlayer,listenForResetEvent } from '../methods/listenEvent';
+import { getBoardPillarInfo } from '../methods/getBoardInfo';
 
 export default {
   
@@ -98,7 +101,6 @@ export default {
   
   methods: {
     handleDecideOrder() {
-      console.log("player:"+this.player.needAction)
       decideOrderMethod(this.$data)
     },
     handleBuyCard(card,index) {
@@ -205,9 +207,10 @@ export default {
     },
     handleReset(){
       //this.players.find(player=>player.needAction != 'wait').needAction = "putPillar"
-      this.eventObject = {"playerId":this.playerId}
-      reset(this.eventObject)
-      this.eventObject = {}
+      reset({"playerId":this.playerId})
+    },
+    handleEndTurn(){
+       endTurn({"playerId":this.playerId})
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
@@ -283,7 +286,7 @@ export default {
     }finally{
       this.loading = false
     }
-   
+    this.gameInfo.pillarInfo = getBoardPillarInfo(this.players)
   },
   beforeUnmount() {
       window.Echo.leave(`table.${this.$route.params.table_id}`);

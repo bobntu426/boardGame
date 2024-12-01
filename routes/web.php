@@ -23,6 +23,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::middleware([CheckPlayerTurnAndPillar::class])->group(function () {
         Route::put('/games/decide-order', [PlayerController::class, 'decideOrder']);
         Route::put('/games/reset', [PlayerController::class, 'reset']);
+        Route::put('/games/endTurn', [PlayerController::class, 'endTurn']);
     });
 });
 

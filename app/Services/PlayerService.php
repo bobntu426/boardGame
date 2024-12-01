@@ -106,7 +106,6 @@ class PlayerService{
     }
     public function decideNextAction($targetPlayer){
         $table = $targetPlayer->table;
-        //dd($this->getPillarNum($targetPlayer));
         if($targetPlayer->order != $table->playerNum){
             
             $nextPlayer = Player::where('order',$targetPlayer->order+1)->first();
@@ -129,6 +128,20 @@ class PlayerService{
     public function toSureAction($targetPlayer){
         $targetPlayer->needAction = "sure";
         ToSureAction::dispatch($targetPlayer);
+    }
+    public function updateTempStorage(Player $player,TempStorage $originalPlayer ){
+        $originalPlayer->update([
+            'action'=>null,
+            'pillarColor'=> null,
+            'money' => $player->money,
+            'wood' => $player->wood,
+            'rock' => $player->rock,
+            'worker' => $player->worker,
+            'military' => $player->military,
+            'belief' => $player->belief,
+            'nextOrder' => $player->nextOrder,
+            'score' => $player->score,
+        ]);
     }
     public function resetPlayer(Player $player,TempStorage $originalPlayer ){
         $pillarColor = $originalPlayer->pillarColor;
