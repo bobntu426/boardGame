@@ -1,8 +1,23 @@
 <template>
     <div class="process-div">
         <h2 v-if="actionPlayer" :style="{fontSize:'1.7vw'}">{{ actionPlayer.user.name }}</h2>
-        <h2 :style="{fontSize:'1.7vw'}" v-if="actionPlayer != player">正在執行動作</h2>
+        <!-- 顯示名字 -->
+
+        <h2 :style="{fontSize:'1.7vw'}" v-if="actionPlayer != player&&actionPlayer.needAction=='sure'">需確認行動</h2>
+        <h2 :style="{fontSize:'1.7vw'}" v-else-if="actionPlayer != player">正在執行動作</h2>
+        <!-- 非行動玩家的版面 -->
+
         <h2 :style="{fontSize:'1.7vw'}" v-else-if="actionPlayer.needAction == 'putPillar'">必須放置家族成員</h2>
+
+        <div v-else-if="actionPlayer.needAction == 'sure'" class="sure-div">
+            <h2 :style="{fontSize:'1.7vw'}">需確認行動</h2>
+            <button 
+                :style="{position:'relative'}"
+                @click="endTurn" 
+            >結束回合
+            </button>
+        </div>
+        
 
         <ChooseReel 
             v-else-if="actionPlayer.needAction.includes('chooseReel')" 
@@ -14,7 +29,7 @@
         <button 
             v-if="actionPlayer == player"
             :style="{position:'absolute',right:'10%'}"
-            @click="back" 
+            @click="handleReset" 
         >重置回合
         </button>
     </div>
@@ -39,7 +54,7 @@ import ChooseReel from './ChooseReel.vue';
             actionPlayer:{
                 type:Object,
             },
-            back:{
+            handleReset:{
                 type: Function,
                 required: true
             }
@@ -50,6 +65,9 @@ import ChooseReel from './ChooseReel.vue';
         methods:{
             chooseReel(chooseReelArray) {
                 this.$emit('chooseReel',chooseReelArray);
+            },
+            endTurn() {
+                this.$emit('endTurn');
             },
         },
         
@@ -67,6 +85,13 @@ import ChooseReel from './ChooseReel.vue';
         justify-content: center;
         flex-direction: row;
         background-color: rgb(197, 255, 109);
+    }
+    .sure-div{
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
     }
     
 </style>

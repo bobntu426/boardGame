@@ -13,7 +13,7 @@ Use App\Models\Table;
 Use App\Models\User;
 Use App\Models\Player;
 use Illuminate\Support\Facades\Auth;
-class NeedActionUpdated implements ShouldBroadcastNow
+class ToNextPlayer implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

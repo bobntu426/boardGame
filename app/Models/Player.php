@@ -9,13 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Player extends Model
 {
     public $timestamps = false;
-    protected $fillable = [
-        "money",
-        "rock",
-        'wood',
-        'worker',
-        'user_id',
-        'table_id'
+    protected $guarded = [
+        
     ];
     public function user(): BelongsTo
     {

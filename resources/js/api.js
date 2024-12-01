@@ -170,3 +170,12 @@ export const decideOrder = async (eventObject) => {
     throw error; 
   }   
 }
+export const reset = async (eventObject) => {
+  try {
+    const response = await axios.put(`${API_URL}/games/reset`,eventObject);
+    return response.data; 
+  } catch (error) {
+    console.error('handle reset fail', error);
+    throw error; 
+  }   
+}

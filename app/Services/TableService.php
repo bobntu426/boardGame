@@ -40,8 +40,8 @@ class TableService
             
             TempStorage::create(
                 array_merge(
-                    $player->only(['money', 'wood', 'rock', 'score', 'military', 'belief']),
-                    ['player_id' => $player->id]
+                    $player->only(['money','worker', 'wood', 'rock', 'score', 'military', 'belief']),
+                    ['player_id' => $player->id],['table_id'=>$tableId]
                 )
             );
             $player->color = $colorArray[$index];

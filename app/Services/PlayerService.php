@@ -2,8 +2,11 @@
 
 namespace App\Services;
 Use App\Models\Player;
+Use App\Models\TempStorage;
 Use App\Models\Card;
-use App\Events\NeedActionUpdated;
+use App\Events\ToNextPlayer;
+use App\Events\ToSureAction;
+use App\Events\ResetEvent;
 class PlayerService{
     protected $tableService;
     public function __construct(TableService $tableService)
@@ -109,7 +112,7 @@ class PlayerService{
             $nextPlayer = Player::where('order',$targetPlayer->order+1)->first();
             $nextPlayer->needAction = 'putPillar';
             $targetPlayer->needAction = "wait";
-            NeedActionUpdated::dispatch($targetPlayer,$nextPlayer);
+            ToNextPlayer::dispatch($targetPlayer,$nextPlayer);
             $nextPlayer->save();
         }else {    
             if($this->getPillarNum($targetPlayer)==0){
@@ -118,12 +121,33 @@ class PlayerService{
                 $nextPlayer = Player::where('order',1)->first();
                 $nextPlayer->needAction = 'putPillar';
                 $targetPlayer->needAction = "wait";
-                NeedActionUpdated::dispatch($targetPlayer,$nextPlayer);
+                ToNextPlayer::dispatch($targetPlayer,$nextPlayer);
                 $nextPlayer->save();
             }
         }
-        
-        
     }
-    
+    public function toSureAction($targetPlayer){
+        $targetPlayer->needAction = "sure";
+        ToSureAction::dispatch($targetPlayer);
+    }
+    public function resetPlayer(Player $player,TempStorage $originalPlayer ){
+        $pillarColor = $originalPlayer->pillarColor;
+        $player->update([
+            'needAction'=>'putPillar',
+            $pillarColor."Pillar" => "hand",
+            'money' => $originalPlayer->money,
+            'wood' => $originalPlayer->wood,
+            'rock' => $originalPlayer->rock,
+            'worker' => $originalPlayer->worker,
+            'military' => $originalPlayer->military,
+            'belief' => $originalPlayer->belief,
+            'nextOrder' => $originalPlayer->nextOrder,
+            'score' => $originalPlayer->score,
+        ]);
+        resetEvent::dispatch($player,$originalPlayer->pillarColor,$originalPlayer->action);
+        $originalPlayer->update([
+            'pillarColor'=>null,
+            'action'=>null
+        ]);
+    }
 }

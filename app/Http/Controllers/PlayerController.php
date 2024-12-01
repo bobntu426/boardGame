@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ToNextPlayer;
+use App\Models\TempStorage;
 use Illuminate\Http\Request;
 Use App\Models\User;
 Use App\Models\Player;
 Use App\Models\Card;
-
 Use App\Models\Table;
 use Illuminate\Support\Facades\Auth;
 use App\Events\TableJoined;
@@ -17,6 +18,7 @@ use App\Services\PlayerService;
 use App\Http\Resources\CardResource;
 use App\Http\Resources\PlayerResource;
 use App\Events\OrderEvent;
+use App\Events\ResetEvent;
 class PlayerController
 {
     protected $playerService;
@@ -98,8 +100,24 @@ class PlayerController
         $player["$pillarColor"."Pillar"] = 'order';
         $this->playerService->setOrderAhead($player);
         $this->playerService->earnResourceFromReel($player,$request->reels);
-        $this->playerService->decideNextAction($player);
+        $originalPlayer = TempStorage::where('player_id',$playerId)->first();
+        $originalPlayer->update(['pillarColor'=>$pillarColor,'action'=>$request->action]);
+        //$this->playerService->toSureAction($player);
+        $player->needAction = "sure";
         OrderEvent::dispatch($player,$pillarColor);
         $player->save();
+    }
+    public function sure(Request $request){
+        $playerId = $request->playerId;
+        $player = Player::find($playerId);
+        $this->playerService->decideNextAction($playerId);
+        ToNextPlayer::dispatch($player);
+    }
+    public function reset(Request $request){
+        $playerId = $request->playerId;
+        $player = Player::find($playerId);
+        $originalPlayer = TempStorage::where('player_id',$playerId)->first();
+        $this->playerService->resetPlayer($player,$originalPlayer);
+        
     }
 }

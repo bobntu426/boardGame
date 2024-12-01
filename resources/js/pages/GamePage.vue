@@ -6,7 +6,7 @@
         :actionPlayer = "players.find(player=>player.needAction != 'wait')"
         :eventObject = "eventObject"
         :player = "players.find(player => player.user.id === userId)"
-        :back = "back"
+        :handleReset = "handleReset"
         @chooseReel="handleChooseReel"
        />
       <ErrorMessage
@@ -60,10 +60,10 @@ import CentralArea from '../components/CentralArea.vue';
 import PlayerArea from '../components/PlayerArea.vue';
 import GameProcess from '../components/GameProcess.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
-import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,buyCard,getGameInfo} from '../api'; 
+import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,reset,getGameInfo} from '../api'; 
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
-import { listenForOrderEvent,listenForNeedActionUpdated } from '../methods/listenEvent';
+import { listenForOrderEvent,listenForToNextPlayer,listenForResetEvent } from '../methods/listenEvent';
 
 export default {
   
@@ -203,9 +203,11 @@ export default {
     handleChooseReel(reels) {
       chooseReelMethod(this.$data,reels)
     },
-    back(){
+    handleReset(){
+      //this.players.find(player=>player.needAction != 'wait').needAction = "putPillar"
+      this.eventObject = {"playerId":this.playerId}
+      reset(this.eventObject)
       this.eventObject = {}
-      this.players.find(player=>player.needAction != 'wait').needAction = "putPillar"
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);
@@ -230,7 +232,8 @@ export default {
   },
   async mounted() {
     listenForOrderEvent(this.$route.params.table_id,this.$data)
-    listenForNeedActionUpdated(this.$route.params.table_id,this.$data)
+    listenForToNextPlayer(this.$route.params.table_id,this.$data)
+    listenForResetEvent(this.$route.params.table_id,this.$data)
   
     try {
     // 获取用户ID

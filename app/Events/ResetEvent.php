@@ -11,10 +11,10 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 Use App\Models\Table;
 Use App\Models\User;
-use App\Http\Resources\PlayerResource;
 Use App\Models\Player;
+use App\Http\Resources\PlayerResource;
 use Illuminate\Support\Facades\Auth;
-class OrderEvent implements ShouldBroadcastNow
+class ResetEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,11 +23,13 @@ class OrderEvent implements ShouldBroadcastNow
      */
     public $player;
     public $pillarColor;
+    public $action;
    
-    public function __construct(Player $player,$pillarColor)
+    public function __construct(Player $player,$pillarColor,$action)
     {
         $this->player = $player;
         $this->pillarColor = $pillarColor;
+        $this->action = $action;
     }
     public function broadcastOn(): array
     {
@@ -39,11 +41,8 @@ class OrderEvent implements ShouldBroadcastNow
     public function broadcastWith(){
         return [
             'playerNewData'=>new PlayerResource($this->player),
-            'newOrderPillar' => [
-                'playerId'=>$this->player->id,
-                'playerColor'=>$this->player->color,
-                'color'=>$this->pillarColor
-            ],
+            'action' => $this->action,
+            'pillarColor' => $this->pillarColor
         ];
     }
 }

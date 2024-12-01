@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('player_id');
-            $table->string('pillar')->nullable();
+            $table->string('pillarColor')->nullable();
             $table->integer('money')->default(0);
             $table->integer('worker')->default(0);
             $table->integer('rock')->default(0);
@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('military')->default(0);
             $table->integer('belief')->default(0);
             $table->integer('nextOrder')->nullable();
+            $table->integer('action')->nullable();
+            $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');
         });
         
     }

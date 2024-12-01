@@ -22,9 +22,9 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::post('/tables', [TableController::class, 'createTable'])->name('createTable');
     Route::middleware([CheckPlayerTurnAndPillar::class])->group(function () {
         Route::put('/games/decide-order', [PlayerController::class, 'decideOrder']);
+        Route::put('/games/reset', [PlayerController::class, 'reset']);
     });
 });
-
 
 Route::get('/players/{player}/cards', [PlayerController::class, 'getPlayerCards'])->name('getPlayerCards');
 Route::get('/tables/{table}/cards', [TableController::class, 'getTableCards'])->name('getTableCards');
