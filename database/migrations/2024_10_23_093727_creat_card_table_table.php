@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->default(0);
             $table->string('image')->default(0);
             $table->string('color')->default('green');
+            $table->integer('harvestPoint')->default(0);
             $table->integer('gainMoneyWhenBuy')->default(0);
             $table->integer('gainWoodWhenBuy')->default(0);
             $table->integer('gainRockWhenBuy')->default(0);
@@ -40,21 +41,13 @@ return new class extends Migration
             $table->string('name')->default(0);
             $table->string('image')->default(0);
             $table->string('color')->default(0);
-            $table->integer('greenPoint')->default(0);
-            $table->integer('bluePoint')->default(0);
-            $table->integer('yellowPoint')->default(0);
-            $table->integer('purplePoint')->default(0);
-            $table->integer('harvestActionPoint')->default(0);
-            $table->integer('productionActionPoint')->default(0);
-            $table->integer('extraMovePoint')->nullable();
-            $table->string('extraMoveColor')->nullable();
-            $table->string('multiplyColor')->nullable();
-            $table->integer('multiplyMilitaryNum')->nullable();
+            $table->string('function')->nullable()->comment('blue cards has many types of function');
+            //gainDice,increasePoint
+
+            $table->integer('point')->default(0);
+            $table->string('functionColor')->nullable();
             $table->integer('costMoney')->default(0);
-            $table->integer('gainMoneyWhenBuy')->default(0);
-            $table->integer('gainWoodWhenBuy')->default(0);
-            $table->integer('gainRockWhenBuy')->default(0);
-            $table->integer('gainWorkerWhenBuy')->default(0);
+
             $table->integer('gainMilitaryWhenBuy')->default(0);
             $table->integer('gainBeliefWhenBuy')->default(0);
             $table->integer('gainScoreWhenBuy')->default(0);
@@ -112,11 +105,8 @@ return new class extends Migration
             $table->string('name')->default(0);
             $table->string('image')->default(0);
             $table->string('color')->default(0);
-            $table->string('gainDiceWhenBuy')->default('green_1');
-            $table->string('scoreMultiplyColor')->nullable();
-            $table->integer('harvestActionPoint')->default(0);
-            $table->integer('productionActionPoint')->default(0);
-            $table->integer('extraMovePoint')->default(0);
+            $table->string('functionType')->nullable();
+            $table->integer('point')->default(0);
             $table->integer('costMoney')->default(0);
             $table->integer('costWood')->default(0);
             $table->integer('costRock')->default(0);
