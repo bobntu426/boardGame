@@ -54,10 +54,10 @@ class PlayerController
     }
     public function getPlayerCards(Player $player){
         $cards = $player->cards;
-        $cardService = new CardService();
-        $cardObjects = $cards->map(function ($card) use ($cardService) {
-            return $cardService->formCardObject($card);
-        });
+        // $cardService = new CardService();
+        // $cardObjects = $cards->map(function ($card) use ($cardService) {
+        //     return $cardService->formCardObject($card);
+        // });
         //return response()->json($cardObjects);
         return CardResource::collection($cards);
     }

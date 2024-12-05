@@ -44,11 +44,6 @@ class Card extends Model
     public function getCostResource():array{
         return  ["money"=>$this->costMoney,"worker"=>$this->costWorker,"rock"=>$this->costRock,"wood"=>$this->costWood];
     }
-    public function getGainWhenBuyResource():array{
-        return  ["money"=>$this->gainMoneyWhenBuy,"worker"=>$this->gainWorkerWhenBuy,"rock"=>$this->gainRockWhenBuy,"wood"=>$this->gainWoodWhenBuy];
-    }
-    public function getGainWhenUseResource():array{
-        return  ["money"=>$this->gainMoneyWhenUse,"worker"=>$this->gainWorkerWhenUse,"rock"=>$this->gainRockWhenUse,"wood"=>$this->gainWoodWhenUse];
-    }
+
 }
 

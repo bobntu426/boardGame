@@ -40,7 +40,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default(0);
             $table->string('image')->default(0);
-            $table->string('color')->default(0);
+            $table->string('color')->default('blue');
             $table->string('function')->nullable()->comment('blue cards has many types of function');
             //gainDice,increasePoint
 
@@ -60,7 +60,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default(0);
             $table->string('image')->default(0);
-            $table->string('color')->default(0);
+            $table->string('color')->default('yellow');
             $table->integer('productionPoint')->default(0);
 
             $table->string('multiplyColor')->nullable();
@@ -76,10 +76,10 @@ return new class extends Migration
             $table->integer('gainMoneyWhenUse1')->default(0);
             $table->integer('gainWoodWhenUse1')->default(0);
             $table->integer('gainRockWhenUse1')->default(0);
-            $table->integer('gainWorkerWhenUse')->default(0);
-            $table->integer('gainBeliefWhenUse')->default(0);
+            $table->integer('gainWorkerWhenUse1')->default(0);
+            $table->integer('gainBeliefWhenUse1')->default(0);
             $table->integer('gainScoreWhenUse1')->default(0);
-            $table->integer('gainMilitaryWhenUse')->default(0);
+            $table->integer('gainMilitaryWhenUse1')->default(0);
             $table->integer('gainMoneyWhenUse2')->default(0);
             $table->integer('gainWoodWhenUse2')->default(0);
             $table->integer('gainRockWhenUse2')->default(0);
@@ -89,8 +89,8 @@ return new class extends Migration
             $table->integer('costMoneyWhenUse1')->default(0);
             $table->integer('costWoodWhenUse1')->default(0);
             $table->integer('costRockWhenUse1')->default(0);
-            $table->integer('costWorkerWhenUse')->default(0);
-            $table->integer('costBeliefWhenUse')->default(0);
+            $table->integer('costWorkerWhenUse1')->default(0);
+            $table->integer('costBeliefWhenUse1')->default(0);
             $table->integer('costMoneyWhenUse2')->default(0);
             $table->integer('costWoodWhenUse2')->default(0);
             $table->integer('costRockWhenUse2')->default(0);
@@ -104,8 +104,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->default(0);
             $table->string('image')->default(0);
-            $table->string('color')->default(0);
-            $table->string('functionType')->nullable();
+            $table->string('color')->default('purple');
+            $table->string('function')->nullable();
             $table->integer('point')->default(0);
             $table->integer('costMoney')->default(0);
             $table->integer('costWood')->default(0);
@@ -120,7 +120,7 @@ return new class extends Migration
             $table->integer('gainMilitaryWhenBuy')->default(0);
             $table->integer('gainBeliefWhenBuy')->default(0);
             $table->integer('gainScoreWhenBuy')->default(0);
-            $table->integer('gainReelNumberWhenBuy')->default(0);
+            $table->integer('gainReelWhenBuy')->default(0);
             $table->integer('gainScoreEnd')->default(0);
 
             $table->timestamps();

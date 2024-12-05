@@ -65,6 +65,8 @@ import ErrorMessage from '../components/ErrorMessage.vue';
 import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,reset,getGameInfo,endTurn} from '../api'; 
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
+import { buyCardMethod } from '../methods/buyCardMethod';
+import { checkMove } from '../methods/checkMove';
 import { listenForOrderEvent,listenForToNextPlayer,listenForResetEvent } from '../methods/listenEvent';
 import { getBoardPillarInfo } from '../methods/getBoardInfo';
 
@@ -101,18 +103,11 @@ export default {
   
   methods: {
     handleDecideOrder() {
-      decideOrderMethod(this.$data)
+      checkMove(this.$data,{},decideOrderMethod)
+      // decideOrderMethod(this.$data)
     },
     handleBuyCard(card,index) {
-      this.eventObject = {
-        "playerId": this.player.id,
-        "card": card,
-        "index":index,
-        "chooseColor":this.player.chooseColor,
-        "action":'buyCard'
-      }
-      console.log('購買卡片:',this.eventObject);
-      //buyCard(data);
+      checkMove(this.$data,{'card':card,'index':index},buyCardMethod)
     },
     handleProduction() {
       this.eventObject = {
