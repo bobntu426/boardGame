@@ -157,7 +157,7 @@ class PlayerService{
             'nextOrder' => $originalPlayer->nextOrder,
             'score' => $originalPlayer->score,
         ]);
-        resetEvent::dispatch($player,$originalPlayer->pillarColor,$originalPlayer->action);
+        resetEvent::dispatch($player);
         $originalPlayer->update([
             'pillarColor'=>null,
             'action'=>null

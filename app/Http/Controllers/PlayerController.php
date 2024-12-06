@@ -103,7 +103,7 @@ class PlayerController
         $originalPlayer = TempStorage::where('player_id',$playerId)->first();
         $originalPlayer->update(['pillarColor'=>$pillarColor,'action'=>$request->action]);
         $player->needAction = "sure";
-        OrderEvent::dispatch($player,$pillarColor);
+        OrderEvent::dispatch($player);
         $player->save();
     }
     public function endTurn(Request $request){

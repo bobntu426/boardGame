@@ -7,8 +7,8 @@
         :style="buttonInfo.divStyle"
       >
         <div class="pillar-image-div"
-          v-if = "gameInfo.pillarInfo[buttonInfo.name].length > 0"
-          v-for="(pillarInfo) in gameInfo.pillarInfo[buttonInfo.name]"
+          v-if = "pillarInfo[buttonInfo.name].length > 0"
+          v-for="(pillarInfo) in pillarInfo[buttonInfo.name]"
         >
           <img 
             :src = "getPillarSrc(pillarInfo)"
@@ -16,7 +16,7 @@
           ></img>
         </div>
         <button 
-          v-if = "gameInfo.pillarInfo[buttonInfo.name].length == 0||buttonInfo.multiplayer"
+          v-if = "pillarInfo[buttonInfo.name].length == 0||buttonInfo.multiplayer"
           @click="buttonInfo.click"
           :class="buttonInfo.buttonClass+' button'" 
         ></button>
@@ -109,7 +109,11 @@
       player:{
         type: Object,
         required: true
-      }
+      },
+      pillarInfo:{
+        type: Object,
+        required: true
+      },
     },
     
     methods: {
