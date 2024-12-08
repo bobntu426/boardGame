@@ -133,6 +133,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('card_tables');
+        Schema::dropIfExists('green_card_tables');
+        Schema::dropIfExists('blue_card_tables');
+        Schema::dropIfExists('yellow_card_tables');
+        Schema::dropIfExists('purple_card_tables');
     }
 };
