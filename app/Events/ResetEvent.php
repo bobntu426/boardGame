@@ -20,11 +20,10 @@ class ResetEvent implements ShouldBroadcastNow
     public $pillarColor;
     public $action;
    
-    public function __construct(Player $player,$pillarColor,$action)
+    public function __construct(Player $player)
     {
         $this->player = $player;
-        $this->pillarColor = $pillarColor;
-        $this->action = $action;
+
     }
     public function broadcastOn(): array
     {
@@ -36,8 +35,6 @@ class ResetEvent implements ShouldBroadcastNow
     public function broadcastWith(){
         return [
             'playerNewData'=>new PlayerResource($this->player),
-            'action' => $this->action,
-            'pillarColor' => $this->pillarColor
         ];
     }
 }

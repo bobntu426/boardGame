@@ -19,6 +19,7 @@
         :players="players"
         :cards="cards" 
         :gameInfo="gameInfo"
+        :pillarInfo = "pillarInfo"
         :player="players.find(player => player.user.id === userId)"
         @buyCard="handleBuyCard"
         @decideOrder="handleDecideOrder"
@@ -65,6 +66,8 @@ import ErrorMessage from '../components/ErrorMessage.vue';
 import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,reset,getGameInfo,endTurn} from '../api'; 
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
+import { buyCardMethod } from '../methods/buyCardMethod';
+import { checkMove } from '../methods/checkMove';
 import { listenForOrderEvent,listenForToNextPlayer,listenForResetEvent } from '../methods/listenEvent';
 import { getBoardPillarInfo } from '../methods/getBoardInfo';
 
@@ -79,6 +82,9 @@ export default {
   computed:{
     player(){
       return  this.players.find(player => player.id === this.playerId)
+    },
+    pillarInfo(){
+      return  getBoardPillarInfo(this.players)
     }
   },
  
@@ -89,7 +95,6 @@ export default {
       cards: [],
       gameInfo:{},
       playerId:null,
-      //actionPlayer:null,
       userId: null ,
       playerBoard:{},
       loading:true,
@@ -101,18 +106,11 @@ export default {
   
   methods: {
     handleDecideOrder() {
-      decideOrderMethod(this.$data)
+      checkMove(this.$data,{},decideOrderMethod)
+      // decideOrderMethod(this.$data)
     },
     handleBuyCard(card,index) {
-      this.eventObject = {
-        "playerId": this.player.id,
-        "card": card,
-        "index":index,
-        "chooseColor":this.player.chooseColor,
-        "action":'buyCard'
-      }
-      console.log('購買卡片:',this.eventObject);
-      //buyCard(data);
+      checkMove(this.$data,{'card':card,'index':index},buyCardMethod)
     },
     handleProduction() {
       this.eventObject = {
@@ -121,7 +119,7 @@ export default {
         "action":'production'
       }
       console.log('執行生產',this.eventObject);
-      //buyCard(data);
+      
     },
     handleOtherProduction() {
       this.eventObject = {
@@ -130,7 +128,7 @@ export default {
         "action":'otherProduction'
       }
       console.log('執行其他生產',this.eventObject);
-      //buyCard(data);
+      
     },
     handleHarvest() {
       this.eventObject = {
@@ -139,7 +137,7 @@ export default {
         "action":'收成'
       }
       console.log('harvest',this.eventObject);
-      //buyCard(data);
+      
     },
     handleOtherHarvest() {
       this.eventObject = {
@@ -148,7 +146,7 @@ export default {
         "action":'otherHarvest'
       }
       console.log('執行其他收成',this.eventObject);
-      //buyCard(data);
+      
     },
     handleEarnMoney() {
       this.eventObject = {
@@ -157,7 +155,7 @@ export default {
         "action":'earnMoney'
       }
       console.log('獲取金幣',this.eventObject);
-      //buyCard(data);
+      
     },
     handleEarnWorker() {
       this.eventObject = {
@@ -166,7 +164,7 @@ export default {
         "action":'earnWorker'
       }
       console.log('獲取工人',this.eventObject);
-      //buyCard(data);
+      
     },
     handleEarnMoneyMilitary() {
       this.eventObject = {
@@ -175,7 +173,7 @@ export default {
         "action":'earnMoneyMilitary'
       }
       console.log('獲取錢+軍事值',this.eventObject);
-      //buyCard(data);
+      
     },
     handleEarnTwoReel() {
       this.eventObject = {
@@ -184,7 +182,7 @@ export default {
         "action":'earnTwoReel'
       }
       console.log('獲取2卷軸',this.eventObject);
-      //buyCard(data);
+      
     },
 
     handleChoosePillar(color,player) {
@@ -206,7 +204,6 @@ export default {
       chooseReelMethod(this.$data,reels)
     },
     handleReset(){
-      //this.players.find(player=>player.needAction != 'wait').needAction = "putPillar"
       reset({"playerId":this.playerId})
     },
     handleEndTurn(){

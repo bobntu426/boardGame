@@ -13,18 +13,25 @@ class TableService
 
     public function initGame(string $tableId)
     {
-        // 取得所有卡片名稱
-        $cardTables = DB::table('card_tables')->get();
-        // 構建要插入的數據
+        
+        $cardTables = [
+            DB::table('green_card_tables')->get(),
+            DB::table('yellow_card_tables')->get(),
+            DB::table('blue_card_tables')->get(),
+            DB::table('purple_card_tables')->get(),
+        ];
+        
         $data = [];
-        foreach ($cardTables as $card) {
-            $data[] = [
-                'table_id' => $tableId,
-                'name' => $card->name,
-                'status' => 'deck',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+        foreach ($cardTables as $cardTable) {
+            foreach ($cardTable as $card){
+                $data[] = [
+                    'table_id' => $tableId,
+                    'name' => $card->name,
+                    'status' => 'deck',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
         }
         DB::table('cards')->insert($data);
         $table = Table::findOrFail($tableId);

@@ -15,6 +15,7 @@
         
       <OtherMove 
         :gameInfo = "gameInfo"
+        :pillarInfo = "pillarInfo"
         :player = "player"
         @decideOrder="decideOrder"
         @production="production"
@@ -42,10 +43,10 @@ export default {
   data(){
     return{
       towersInfo: [
-        {color:'green',pillarPosition:this.gameInfo.pillarInfo.green,style:{left:'3.5%'}},
-        {color:'blue',pillarPosition:this.gameInfo.pillarInfo.blue,style:{left:'27.5%'}},
-        {color:'yellow',pillarPosition:this.gameInfo.pillarInfo.yellow,style:{left:'52%'}},
-        {color:'purple',pillarPosition:this.gameInfo.pillarInfo.purple,style:{left:'76.5%'}},
+        {color:'green',pillarPosition:this.pillarInfo.green,style:{left:'3.5%'}},
+        {color:'blue',pillarPosition:this.pillarInfo.blue,style:{left:'27.5%'}},
+        {color:'yellow',pillarPosition:this.pillarInfo.yellow,style:{left:'52%'}},
+        {color:'purple',pillarPosition:this.pillarInfo.purple,style:{left:'76.5%'}},
       ],
     }
   },
@@ -70,7 +71,12 @@ export default {
     player:{
       type: Object,
       required: true
-    }
+    },
+    pillarInfo:{
+      type: Object,
+      required: true
+    },
+    
   },
   
 

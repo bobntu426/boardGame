@@ -54,10 +54,10 @@ class PlayerController
     }
     public function getPlayerCards(Player $player){
         $cards = $player->cards;
-        $cardService = new CardService();
-        $cardObjects = $cards->map(function ($card) use ($cardService) {
-            return $cardService->formCardObject($card);
-        });
+        // $cardService = new CardService();
+        // $cardObjects = $cards->map(function ($card) use ($cardService) {
+        //     return $cardService->formCardObject($card);
+        // });
         //return response()->json($cardObjects);
         return CardResource::collection($cards);
     }
@@ -103,7 +103,7 @@ class PlayerController
         $originalPlayer = TempStorage::where('player_id',$playerId)->first();
         $originalPlayer->update(['pillarColor'=>$pillarColor,'action'=>$request->action]);
         $player->needAction = "sure";
-        OrderEvent::dispatch($player,$pillarColor);
+        OrderEvent::dispatch($player);
         $player->save();
     }
     public function endTurn(Request $request){
