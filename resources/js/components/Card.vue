@@ -1,6 +1,6 @@
 <template>
   
-  <img :src="`/${card.image}.png`" alt="Card Image" class = card-image />
+  <img :src="`/${card.image}`" alt="Card Image" class = card-image />
   
   
     <!-- <div class="card-info">

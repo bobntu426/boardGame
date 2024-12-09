@@ -81,7 +81,6 @@ export default {
   
 
   methods: {
-    // 购买卡片的处理函数
     buyCard(card,index) {
       this.$emit('buyCard', card,index);
     },
@@ -133,7 +132,7 @@ export default {
   height: 100%;
   position: absolute;
   display: flex;
-  flex-direction: column-reverse; /* 垂直堆叠塔的层 */
+  flex-direction: column-reverse;
 }
 .towers-div {
   display: flex;

@@ -45,7 +45,7 @@ return new class extends Migration
             //gainDice,increasePoint
 
             $table->integer('point')->default(0);
-            $table->string('functionColor')->nullable();
+            $table->string('functionTarget')->nullable();
             $table->integer('costMoney')->default(0);
 
             $table->integer('gainMilitaryWhenBuy')->default(0);
