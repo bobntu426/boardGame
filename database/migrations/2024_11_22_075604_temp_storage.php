@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('military')->default(0);
             $table->integer('belief')->default(0);
             $table->integer('nextOrder')->nullable();
-            $table->integer('action')->nullable();
+            $table->string('action')->nullable();
             $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');
         });
         
