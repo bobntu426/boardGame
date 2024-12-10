@@ -2,7 +2,7 @@
 return [
     'blueCards'=>[
         [//49
-            'name'=>'­x»Ö',
+            'name'=>'è»é–¥',
             'image'=>'images/cards/blue/49.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -16,7 +16,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//50
-            'name'=>'¥Û¦K',
+            'name'=>'çŸ³åŒ ',
             'image'=>'images/cards/blue/50.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -30,7 +30,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//51
-            'name'=>'¶Q°ü',
+            'name'=>'è²´å©¦',
             'image'=>'images/cards/blue/51.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -44,7 +44,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//52
-            'name'=>'ÃM¤h',
+            'name'=>'é¨Žå£«',
             'image'=>'images/cards/blue/52.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -58,7 +58,7 @@ return [
             'gainReelWhenBuy'=>1,
         ],
         [//53
-            'name'=>'¹A¤Ò',
+            'name'=>'è¾²å¤«',
             'image'=>'images/cards/blue/53.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -72,7 +72,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//54
-            'name'=>'¤u¦K',
+            'name'=>'å·¥åŒ ',
             'image'=>'images/cards/blue/54.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -86,7 +86,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//55
-            'name'=>'ªª®v',
+            'name'=>'ç‰§å¸«',
             'image'=>'images/cards/blue/55.png',
             'color'=>'blue',
             //gainDice=>,increasePoint
@@ -98,7 +98,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//56
-            'name'=>'­×¤k',
+            'name'=>'ä¿®å¥³',
             'image'=>'images/cards/blue/56.png',
             'color'=>'blue',
             'function'=>'gainDice',
@@ -112,7 +112,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//57
-            'name'=>'²Î«Ó',
+            'name'=>'çµ±å¸¥',
             'image'=>'images/cards/blue/57.png',
             'color'=>'blue',
             'function'=>'gainDice',
@@ -126,7 +126,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//58
-            'name'=>'«Ø¿v®v',
+            'name'=>'å»ºç¯‰å¸«',
             'image'=>'images/cards/blue/58.png',
             'color'=>'blue',
             'function'=>'gainDice',
@@ -140,7 +140,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//59
-            'name'=>'ÃÙ§U¤H',
+            'name'=>'è´ŠåŠ©äºº',
             'image'=>'images/cards/blue/59.png',
             'color'=>'blue',
             'function'=>'gainDice',
@@ -154,7 +154,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//60
-            'name'=>'­^¶¯',
+            'name'=>'è‹±é›„',
             'image'=>'images/cards/blue/60.png',
             'color'=>'blue',
             'function'=>'gainDice',
@@ -168,7 +168,7 @@ return [
             'gainReelWhenBuy'=>1,
         ],
         [//61
-            'name'=>'¹A¥Á',
+            'name'=>'è¾²æ°‘',
             'image'=>'images/cards/blue/61.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -182,7 +182,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//62
-            'name'=>'¾ÇªÌ',
+            'name'=>'å­¸è€…',
             'image'=>'images/cards/blue/62.png',
             'color'=>'blue',
             'function'=>'increasePoint',
@@ -196,7 +196,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//63
-            'name'=>'±Ð¬Ó«H¨Ï',
+            'name'=>'æ•™çš‡ä¿¡ä½¿',
             'image'=>'images/cards/blue/63.png',
             'color'=>'blue',
             //gainDice=>,increasePoint
@@ -208,7 +208,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//64
-            'name'=>'¬Ó®a«H¨Ï',
+            'name'=>'çš‡å®¶ä¿¡ä½¿',
             'image'=>'images/cards/blue/64.png',
             'color'=>'blue',
             //gainDice=>,increasePoint
@@ -220,7 +220,7 @@ return [
             'gainReelWhenBuy'=>3,
         ],
         [//65
-            'name'=>'¶Q±Ú',
+            'name'=>'è²´æ—',
             'image'=>'images/cards/blue/65.png',
             'color'=>'blue',
             'function'=>'gainScore',
@@ -234,7 +234,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//66
-            'name'=>'Á`·þ',
+            'name'=>'ç¸½ç£',
             'image'=>'images/cards/blue/66.png',
             'color'=>'blue',
             'function'=>'gainScore',
@@ -248,7 +248,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//67
-            'name'=>'±¡°ü',
+            'name'=>'æƒ…å©¦',
             'image'=>'images/cards/blue/67.png',
             'color'=>'blue',
             'function'=>'gainScore',
@@ -262,7 +262,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//68
-            'name'=>'¶Ç¥O©x',
+            'name'=>'å‚³ä»¤å®˜',
             'image'=>'images/cards/blue/68.png',
             'color'=>'blue',
             'function'=>'gainScore',
@@ -276,7 +276,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//69
-            'name'=>'¬õ¦ç¥D±Ð',
+            'name'=>'ç´…è¡£ä¸»æ•™',
             'image'=>'images/cards/blue/69.png',
             'color'=>'blue',
             'function'=>'harvest',
@@ -289,7 +289,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//70
-            'name'=>'¥D±Ð',
+            'name'=>'ä¸»æ•™',
             'image'=>'images/cards/blue/70.png',
             'color'=>'blue',
             'function'=>'production',
@@ -302,7 +302,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//71
-            'name'=>'±N­x',
+            'name'=>'å°‡è»',
             'image'=>'images/cards/blue/71.png',
             'color'=>'blue',
             'function'=>'gainScore',
@@ -316,7 +316,7 @@ return [
             'gainReelWhenBuy'=>0,
         ],
         [//72
-            'name'=>'¤j¨Ï',
+            'name'=>'å¤§ä½¿',
             'image'=>'images/cards/blue/72.png',
             'color'=>'blue',
             'function'=>'gainDice',

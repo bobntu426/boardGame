@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $greenCards = config('greencards.greenCards');
+        $greenCards = config('greenCards.greenCards');
         DB::table('green_card_tables')->truncate();
         for( $i = 0; $i <= 23; $i++ ) {
             $imageIndex = $i+1;
             $data = [
                 'name'=>$greenCards[$i]['name'],
                 'color'=>"green",
-                'image'=>"images/cards/green/$imageIndex",
+                'image'=>"images/cards/green/$imageIndex".".png",
                 'harvestPoint'=>$greenCards[$i]['harvestPoint'],
                 'gainMoneyWhenBuy'=>$greenCards[$i]['gainMoneyWhenBuy'],
                 'gainWoodWhenBuy'=>$greenCards[$i]['gainWoodWhenBuy'],
