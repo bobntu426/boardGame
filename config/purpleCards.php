@@ -1,0 +1,25 @@
+<?php
+return [
+    'purpleCards'=>[
+        [//73
+            'name'=>'招募新兵',
+            'function'=>'',
+            'point'=>0,
+            'costMoney'=>0,
+            'costWood'=>0,
+            'costRock'=>0,
+            'costWorker'=>0,
+            'costMilitary'=>0,
+            'needMilitary'=>0,
+            'gainMoneyWhenBuy'=>0,
+            'gainWoodWhenBuy'=>0,
+            'gainRockWhenBuy'=>0,
+            'gainWorkerWhenBuy'=>0,
+            'gainMilitaryWhenBuy'=>0,
+            'gainBeliefWhenBuy'=>0,
+            'gainScoreWhenBuy'=>0,
+            'gainReelWhenBuy'=>0,
+            'gainScoreEnd'=>0,
+        ]
+    ],
+];
