@@ -63,7 +63,7 @@ return new class extends Migration
             $table->string('color')->default('yellow');
             $table->integer('productionPoint')->default(0);
 
-            $table->string('multiplyColor')->nullable();
+            $table->string('functionColor')->nullable();
             
             $table->integer('costMoney')->default(0);
             $table->integer('costWood')->default(0);
@@ -79,11 +79,13 @@ return new class extends Migration
             $table->integer('gainWorkerWhenUse1')->default(0);
             $table->integer('gainBeliefWhenUse1')->default(0);
             $table->integer('gainScoreWhenUse1')->default(0);
+            $table->integer('gainReelWhenUse1')->default(0);
+            
             $table->integer('gainMilitaryWhenUse1')->default(0);
-            $table->integer('gainMoneyWhenUse2')->default(0);
-            $table->integer('gainWoodWhenUse2')->default(0);
-            $table->integer('gainRockWhenUse2')->default(0);
-            $table->integer('gainScoreWhenUse2')->default(0);
+            $table->integer('gainMoneyWhenUse2')->nullable();
+            $table->integer('gainWoodWhenUse2')->nullable();
+            $table->integer('gainRockWhenUse2')->nullable();
+            $table->integer('gainScoreWhenUse2')->nullable();
 
             
             $table->integer('costMoneyWhenUse1')->default(0);
@@ -91,9 +93,9 @@ return new class extends Migration
             $table->integer('costRockWhenUse1')->default(0);
             $table->integer('costWorkerWhenUse1')->default(0);
             $table->integer('costBeliefWhenUse1')->default(0);
-            $table->integer('costMoneyWhenUse2')->default(0);
-            $table->integer('costWoodWhenUse2')->default(0);
-            $table->integer('costRockWhenUse2')->default(0);
+            $table->integer('costMoneyWhenUse2')->nullable();
+            $table->integer('costWoodWhenUse2')->nullable();
+            $table->integer('costRockWhenUse2')->nullable();
 
             $table->boolean('twoTrigger')->default(false);
             $table->boolean('chooseOneCost')->default(false);
