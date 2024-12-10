@@ -6,7 +6,7 @@ export function buyCardMethod(data,{card,index}) {
         "chooseColor":data.players.find(player => player.id === id).chooseColor,
         "cardId": card.id,
         "index":index,
-        "action":'order'
+        "action":'buycard'
         }
         
         //data.players.find(player=>player.needAction != 'wait').needAction = "chooseReel1"
