@@ -68,7 +68,7 @@ class CardResource extends JsonResource
                 'color'=> $cardTable->color,
                 'function'=> $cardTable->function,
                 'point'=> $cardTable->point,
-                'functionColor'=> $cardTable->functionColor,
+                'functionTarget'=> $cardTable->functionTarget,
                 'cost'=>[
                     'money'=>$cardTable->costMoney,
                 ],
@@ -82,7 +82,6 @@ class CardResource extends JsonResource
             return $cardObj;
         }else if($cardColor == 'yellow'){
             $cardTable = DB::table('yellow_card_tables')->where('name', $this->name)->first();
-            
             $cardObj = [
                 'id'=>$this->id,
                 'name'=> $this->name,
@@ -91,7 +90,7 @@ class CardResource extends JsonResource
                 'image'=>$cardTable->image,
                 'color'=> $cardTable->color,
                 'productionPoint'=> $cardTable->productionPoint,
-                'multiplyColor'=> $cardTable->multiplyColor,
+                'functionColor'=> $cardTable->functionColor,
                 'twoTrigger'=> $cardTable->twoTrigger,
                 'chooseOneCost'=> $cardTable->chooseOneCost,
 
