@@ -2,7 +2,7 @@
 return [
     'greenCards'=>[
         [//1
-            'name'=>'商業中心',
+            'name'=>'商業中心',//
             'image'=>'images/cards/green/1.png',
             'harvestPoint'=>1,
             'gainMoneyWhenBuy'=>0,
