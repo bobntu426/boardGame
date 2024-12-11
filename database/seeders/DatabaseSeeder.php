@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $greenCards = config('greenCards.greenCards');
+        $yellowCards = config('yellowCards.yellowCards');
+        $blueCards = config('blueCards.blueCards');
+        $purpleCards = config('purpleCards.purpleCards');
         DB::table('green_card_tables')->truncate();
         for( $i = 0; $i <= 23; $i++ ) {
             $imageIndex = $i+1;
@@ -44,33 +47,96 @@ class DatabaseSeeder extends Seeder
             DB::table('green_card_tables')->insert($data);
         }
         DB::table('yellow_card_tables')->truncate();
-        for( $i = 25; $i <= 48; $i++ ) {
+        for( $i = 0; $i <= 23; $i++ ) {
+            $imageIndex = $i+25;
             $data = [
-                'name'=>"card$i",
+                'name'=>$yellowCards[$i]['name'],
                 'color'=>"yellow",
-                'image'=>"images/cards/yellow/$i"
+                'image'=>"images/cards/yellow/$imageIndex".".png",
+                'productionPoint'=>$yellowCards[$i]['productionPoint'],
+                'costMoney'=>$yellowCards[$i]['costMoney'],
+                'costWood'=>$yellowCards[$i]['costWood'],
+                'costRock'=>$yellowCards[$i]['costRock'],
+                'costWorker'=>$yellowCards[$i]['costWorker'],
+                'gainBeliefWhenBuy'=>$yellowCards[$i]['gainBeliefWhenBuy'],
+                'gainScoreWhenBuy'=>$yellowCards[$i]['gainScoreWhenBuy'],
+                'gainMoneyWhenUse1'=>$yellowCards[$i]['gainMoneyWhenUse1'],
+                'gainWoodWhenUse1'=>$yellowCards[$i]['gainWoodWhenUse1'],
+                'gainRockWhenUse1'=>$yellowCards[$i]['gainRockWhenUse1'],
+                'gainWorkerWhenUse1'=>$yellowCards[$i]['gainWorkerWhenUse1'],
+                'gainBeliefWhenUse1'=>$yellowCards[$i]['gainBeliefWhenUse1'],
+                'gainReelWhenUse1'=>$yellowCards[$i]['gainReelWhenUse1'],
+                'gainScoreWhenUse1'=>$yellowCards[$i]['gainScoreWhenUse1'],
+                'gainMilitaryWhenUse1'=>$yellowCards[$i]['gainMilitaryWhenUse1'],
+                'costMoneyWhenUse1'=>$yellowCards[$i]['costMoneyWhenUse1'],
+                'costWoodWhenUse1'=>$yellowCards[$i]['costWoodWhenUse1'],
+                'costRockWhenUse1'=>$yellowCards[$i]['costRockWhenUse1'],
+                'costWorkerWhenUse1'=>$yellowCards[$i]['costWorkerWhenUse1'],
+                'costBeliefWhenUse1'=>$yellowCards[$i]['costBeliefWhenUse1'],
+                'twoTrigger'=>$yellowCards[$i]['twoTrigger'],
+                'chooseOneCost'=>$yellowCards[$i]['chooseOneCost'],
             ];
-            
+            if($data['twoTrigger']){
+                $data['gainMoneyWhenUse2'] = $yellowCards[$i]['gainMoneyWhenUse2'];
+                $data['gainWoodWhenUse2'] = $yellowCards[$i]['gainWoodWhenUse2'];
+                $data['gainRockWhenUse2'] = $yellowCards[$i]['gainRockWhenUse2'];
+                $data['gainScoreWhenUse2'] = $yellowCards[$i]['gainScoreWhenUse2'];
+                $data['costMoneyWhenUse2'] = $yellowCards[$i]['costMoneyWhenUse2'];
+                $data['costWoodWhenUse2'] = $yellowCards[$i]['costWoodWhenUse2'];
+                $data['costRockWhenUse2'] = $yellowCards[$i]['costRockWhenUse2'];
+            }
+            if(isset($yellowCards[$i]['functionColor'])){
+                $data['functionColor'] = $yellowCards[$i]['functionColor'];
+            }
             DB::table('yellow_card_tables')->insert($data);
         }
         DB::table('blue_card_tables')->truncate();
-        for( $i = 49; $i <= 72; $i++ ) {
+        for( $i = 0; $i <= 23; $i++ ) {
+            $imageIndex = $i+49;
             $data = [
-                'name'=>"card$i",
+                'name'=>$blueCards[$i]['name'],
                 'color'=>"blue",
-                'image'=>"images/cards/blue/$i"
+                'image'=>"images/cards/blue/$imageIndex".".png",
+                'function'=>$blueCards[$i]['function'],
+                'point'=>$blueCards[$i]['point'],
+                'costMoney'=>$blueCards[$i]['costMoney'],
+                'gainMilitaryWhenBuy'=>$blueCards[$i]['gainMilitaryWhenBuy'],
+                'gainBeliefWhenBuy'=>$blueCards[$i]['gainBeliefWhenBuy'],
+                'gainScoreWhenBuy'=>$blueCards[$i]['gainScoreWhenBuy'],
+                'gainReelWhenBuy'=>$blueCards[$i]['gainReelWhenBuy'],
             ];
-            
+            if(isset($blueCards[$i]['functionTarget'])){
+                $data['functionTarget'] = $blueCards[$i]['functionTarget'];
+            }
             DB::table('blue_card_tables')->insert($data);
         }
         DB::table('purple_card_tables')->truncate();
-        for( $i = 73; $i <= 96; $i++ ) {
+        for( $i = 0; $i <= 23; $i++ ) {
+            $imageIndex = $i+73;
             $data = [
-                'name'=>"card$i",
+                'name'=>$purpleCards[$i]['name'],
                 'color'=>"purple",
-                'image'=>"images/cards/purple/$i"
+                'image'=>"images/cards/purple/$imageIndex".".png",
+                'point'=>$purpleCards[$i]['point'],
+                'costMoney'=>$purpleCards[$i]['costMoney'],
+                'costWood'=>$purpleCards[$i]['costWood'],
+                'costRock'=>$purpleCards[$i]['costRock'],
+                'costWorker'=>$purpleCards[$i]['costWorker'],
+                'costMilitary'=>$purpleCards[$i]['costMilitary'],
+                'needMilitary'=>$purpleCards[$i]['needMilitary'],
+                'gainMoneyWhenBuy'=>$purpleCards[$i]['gainMoneyWhenBuy'],
+                'gainWoodWhenBuy'=>$purpleCards[$i]['gainWoodWhenBuy'],
+                'gainRockWhenBuy'=>$purpleCards[$i]['gainRockWhenBuy'],
+                'gainWorkerWhenBuy'=>$purpleCards[$i]['gainWorkerWhenBuy'],
+                'gainMilitaryWhenBuy'=>$purpleCards[$i]['gainMilitaryWhenBuy'],
+                'gainBeliefWhenBuy'=>$purpleCards[$i]['gainBeliefWhenBuy'],
+                'gainScoreWhenBuy'=>$purpleCards[$i]['gainScoreWhenBuy'],
+                'gainReelWhenBuy'=>$purpleCards[$i]['gainReelWhenBuy'],
+                'gainScoreEnd'=>$purpleCards[$i]['gainScoreEnd'],
             ];
-            
+            if(isset($purpleCards[$i]['function'])){
+                $data['function'] = $purpleCards[$i]['function'];
+            }
             DB::table('purple_card_tables')->insert($data);
         }
 

@@ -23,12 +23,12 @@ return new class extends Migration
             $table->integer('order')->nullable();
             $table->integer('nextOrder')->nullable();
             $table->integer('sideBar')->nullable();
-            $table->integer('extraProduction')->nullable();
-            $table->integer('extraHarvest')->nullable();
-            $table->integer('extraGreenPoint')->nullable();
-            $table->integer('extraBluePoint')->nullable();
-            $table->integer('extraYellowPoint')->nullable();
-            $table->integer('extraPurplePoint')->nullable();
+            $table->integer('extraProduction')->default(0);
+            $table->integer('extraHarvest')->default(0);
+            $table->integer('extraGreenPoint')->default(0);
+            $table->integer('extraBluePoint')->default(0);
+            $table->integer('extraYellowPoint')->default(0);
+            $table->integer('extraPurplePoint')->default(0);
             $table->string('needAction')->default('wait')->comment('玩家需要做甚麼行動，顯示訊息用');
             $table->string('redPillar')->default(value: 'hand');
             $table->string('blackPillar')->default('hand');

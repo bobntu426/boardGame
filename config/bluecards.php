@@ -4,7 +4,7 @@ return [
         [//49
             'name'=>'軍閥',
             'image'=>'images/cards/blue/49.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -18,7 +18,7 @@ return [
         [//50
             'name'=>'石匠',
             'image'=>'images/cards/blue/50.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -32,7 +32,7 @@ return [
         [//51
             'name'=>'貴婦',
             'image'=>'images/cards/blue/51.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -46,7 +46,7 @@ return [
         [//52
             'name'=>'騎士',
             'image'=>'images/cards/blue/52.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -60,7 +60,7 @@ return [
         [//53
             'name'=>'農夫',
             'image'=>'images/cards/blue/53.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -74,7 +74,7 @@ return [
         [//54
             'name'=>'工匠',
             'image'=>'images/cards/blue/54.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -88,7 +88,7 @@ return [
         [//55
             'name'=>'牧師',
             'image'=>'images/cards/blue/55.png',
-            'color'=>'blue',
+            'function'=>'bad',
             //gainDice=>,increasePoint
             'point'=>0,
             'costMoney'=>2,
@@ -100,7 +100,7 @@ return [
         [//56
             'name'=>'修女',
             'image'=>'images/cards/blue/56.png',
-            'color'=>'blue',
+            
             'function'=>'gainDice',
             //gainDice=>,increasePoint
             'point'=>4,
@@ -114,7 +114,7 @@ return [
         [//57
             'name'=>'統帥',
             'image'=>'images/cards/blue/57.png',
-            'color'=>'blue',
+            
             'function'=>'gainDice',
             //gainDice=>,increasePoint
             'point'=>6,
@@ -128,7 +128,7 @@ return [
         [//58
             'name'=>'建築師',
             'image'=>'images/cards/blue/58.png',
-            'color'=>'blue',
+            
             'function'=>'gainDice',
             //gainDice=>,increasePoint
             'point'=>6,
@@ -142,7 +142,7 @@ return [
         [//59
             'name'=>'贊助人',
             'image'=>'images/cards/blue/59.png',
-            'color'=>'blue',
+            
             'function'=>'gainDice',
             //gainDice=>,increasePoint
             'point'=>6,
@@ -156,7 +156,7 @@ return [
         [//60
             'name'=>'英雄',
             'image'=>'images/cards/blue/60.png',
-            'color'=>'blue',
+            
             'function'=>'gainDice',
             //gainDice=>,increasePoint
             'point'=>6,
@@ -170,7 +170,7 @@ return [
         [//61
             'name'=>'農民',
             'image'=>'images/cards/blue/61.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>3,
@@ -184,7 +184,7 @@ return [
         [//62
             'name'=>'學者',
             'image'=>'images/cards/blue/62.png',
-            'color'=>'blue',
+            
             'function'=>'increasePoint',
             //gainDice=>,increasePoint
             'point'=>3,
@@ -198,7 +198,7 @@ return [
         [//63
             'name'=>'教皇信使',
             'image'=>'images/cards/blue/63.png',
-            'color'=>'blue',
+            'function'=>null,
             //gainDice=>,increasePoint
             'point'=>0,
             'costMoney'=>5,
@@ -210,7 +210,7 @@ return [
         [//64
             'name'=>'皇家信使',
             'image'=>'images/cards/blue/64.png',
-            'color'=>'blue',
+            'function'=>null,
             //gainDice=>,increasePoint
             'point'=>0,
             'costMoney'=>5,
@@ -222,7 +222,7 @@ return [
         [//65
             'name'=>'貴族',
             'image'=>'images/cards/blue/65.png',
-            'color'=>'blue',
+            
             'function'=>'gainScore',
             //gainDice=>,increasePoint
             'point'=>0,
@@ -236,7 +236,7 @@ return [
         [//66
             'name'=>'總督',
             'image'=>'images/cards/blue/66.png',
-            'color'=>'blue',
+            
             'function'=>'gainScore',
             //gainDice=>,increasePoint
             'point'=>0,
@@ -250,7 +250,7 @@ return [
         [//67
             'name'=>'情婦',
             'image'=>'images/cards/blue/67.png',
-            'color'=>'blue',
+            
             'function'=>'gainScore',
             //gainDice=>,increasePoint
             'point'=>2,
@@ -264,7 +264,7 @@ return [
         [//68
             'name'=>'傳令官',
             'image'=>'images/cards/blue/68.png',
-            'color'=>'blue',
+            
             'function'=>'gainScore',
             //gainDice=>,increasePoint
             'point'=>0,
@@ -278,7 +278,7 @@ return [
         [//69
             'name'=>'紅衣主教',
             'image'=>'images/cards/blue/69.png',
-            'color'=>'blue',
+            
             'function'=>'harvest',
             //gainDice=>,increasePoint
             'point'=>4,
@@ -291,7 +291,7 @@ return [
         [//70
             'name'=>'主教',
             'image'=>'images/cards/blue/70.png',
-            'color'=>'blue',
+            
             'function'=>'production',
             //gainDice=>,increasePoint
             'point'=>4,
@@ -304,7 +304,7 @@ return [
         [//71
             'name'=>'將軍',
             'image'=>'images/cards/blue/71.png',
-            'color'=>'blue',
+            
             'function'=>'gainScore',
             //gainDice=>,increasePoint
             'point'=>0,
@@ -318,7 +318,7 @@ return [
         [//72
             'name'=>'大使',
             'image'=>'images/cards/blue/72.png',
-            'color'=>'blue',
+            
             'function'=>'gainDice',
             //gainDice=>,increasePoint
             'point'=>7,

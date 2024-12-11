@@ -23,7 +23,14 @@ return new class extends Migration
             $table->integer('score')->default(0);
             $table->integer('military')->default(0);
             $table->integer('belief')->default(0);
+            $table->integer('extraProduction')->default(0);
+            $table->integer('extraHarvest')->default(0);
+            $table->integer('extraGreenPoint')->default(0);
+            $table->integer('extraBluePoint')->default(0);
+            $table->integer('extraYellowPoint')->default(0);
+            $table->integer('extraPurplePoint')->default(0);
             $table->integer('nextOrder')->nullable();
+            $table->integer('card_id')->nullable();
             $table->string('action')->nullable();
             $table->foreignId('table_id')->nullable()->constrained()->onDelete('cascade');
         });

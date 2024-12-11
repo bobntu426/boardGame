@@ -17,8 +17,6 @@ class ResetEvent implements ShouldBroadcastNow
      * Create a new event instance.
      */
     public $player;
-    public $pillarColor;
-    public $action;
    
     public function __construct(Player $player)
     {

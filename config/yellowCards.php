@@ -224,6 +224,7 @@ return [
             'costWoodWhenUse1'=>0,
             'costRockWhenUse1'=>0,
             'costWorkerWhenUse1'=>0,
+            'costBeliefWhenUse1'=>0,
 
             'twoTrigger'=>false,
             'chooseOneCost'=>false

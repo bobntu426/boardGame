@@ -145,7 +145,8 @@ class PlayerService{
     }
     public function resetPlayer(Player $player,TempStorage $originalPlayer ){
         $pillarColor = $originalPlayer->pillarColor;
-        $player->update([
+        $action = $originalPlayer->action;
+        $data = [
             'needAction'=>'putPillar',
             $pillarColor."Pillar" => "hand",
             'money' => $originalPlayer->money,
@@ -154,9 +155,27 @@ class PlayerService{
             'worker' => $originalPlayer->worker,
             'military' => $originalPlayer->military,
             'belief' => $originalPlayer->belief,
-            'nextOrder' => $originalPlayer->nextOrder,
             'score' => $originalPlayer->score,
-        ]);
+        ];
+        switch($action){
+            case 'order':
+                $data['nextOrder']=$originalPlayer->nextOrder;
+                break;
+            case 'buyCard':
+                $data['card_id']=$originalPlayer->card_id;
+                $data['extraProduction']=$originalPlayer->extraProduction;
+                $data['extraHarvest']=$originalPlayer->extraHarvest;
+                $data['extraGreenPoint']=$originalPlayer->extraGreenPoint;
+                $data['extraBluePoint']=$originalPlayer->extraBluePoint;
+                $data['extraYellowPoint']=$originalPlayer->extraYellowPoint;
+                $data['extraPurplePoint']=$originalPlayer->extraPurplePoint;
+                break;
+            
+        }
+
+           
+        ;
+        $player->update($data);
         resetEvent::dispatch($player);
         $originalPlayer->update([
             'pillarColor'=>null,

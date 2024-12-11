@@ -101,7 +101,7 @@ class PlayerController
         $this->playerService->setOrderAhead($player);
         $this->playerService->earnResourceFromReel($player,$request->reels);
         $originalPlayer = TempStorage::where('player_id',$playerId)->first();
-        $originalPlayer->update(['pillarColor'=>$pillarColor,'action'=>$request->action]);
+        $originalPlayer->update(['pillarColor'=>$pillarColor,'action'=>'order']);
         $player->needAction = "sure";
         OrderEvent::dispatch($player);
         $player->save();
