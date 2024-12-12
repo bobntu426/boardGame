@@ -32,6 +32,24 @@
             @click="handleReset" 
         >重置回合
         </button>
+        <div v-if="actionPlayer.id == player.id&&player.needAction =='putPillar' " class="set-worker-div" >
+            <button 
+                :style="{}"
+                @click="decreaseWorkerNum" 
+                >-
+            </button>
+            <img 
+                :src="'/images/resource/worker.png'" 
+                :style="{height:'50%'}"
+            />
+            <h2>:{{workerNum}}</h2>
+            <button 
+                :style="{}"
+                @click="increaseWorkerNum" 
+                >+
+            </button>
+        </div>
+        
     </div>
 </template>
 <script>
@@ -51,6 +69,10 @@ import ChooseReel from './ChooseReel.vue';
                 type:Object,
                 required: true
             },
+            workerNum:{
+                type:Number,
+                required: true
+            },
             actionPlayer:{
                 type:Object,
             },
@@ -61,7 +83,15 @@ import ChooseReel from './ChooseReel.vue';
             handleEndTurn:{
                 type: Function,
                 required: true
-            }
+            },
+            decreaseWorkerNum:{
+                type: Function,
+                required: true
+            },
+            increaseWorkerNum:{
+                type: Function,
+                required: true
+            },
         },
         mounted(){
             
@@ -79,7 +109,7 @@ import ChooseReel from './ChooseReel.vue';
 <style scoped>
     .process-div{
         display: flex;
-        
+        position: relative;
         width: 90%;
         aspect-ratio: 30/1;
         align-items: center;
@@ -87,12 +117,17 @@ import ChooseReel from './ChooseReel.vue';
         flex-direction: row;
         background-color: rgb(197, 255, 109);
     }
-    .sure-div{
+    .set-worker-div{
         display: flex;
-        position: relative;
+        position: absolute;
+        right: 0%;
+        width: 20%;
+        height:100%;
+        column-gap: 2%;
         align-items: center;
         justify-content: center;
         flex-direction: row;
+        
     }
     
 </style>

@@ -8,6 +8,9 @@
         :player = "players.find(player => player.user.id === userId)"
         :handleReset = "handleReset"
         :handleEndTurn="handleEndTurn"
+        :workerNum = "workerNum"
+        :decreaseWorkerNum = "decreaseWorkerNum"
+        :increaseWorkerNum = "increaseWorkerNum"
         @chooseReel="handleChooseReel"
         
        />
@@ -99,18 +102,18 @@ export default {
       playerBoard:{},
       loading:true,
       eventObject:{},
-      errorMessageArray : []
+      errorMessageArray : [],
+      workerNum:0
     };
   },
   
   
   methods: {
     handleDecideOrder() {
-      checkMove(this.$data,{},decideOrderMethod)
-      // decideOrderMethod(this.$data)
+      checkMove(this.$data,this.workerNum,1,{},decideOrderMethod)
     },
     handleBuyCard(card,index) {
-      checkMove(this.$data,{'card':card,'index':index},buyCardMethod)
+      checkMove(this.$data,this.workerNum,1,{'card':card,'index':index},buyCardMethod)
     },
     handleProduction() {
       this.eventObject = {
@@ -195,6 +198,14 @@ export default {
         player.chooseColor = null
       }
       
+    },
+    increaseWorkerNum(){
+      if(this.player.worker>this.workerNum)
+        this.workerNum++
+    },
+    decreaseWorkerNum(){
+      if(this.workerNum>0)
+        this.workerNum--
     },
     handleChoosePlayerBoard(player) {
       this.playerBoard = player

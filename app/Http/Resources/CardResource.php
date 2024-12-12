@@ -153,7 +153,7 @@ class CardResource extends JsonResource
                     'worker'=>$cardTable->costWorker,
                     'rock'=>$cardTable->costRock,
                     'wood'=>$cardTable->costWood,
-                    'military'=>$cardTable->costMilitary,
+                    'military'=>$cardTable->needMilitary,
                 ],
                 'buyEffect'=>[
                     'money'=>$cardTable->gainMoneyWhenBuy,

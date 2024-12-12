@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://practice.test';
+const API_URL = import.meta.env.VITE_APP_URL;
 
 export const getUsers = async () => {
   try {
@@ -82,26 +82,7 @@ export const getPlayerCards = async (playerId) => {
     throw error; 
   }
 }
-export const buyCard = async (mes) => {
-  try {
-    const response = await axios.put(`${API_URL}/players/buy-card`,(mes));
-    console.log(response.data);
-    return response.data; 
-  } catch (error) {
-    console.error('Error buy Cards:', error);
-    throw error; 
-  }
-}
-export const useCard = async (card) => {
-  try {
-    const response = await axios.put(`${API_URL}/players/use-card`,(card));
-    console.log(response.data);
-    return response.data; 
-  } catch (error) {
-    console.error('Error fetching my Cards:', error);
-    throw error; 
-  }
-}
+
 export const fetchTables = async () => {
   try {
     const response = await axios.get(`${API_URL}/tables`);
@@ -181,10 +162,20 @@ export const reset = async (eventObject) => {
 }
 export const endTurn = async (eventObject) => {
   try {
-    const response = await axios.put(`${API_URL}/games/endTurn`,eventObject);
+    const response = await axios.put(`${API_URL}/games/end-turn`,eventObject);
     return response.data; 
   } catch (error) {
     console.error('handle reset fail', error);
     throw error; 
   }   
+}
+export const buyCard = async (eventObject) => {
+  try {
+    const response = await axios.put(`${API_URL}/players/buy-card`,eventObject);
+    console.log(response.data);
+    return response.data; 
+  } catch (error) {
+    console.error('Error buy Cards:', error);
+    throw error; 
+  }
 }

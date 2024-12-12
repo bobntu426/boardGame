@@ -13,3 +13,10 @@
 .button:hover {
   background-color: #0000001b;
 }
+.sure-div{
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
