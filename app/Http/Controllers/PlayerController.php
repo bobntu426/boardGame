@@ -35,30 +35,17 @@ class PlayerController
     
     public function buyCard(Request $request){
         $player = Player::find( $request->playerId );
-        $card = $request->card;
+        $card = Card::find( $request->cardId );
         $resultObj = $this->playerService->HandleBuyCard($player, $card);
         return response()->json($resultObj);
     }
-    public function useCard(Request $request){
-        $cardObj = $request;
-        $cardModel = Card::find( $request['id']  );
-        $player = $cardModel->player;
-        $resultObj = $this->playerService->HandleUseCard($player, $cardObj);
-        
-        
-        return response()->json($resultObj);
-    }
+    
     public function getCard(User $user){
         $cards = $user->cards;
         return $cards;
     }
     public function getPlayerCards(Player $player){
         $cards = $player->cards;
-        // $cardService = new CardService();
-        // $cardObjects = $cards->map(function ($card) use ($cardService) {
-        //     return $cardService->formCardObject($card);
-        // });
-        //return response()->json($cardObjects);
         return CardResource::collection($cards);
     }
     public function getMe()

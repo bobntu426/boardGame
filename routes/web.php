@@ -17,13 +17,13 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::put('/join-table/{table}', [PlayerController::class, 'joinTable'])->name('joinTable');
     Route::put('/leave-table/{table}', [PlayerController::class, 'leaveTable'])->name('leaveTable');
-    Route::put('/players/buy-card', [PlayerController::class, 'buyCard'])->name('buyCard');
     // Route::put('/players/use-card', [PlayerController::class, 'useCard'])->name('useCard');
     Route::post('/tables', [TableController::class, 'createTable'])->name('createTable');
     Route::middleware([CheckPlayerTurnAndPillar::class])->group(function () {
         Route::put('/games/decide-order', [PlayerController::class, 'decideOrder']);
         Route::put('/games/reset', [PlayerController::class, 'reset']);
         Route::put('/games/end-turn', [PlayerController::class, 'endTurn']);
+        Route::put('/players/buy-card', [PlayerController::class, 'buyCard'])->name('buyCard');
     });
 });
 

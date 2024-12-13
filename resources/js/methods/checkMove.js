@@ -5,7 +5,7 @@ export function checkMove(data,workerNum,needPoint,props,callback) {
     if(player.chooseColor!='normal'){
       dicePoint = data.gameInfo[`${player.chooseColor}Dice`]
     }
-    
+    props.dicePoint = dicePoint
     if(data.players.find(player => player.id === id).needAction == "putPillar"){
         if(!data.players.find(player => player.id === id).chooseColor){
           data.errorMessageArray.push('請選擇家族成員')

@@ -69,7 +69,7 @@ import ErrorMessage from '../components/ErrorMessage.vue';
 import { getTablePlayers,fetchUser,getTableCards,getPlayerCards,reset,getGameInfo,endTurn} from '../api'; 
 import { decideOrderMethod } from '../methods/decideOrderMethod';
 import { chooseReelMethod } from '../methods/chooseReelMethod';
-import { buyCardMethod } from '../methods/buyCardMethod';
+import { buyCardMethod,computeNeedPoint } from '../methods/buyCardMethod';
 import { checkMove } from '../methods/checkMove';
 import { listenForOrderEvent,listenForToNextPlayer,listenForResetEvent } from '../methods/listenEvent';
 import { getBoardPillarInfo } from '../methods/getBoardInfo';
@@ -113,7 +113,7 @@ export default {
       checkMove(this.$data,this.workerNum,1,{},decideOrderMethod)
     },
     handleBuyCard(card,index) {
-      checkMove(this.$data,this.workerNum,1,{'card':card,'index':index},buyCardMethod)
+      checkMove(this.$data,this.workerNum,computeNeedPoint(index),{'card':card,'index':index},buyCardMethod)
     },
     handleProduction() {
       this.eventObject = {

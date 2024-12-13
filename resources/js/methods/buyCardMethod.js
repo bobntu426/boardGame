@@ -1,3 +1,4 @@
+import { buyCard } from "../api"
 export function buyCardMethod(data,{card,index}) {
     const id = data.playerId
     const player = data.players.find(player => player.id === id)
@@ -6,9 +7,27 @@ export function buyCardMethod(data,{card,index}) {
         setTimeout(() => {
           data.errorMessageArray.pop();
         }, 2000);
+        return 
     }
+
+    data.eventObject = {
+        "playerId": id,
+        "chooseColor":data.players.find(player => player.id === id).chooseColor,
+        "cardId": card.id,
+        "needPoint":computeNeedPoint(index),
+        "action":'buyCard'
+    }
+    if(card.buyEffect.reel>0){
+        data.players.find(player => player.id === id).needAction = `chooseReel${card.buyEffect.reel}`
+    }
+    else{
+        buyCard(data.eventObject)
+    }
+    //data.players.find(player=>player.needAction != 'wait').needAction = "chooseReel1"
+    console.log('購買卡片',data.eventObject);
     
-    
+  }
+export function computeNeedPoint(index){
     let needPoint =0;
     switch (index) {
         case 0:
@@ -24,19 +43,8 @@ export function buyCardMethod(data,{card,index}) {
             needPoint = 7;
             break;
     }
-    
-    data.eventObject = {
-        "playerId": id,
-        "chooseColor":data.players.find(player => player.id === id).chooseColor,
-        "cardId": card.id,
-        "index":index,
-        "action":'buycard'
-    }
-    
-    //data.players.find(player=>player.needAction != 'wait').needAction = "chooseReel1"
-    console.log('購買卡片',data.eventObject);
-    console.log('骰子點數',data.gameInfo[`${data.players.find(player => player.id === id).chooseColor}Dice`]); 
-  }
+    return needPoint
+}
 function checkReource(player,card){
     switch (card.color) {
         case 'green':

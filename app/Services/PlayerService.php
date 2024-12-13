@@ -14,51 +14,17 @@ class PlayerService{
         $this->tableService = $tableService;
         
     }
-    public function addResource(array $array1,array $array2){
-        foreach ($array1 as $key => $value) {
-            if (isset($array2[$key])) {
-                $result[$key] = $value + $array2[$key];
-            }
-        }
-        return $result;
-    }
-    public function HandleBuyCard(Player $player, $card) {
-        $playerResource = $player->getResource();
-        $data = [
-            'before' => $playerResource,
-            'cost'=> $card['cost'],
-        ];
-        $data['costResult'] = $this->addResource($playerResource,$card['cost']);
-        foreach ($data['costResult'] as $value) {
-            if ($value < 0) {
-                $data["messenge"]="Don't have enough money!";
-                return response()->json($data);
-            }
-        }
-        
-        $data['gain'] = $card['buyEffect'];
-        $data['finalResult'] = $this->addResource($data['costResult'],$card['buyEffect']);
-        
-        $data['getCard']=$card['name'];
+    
 
-        $cardModel = Card::find( $card['id'] );
-        $cardModel->player()->associate($player);
-        $cardModel->save();
-        $player->update($data['finalResult']);
-        return $data;
+    public function HandleBuyCard(Player $player, $card) {
+        $cardObj = CardService::formCardObject($card);
+        BuyCardService::costResource($player,$cardObj);
+        BuyCardService::buyEffect($player,$cardObj);
+        $card->player()->associate($player);
+        $card->save();
+        return response()->json(['status'=>'success']);
     }
-    public function handleUseCard(Player $player, $card) {    
-       
-        $playerResource = $player->getResource();
-        
-        $data = [
-            'before' => $playerResource,
-            'gain'=> $card['useEffect'],
-        ];
-        $data['finalResult'] = $this->addResource($playerResource,$card['useEffect']);
-        $player->update($data['finalResult']);
-        return response()->json($data);
-    }
+
     public function setOrderAhead($targetPlayer){
         $table = $targetPlayer->table;
         $players = $table->players;
