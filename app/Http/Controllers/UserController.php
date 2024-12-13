@@ -74,20 +74,6 @@ class UserController
         ->delete();
     }
     
-    
-    public function useCard(Card $card){
-        $user = Auth::user();
-        $userResource = $user->getResource();
-        $gainResource = $card->getGainWhenUseResource();
-        $data = [
-            'before' => $userResource,
-            'gain'=> $gainResource,
-        ];
-        $result = $this->addResource($userResource,$gainResource);
-        $data['final'] = $result;
-        $user->update($result);
-        return response()->json($data);
-    }
     public function getCard(User $user){
         $cards = $user->cards;
         return $cards;
