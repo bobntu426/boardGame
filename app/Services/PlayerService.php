@@ -19,8 +19,9 @@ class PlayerService{
     public function HandleBuyCard(Player $player, $card) {
         $cardObj = CardService::formCardObject($card);
         BuyCardService::costResource($player,$cardObj);
-        BuyCardService::buyEffect($player,$cardObj);
+        $player->needAction = BuyCardService::buyEffect($player,$cardObj);
         $card->player()->associate($player);
+        $card->status = 'hand';
         $card->save();
         return response()->json(['status'=>'success']);
     }
@@ -29,7 +30,7 @@ class PlayerService{
         $table = $targetPlayer->table;
         $players = $table->players;
         $nextOrder = 1;
-        $players->each(function($player)use(&$nextOrder,$targetPlayer){ 
+        $players->each(function($player)use(&$nextOrder){ 
             if($player->nextOrder){
                 $nextOrder++;
             }

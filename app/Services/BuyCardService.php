@@ -32,12 +32,33 @@ class BuyCardService
                 foreach ($cardObj['buyEffect'] as $key => $value) {
                     $player[$key] += $value;
                 }
-                return; 
+                return 'sure'; 
     
             case 'blue':
                 switch ($cardObj['function']){
-                    case 'increasePoint':
+                    case $cardObj['increasePoint']:
+                        switch('functionColor'){
+                            case 'green':
+                                $player->extraGreenPoint += $cardObj->point;
+                                return 'sure';
+                            case 'blue':
+                                $player->extraBluePoint += $cardObj->point;
+                                return 'sure';
+                            case 'yellow':
+                                $player->extraYellowPoint += $cardObj->point;
+                                return 'sure';
+                            case 'purple':
+                                $player->extraPurplePoint += $cardObj->point;
+                                return 'sure';
+                            case 'harvest':
+                                $player->extraHarvest += $cardObj->point;
+                                return 'sure';
+                            case 'production':
+                                $player->extraProduction += $cardObj->point;
+                                return 'sure';
+                            }
                     case 'gainDice':
+
                     case 'harvest':
                     case 'production':
                     case 'gainScore':
@@ -64,10 +85,10 @@ class BuyCardService
                     case 'production':
                     default:
                 };
-                foreach ($cardObj['buyEffect'] as $key => $value) {
-                    $player[$key] += $value;
-                }
-                return; 
+            foreach ($cardObj['buyEffect'] as $key => $value) {
+                $player[$key] += $value;
+            }
+            return; 
         }
     }
 }

@@ -3,8 +3,7 @@
         <h2 v-if="actionPlayer" :style="{fontSize:'1.7vw'}">{{ actionPlayer.user.name }}</h2>
         <!-- 顯示名字 -->
 
-        <h2 :style="{fontSize:'1.7vw'}" v-if="actionPlayer != player&&actionPlayer.needAction=='sure'">需確認行動</h2>
-        <h2 :style="{fontSize:'1.7vw'}" v-else-if="actionPlayer != player">正在執行動作</h2>
+        <h2 :style="{fontSize:'1.7vw'}" v-if="actionPlayer != player">正在執行動作</h2>
         <!-- 非行動玩家的版面 -->
 
         <h2 :style="{fontSize:'1.7vw'}" v-else-if="actionPlayer.needAction == 'putPillar'">必須放置家族成員</h2>
@@ -15,6 +14,14 @@
                 :style="{position:'relative'}"
                 @click="handleEndTurn" 
             >結束回合
+            </button>
+        </div>
+        <div v-else-if="actionPlayer.needAction == 'useExtraDice'" class="sure-div">
+            <h2 :style="{fontSize:'1.7vw'}">需使用額外點數購買卡片</h2>
+            <button 
+                :style="{position:'relative'}"
+                @click="ignoreExtraDice" 
+            >略過此行動
             </button>
         </div>
         
@@ -92,9 +99,13 @@ import ChooseReel from './ChooseReel.vue';
                 type: Function,
                 required: true
             },
+            ignoreExtraDice:{
+                type: Function,
+                required: true
+            }
         },
         mounted(){
-            
+
         },
         methods:{
             chooseReel(chooseReelArray) {

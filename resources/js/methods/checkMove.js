@@ -5,9 +5,13 @@ export function checkMove(data,workerNum,needPoint,props,callback) {
     if(player.chooseColor!='normal'){
       dicePoint = data.gameInfo[`${player.chooseColor}Dice`]
     }
+    if(player.needAction == "useExtraDice"){
+      
+      dicePoint = 0;
+    }
     props.dicePoint = dicePoint
-    if(data.players.find(player => player.id === id).needAction == "putPillar"){
-        if(!data.players.find(player => player.id === id).chooseColor){
+    if(player.needAction == "putPillar"||(player.needAction == "useExtraDice"&&callback.name == 'buyCardMethod')){
+        if(!player.chooseColor&&player.needAction != "useExtraDice"){
           data.errorMessageArray.push('請選擇家族成員')
           setTimeout(() => {
             data.errorMessageArray.pop();
@@ -18,6 +22,16 @@ export function checkMove(data,workerNum,needPoint,props,callback) {
             setTimeout(() => {
               data.errorMessageArray.pop();
             }, 2000);
+          }else if(player.needAction == "useExtraDice"){
+            if(props.card.id == data.eventObject.cardId){
+              data.errorMessageArray.push('此卡已被選擇')
+              setTimeout(() => {
+                data.errorMessageArray.pop();
+              }, 2000);
+            }else{
+              console.log(data.eventObject)
+              callback(data,props)
+            }
           }else{
             callback(data,props)
           }
@@ -30,7 +44,7 @@ export function checkMove(data,workerNum,needPoint,props,callback) {
         }, 2000);
       
     }else{
-        data.errorMessageArray.push('目前無法執行指示動作')
+        data.errorMessageArray.push('請執行指定動作')
         setTimeout(() => {
           data.errorMessageArray.pop();
         }, 2000);

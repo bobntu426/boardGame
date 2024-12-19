@@ -11,6 +11,7 @@
         :workerNum = "workerNum"
         :decreaseWorkerNum = "decreaseWorkerNum"
         :increaseWorkerNum = "increaseWorkerNum"
+        :ignoreExtraDice = ignoreExtraDice
         @chooseReel="handleChooseReel"
         
        />
@@ -219,6 +220,9 @@ export default {
     },
     handleEndTurn(){
        endTurn({"playerId":this.playerId})
+    },
+    ignoreExtraDice(){
+      buyCardMethod()
     },
     sortPlayers(players) {
       const currentPlayerIndex = players.findIndex(player => player.user.id === this.userId);

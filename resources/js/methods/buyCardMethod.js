@@ -9,21 +9,34 @@ export function buyCardMethod(data,{card,index}) {
         }, 2000);
         return 
     }
-
-    data.eventObject = {
-        "playerId": id,
-        "chooseColor":data.players.find(player => player.id === id).chooseColor,
-        "cardId": card.id,
-        "needPoint":computeNeedPoint(index),
-        "action":'buyCard'
+    if(!data.eventObject.cardId){
+        data.eventObject = {
+            "playerId": id,
+            "chooseColor":data.players.find(player => player.id === id).chooseColor,
+            "cardId": [card.id],
+            "needPoint":computeNeedPoint(index),
+            "action":'buyCard',
+            "needReelArray":[]
+        }
+    }else{
+        data.eventObject.cardId.push(card.id)
     }
     if(card.buyEffect.reel>0){
-        data.players.find(player => player.id === id).needAction = `chooseReel${card.buyEffect.reel}`
+        data.eventObject.needReelArray.push(card.buyEffect.reel)
     }
-    else{
-        buyCard(data.eventObject)
+    if(card.function == 'gainDice'){
+        data.players.find(player => player.id === id).needAction = `useExtraDice`
+    }else {
+        
+        if(data.eventObject.needReelArray.length>0){
+            data.players.find(player => player.id === id).needAction = `chooseReel${data.eventObject.needReelArray[0]}`
+
+        }else{
+            buyCard(data.eventObject)
+            data.eventObject = {}
+        }
     }
-    //data.players.find(player=>player.needAction != 'wait').needAction = "chooseReel1"
+    
     console.log('購買卡片',data.eventObject);
     
   }
